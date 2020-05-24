@@ -1,8 +1,9 @@
 package xmas.indicators
 
-import xmas.series.Series
+import xmas.math.NaN
 import xmas.math.Num
 import xmas.math.numOf
+import xmas.series.Series
 
 /**
  * Simple Moving Average (SMA) indicator.
@@ -10,13 +11,17 @@ import xmas.math.numOf
 internal class SimpleMovingAverage(
     private val source: Series,
     private val n: Int
-) : Indicator() {
+) : Indicator(source) {
 
     override fun calculate(index: Int): Num {
-        var sum = numOf(0)
-        for (i in n downTo 0)
-            sum += source[index - i]
-        return sum
+        val rIndex = source.size() - index - 1
+        if (rIndex in (n - 1)..source.size()) {
+            var sum = numOf(0)
+            for (i in 0 until n)
+                sum += source[rIndex - i]
+            return sum / numOf(n)
+        }
+        return NaN
     }
 }
 
@@ -27,6 +32,6 @@ internal class SimpleMovingAverage(
  *
  * @param source Series of values to process
  * @param n Number of bars (length)
- * @sample xmas.indicators.SimpleMovingAverageSample.sample
+ * @sample xmas.indicators.SimpleMovingAverageTest.withIntSeries
  */
 fun sma(source: Series, n: Int): Series = SimpleMovingAverage(source, n)

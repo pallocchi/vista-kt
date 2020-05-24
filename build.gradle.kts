@@ -12,8 +12,7 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    testImplementation("org.spekframework.spek2:spek-dsl-jvm:2.0.10")
-    testRuntimeOnly("org.spekframework.spek2:spek-runner-junit5:2.0.10")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.6.2")
     testCompile("org.assertj:assertj-core:3.11.1")
     testCompile("com.fasterxml.jackson.module:jackson-module-kotlin:2.11.+")
 }
@@ -27,10 +26,6 @@ tasks.dokka {
     }
 }
 
-tasks {
-    withType<Test> {
-        useJUnitPlatform {
-            includeEngines("spek2")
-        }
-    }
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
 }

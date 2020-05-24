@@ -1,5 +1,6 @@
 package xmas.math
 
+import xmas.math.NaN.value
 import java.math.BigDecimal
 
 /**
@@ -58,21 +59,46 @@ interface Num {
     operator fun compareTo(other: Num): Int
 
     /**
+     * Returns a [Int] representation.
+     */
+    fun toInt(): Int? = value?.toInt()
+
+    /**
+     * Returns a [Long] representation.
+     */
+    fun toLong(): Long? = value?.toLong()
+
+    /**
+     * Returns a [Double] representation.
+     */
+    fun toDouble(): Double? = value?.toDouble()
+
+    /**
+     * Returns a [Float] representation.
+     */
+    fun toFloat(): Float? = value?.toFloat()
+
+    /**
      * [Num] implementation that delegates to a [BigDecimal] instance.
      */
-    class Impl(override val value: BigDecimal) : Num {
+    data class Impl(override val value: BigDecimal) : Num {
 
-        override operator fun plus(addend: Num) = addend.value?.let { Impl(value + it) } ?: NaN
+        override operator fun plus(addend: Num) = addend.value?.let { Impl(value.plus(it)) } ?: NaN
 
-        override operator fun minus(subtrahend: Num) = subtrahend.value?.let { Impl(value - it) } ?: NaN
+        override operator fun minus(subtrahend: Num) = subtrahend.value?.let { Impl(value.minus(it)) } ?: NaN
 
-        override operator fun times(multiplicand: Num) = multiplicand.value?.let { Impl(value * it) } ?: NaN
+        override operator fun times(multiplicand: Num) = multiplicand.value?.let { Impl(value.multiply(it)) } ?: NaN
 
-        override operator fun div(divisor: Num) = divisor.value?.let { Impl(value / it) } ?: NaN
+        override operator fun div(divisor: Num) = divisor.value?.let { Impl(value.divide(it)) } ?: NaN
 
         override operator fun compareTo(other: Num) = other.value?.let { value.compareTo(it) } ?: 0
     }
 }
+
+/**
+ * [NaN] in the pine way.
+ */
+typealias na = NaN
 
 /**
  * Not a number.

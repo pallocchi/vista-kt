@@ -23,11 +23,21 @@ class Data(
 }
 
 /**
- * Series of open prices.
+ * Series of prices.
  */
-internal class Open(
+private abstract class Base(
     private val data: Data
 ) : Series() {
+
+    override fun size(): Int = data.bars.size
+}
+
+/**
+ * Series of open prices.
+ */
+private class Open(
+    private val data: Data
+) : Base(data) {
 
     override fun get(i: Int): Num {
         return data.bars[i].open;
@@ -37,9 +47,9 @@ internal class Open(
 /**
  * Series of high prices.
  */
-internal class High(
+private class High(
     private val data: Data
-) : Series() {
+) : Base(data) {
 
     override fun get(i: Int): Num {
         return data.bars[i].high;
@@ -49,9 +59,9 @@ internal class High(
 /**
  * Series of low prices.
  */
-internal class Low(
+private class Low(
     private val data: Data
-) : Series() {
+) : Base(data) {
 
     override fun get(i: Int): Num {
         return data.bars[i].low;
@@ -61,9 +71,9 @@ internal class Low(
 /**
  * Series of close prices.
  */
-internal class Close(
+private class Close(
     private val data: Data
-) : Series() {
+) : Base(data) {
 
     override fun get(i: Int): Num {
         return data.bars[i].close;
@@ -73,9 +83,9 @@ internal class Close(
 /**
  * Series of volume values.
  */
-internal class Volume(
+private class Volume(
     private val data: Data
-) : Series() {
+) : Base(data) {
 
     override fun get(i: Int): Num {
         return data.bars[i].volume;
