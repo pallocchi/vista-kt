@@ -2,6 +2,10 @@
 
 Technical Analysis for Kotlin.
 
+## Introduction
+
+This library was inspired by [Pine Script](https://www.tradingview.com/pine-script-docs/en/v4/Introduction.html) from [Trading View](https://www.tradingview.com/), so you can port pine scripts to Kotlin with minimal changes.
+
 # Package xmas.rules
 
 Contains the rules, such `cross`, `crossover`, `crossunder`.
