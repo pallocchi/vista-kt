@@ -62,14 +62,14 @@ private abstract class Base(
     private val data: Data
 ) : Series() {
 
-    override fun size(): Int = data.bars.size
-
-    override fun get(i: Int): Num {
+    override operator fun get(i: Int): Num {
         val index = size() - i - 1
         if (index in 0..size())
-            return project(index);
+            return project(index)
         return NaN
     }
+
+    override fun size(): Int = data.bars.size
 
     abstract fun project(i: Int): Num
 }

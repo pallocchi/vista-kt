@@ -14,11 +14,10 @@ internal class SimpleMovingAverage(
 ) : Indicator(source) {
 
     override fun calculate(index: Int): Num {
-        val rIndex = source.size() - index - 1
-        if (rIndex in (n - 1)..source.size()) {
+        if (index in 0..(size() - n)) {
             var sum = numOf(0)
             for (i in 0 until n)
-                sum += source[rIndex - i]
+                sum += source[index + i]
             return sum / numOf(n)
         }
         return NaN

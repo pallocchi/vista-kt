@@ -1,5 +1,6 @@
 package xmas.series
 
+import xmas.math.NaN
 import xmas.math.Num
 import xmas.math.numOf
 
@@ -41,30 +42,41 @@ abstract class Series {
     /**
      * Returns the series value at given index.
      */
-    abstract operator fun get(i: Int): Num;
+    abstract operator fun get(i: Int): Num
 }
 
 /**
  * Returns if two series has crossed each other.
+ *
+ * @sample xmas.series.SeriesTest.cross
  */
-infix fun Series.cross(other: Series) = false
+infix fun Series.cross(other: Series) = this crossOver other || this crossUnder other
 
 /**
  * Returns if current series has crossed over the [other].
+ *
+ * @sample xmas.series.SeriesTest.crossOver
  */
-infix fun Series.crossesOver(other: Series) = false
+infix fun Series.crossOver(other: Series) = this[0] > other[0] && this[1] < other[1]
 
 /**
  * Returns if current series has crossed under the [other].
+ *
+ * @sample xmas.series.SeriesTest.crossUnder
  */
-infix fun Series.crossesUnder(other: Series) = false
+infix fun Series.crossUnder(other: Series) = this[0] < other[0] && this[1] > other[1]
 
 /**
  * Basic series of numbers implementation.
  */
 internal class SimpleSeries(private val values: List<Num>) : Series() {
 
-    override fun get(i: Int): Num = values[i]
-
     override fun size(): Int = values.size
+
+    override operator fun get(i: Int): Num {
+        val index = size() - i - 1
+        if (index in 0..size())
+            return values[index]
+        return NaN
+    }
 }
