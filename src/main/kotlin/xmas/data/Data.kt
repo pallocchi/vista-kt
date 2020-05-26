@@ -41,7 +41,7 @@ class Data(
     /**
      * Returns the bars count.
      */
-    fun size(): Int = bars.size
+    val size: Int get() = bars.size
 
     /**
      * Adds the given [bar] to the historical data.
@@ -56,8 +56,8 @@ class Data(
      * @sample xmas.data.DataTest.withIndexingOperator
      */
     operator fun get(i: Int): Bar? {
-        val index = size() - i - 1
-        if (index in 0..size())
+        val index = size - i - 1
+        if (index in 0..size)
             return bars[index]
         return null
     }
@@ -106,9 +106,9 @@ private class Open(
     private val data: Data
 ) : Series() {
 
-    override fun size(): Int = data.size()
+    override val size: Int get() = data.size
 
-    override fun get(i: Int): Num = data[i]?.open ?: NaN
+    override fun get(index: Int): Num = data[index]?.open ?: NaN
 }
 
 /**
@@ -118,9 +118,9 @@ private class High(
     private val data: Data
 ) : Series() {
 
-    override fun size(): Int = data.size()
+    override val size: Int get() = data.size
 
-    override fun get(i: Int): Num = data[i]?.high ?: NaN
+    override fun get(index: Int): Num = data[index]?.high ?: NaN
 }
 
 /**
@@ -130,9 +130,9 @@ private class Low(
     private val data: Data
 ) : Series() {
 
-    override fun size(): Int = data.size()
+    override val size: Int get() = data.size
 
-    override fun get(i: Int): Num = data[i]?.low ?: NaN
+    override fun get(index: Int): Num = data[index]?.low ?: NaN
 }
 
 /**
@@ -142,9 +142,9 @@ private class Close(
     private val data: Data
 ) : Series() {
 
-    override fun size(): Int = data.size()
+    override val size: Int get() = data.size
 
-    override fun get(i: Int): Num = data[i]?.close ?: NaN
+    override fun get(index: Int): Num = data[index]?.close ?: NaN
 }
 
 /**
@@ -154,9 +154,9 @@ private class Volume(
     private val data: Data
 ) : Series() {
 
-    override fun size(): Int = data.size()
+    override val size: Int get() = data.size
 
-    override fun get(i: Int): Num = data[i]?.volume ?: NaN
+    override fun get(index: Int): Num = data[index]?.volume ?: NaN
 }
 
 /**

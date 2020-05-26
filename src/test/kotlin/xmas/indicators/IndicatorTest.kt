@@ -32,8 +32,19 @@ import xmas.data.close
 import xmas.math.Num
 import xmas.math.numOf
 import xmas.series.Series
+import xmas.series.seriesOf
 
-class IndicatorsTest {
+class IndicatorTest {
+
+    @Test
+    fun size() {
+
+        val series = seriesOf(1, 2, 3)
+        val indicator = FoolIndicator(series)
+
+        assertThat(series.size).isEqualTo(3)
+        assertThat(indicator.size).isEqualTo(3)
+    }
 
     @Test
     fun withNewValue() {

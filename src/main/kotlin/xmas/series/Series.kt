@@ -57,12 +57,12 @@ fun seriesOf(vararg values: String): Series = SimpleSeries(values.map { numOf(it
 /**
  * Series of numbers.
  */
-abstract class Series {
+abstract class Series() {
 
     /**
      * Returns the series size.
      */
-    abstract fun size(): Int
+    abstract val size: Int
 
     /**
      * Returns the series value at given index.
@@ -71,7 +71,7 @@ abstract class Series {
      *
      * @sample xmas.series.SeriesTest.withIndexingOperator
      */
-    abstract operator fun get(i: Int): Num
+    abstract operator fun get(index: Int): Num
 }
 
 /**
@@ -100,12 +100,12 @@ infix fun Series.crossUnder(other: Series) = this[0] < other[0] && this[1] > oth
  */
 internal class SimpleSeries(private val values: List<Num>) : Series() {
 
-    override fun size(): Int = values.size
+    override val size: Int get() = values.size
 
-    override operator fun get(i: Int): Num {
-        val index = size() - i - 1
-        if (index in 0..size())
-            return values[index]
+    override operator fun get(index: Int): Num {
+        val rIndex = size - index - 1
+        if (rIndex in 0..size)
+            return values[rIndex]
         return NaN
     }
 }

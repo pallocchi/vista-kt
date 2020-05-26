@@ -39,7 +39,7 @@ internal class SimpleMovingAverage(
 ) : Indicator(source) {
 
     override fun calculate(index: Int): Num {
-        if (index in 0..(size() - n)) {
+        if (index in 0..(size - n)) {
             var sum = numOf(0)
             for (i in 0 until n)
                 sum += source[index + i]

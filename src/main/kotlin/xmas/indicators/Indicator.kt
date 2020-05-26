@@ -33,9 +33,15 @@ import xmas.series.Series
  */
 internal abstract class Indicator(private val source: Series) : Series() {
 
-    override fun get(i: Int): Num = calculate(i)
+    override val size: Int get() = source.size
 
-    override fun size(): Int = source.size()
+    /**
+     * Returns the calculated indicator value at given [index].
+     */
+    override fun get(index: Int): Num = calculate(index)
 
+    /**
+     * Returns the calculated indicator value at given [index].
+     */
     abstract fun calculate(index: Int): Num
 }
