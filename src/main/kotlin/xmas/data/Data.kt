@@ -36,12 +36,31 @@ import xmas.series.Series
  * @sample xmas.data.DataTest.init
  */
 class Data(
-    val bars: List<Bar> = mutableListOf()
+    private val bars: MutableList<Bar> = mutableListOf()
 ) {
     /**
      * Returns the bars count.
      */
     fun size(): Int = bars.size
+
+    /**
+     * Adds the given [bar] to the historical data.
+     */
+    fun add(bar: Bar) = bars.add(bar)
+
+    /**
+     * Returns the [Bar] at the n-th time from now.
+     *
+     * Note this method should be called using the indexing operator `[]`.
+     *
+     * @sample xmas.data.DataTest.withIndexingOperator
+     */
+    operator fun get(i: Int): Bar? {
+        val index = size() - i - 1
+        if (index in 0..size())
+            return bars[index]
+        return null
+    }
 
     /**
      * Market data at specific time.
@@ -81,34 +100,15 @@ class Data(
 }
 
 /**
- * Series of prices.
- */
-private abstract class Base(
-    private val data: Data
-) : Series() {
-
-    override operator fun get(i: Int): Num {
-        val index = size() - i - 1
-        if (index in 0..size())
-            return project(index)
-        return NaN
-    }
-
-    override fun size(): Int = data.bars.size
-
-    abstract fun project(i: Int): Num
-}
-
-/**
  * Series of open prices.
  */
 private class Open(
     private val data: Data
-) : Base(data) {
+) : Series() {
 
-    override fun project(i: Int): Num {
-        return data.bars[i].open;
-    }
+    override fun size(): Int = data.size()
+
+    override fun get(i: Int): Num = data[i]?.open ?: NaN
 }
 
 /**
@@ -116,11 +116,11 @@ private class Open(
  */
 private class High(
     private val data: Data
-) : Base(data) {
+) : Series() {
 
-    override fun project(i: Int): Num {
-        return data.bars[i].high;
-    }
+    override fun size(): Int = data.size()
+
+    override fun get(i: Int): Num = data[i]?.high ?: NaN
 }
 
 /**
@@ -128,11 +128,11 @@ private class High(
  */
 private class Low(
     private val data: Data
-) : Base(data) {
+) : Series() {
 
-    override fun project(i: Int): Num {
-        return data.bars[i].low;
-    }
+    override fun size(): Int = data.size()
+
+    override fun get(i: Int): Num = data[i]?.low ?: NaN
 }
 
 /**
@@ -140,11 +140,11 @@ private class Low(
  */
 private class Close(
     private val data: Data
-) : Base(data) {
+) : Series() {
 
-    override fun project(i: Int): Num {
-        return data.bars[i].close;
-    }
+    override fun size(): Int = data.size()
+
+    override fun get(i: Int): Num = data[i]?.close ?: NaN
 }
 
 /**
@@ -152,11 +152,11 @@ private class Close(
  */
 private class Volume(
     private val data: Data
-) : Base(data) {
+) : Series() {
 
-    override fun project(i: Int): Num {
-        return data.bars[i].volume;
-    }
+    override fun size(): Int = data.size()
+
+    override fun get(i: Int): Num = data[i]?.volume ?: NaN
 }
 
 /**

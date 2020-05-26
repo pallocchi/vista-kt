@@ -39,7 +39,7 @@ internal class DataTest {
 
         // create the market data
 
-        val bars = listOf(
+        val bars = mutableListOf(
             Data.Bar(
                 date = "12345678",
                 open = 2361.01,
@@ -59,6 +59,12 @@ internal class DataTest {
         )
 
         data = Data(bars)
+    }
+
+    @Test
+    fun withIndexingOperator() {
+        assertThat(data[0]?.date).isEqualTo("12345679") // current bar
+        assertThat(data[1]?.date).isEqualTo("12345678") // previous bar
     }
 
     @Test
@@ -114,5 +120,31 @@ internal class DataTest {
 
         assertThat(volume[0]).isEqualTo(numOf(4234951)) // current value
         assertThat(volume[1]).isEqualTo(numOf(3648128)) // previous value
+    }
+
+    @Test
+    fun withNewBar() {
+
+        // create the close price series
+
+        val close = close(data)
+
+        assertThat(close[0]).isEqualTo(numOf(2409.78))  // current value
+        assertThat(close[1]).isEqualTo(numOf(2388.85))  // previous value
+
+        data.add(
+            Data.Bar(
+                date = "12345680",
+                open = 2366.80,
+                high = 2407.7,
+                low = 2337.81,
+                close = 2367.92,
+                volume = 4782919.0
+            )
+        )
+
+        assertThat(close[0]).isEqualTo(numOf(2367.92))  // current value
+        assertThat(close[1]).isEqualTo(numOf(2409.78))  // previous value
+        assertThat(close[2]).isEqualTo(numOf(2388.85))  // oldest value
     }
 }

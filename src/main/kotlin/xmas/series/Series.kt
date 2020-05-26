@@ -52,7 +52,7 @@ fun seriesOf(vararg values: Double): Series = SimpleSeries(values.map { numOf(it
 /**
  * Returns a [Num] series from given [String] values.
  */
-fun seriesOf(vararg values: String): Series = SimpleSeries(values.map { numOf(it) })
+fun seriesOf(vararg values: String): Series = SimpleSeries(values.map { numOf(it) }.toMutableList())
 
 /**
  * Series of numbers.
@@ -66,6 +66,10 @@ abstract class Series {
 
     /**
      * Returns the series value at given index.
+     *
+     * Note this method should be called using the indexing operator [].
+     *
+     * @sample xmas.series.SeriesTest.withIndexingOperator
      */
     abstract operator fun get(i: Int): Num
 }

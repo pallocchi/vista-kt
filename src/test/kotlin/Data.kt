@@ -31,7 +31,7 @@ import java.math.BigDecimal
 
 fun loadAmazonData(): Data {
     val json = Data::class.java.classLoader.getResourceAsStream("data.json")
-    val bars: List<Bar> = jacksonObjectMapper().readValue(json)
+    val bars: MutableList<Bar> = jacksonObjectMapper().readValue(json)
     return Data(bars)
 }
 

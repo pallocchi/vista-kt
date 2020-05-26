@@ -61,12 +61,16 @@ interface Num {
     /**
      * Returns a [Num] whose value is [value] + [addend].
      *
+     * Note this method should be called using the `+` operator.
+     *
      * @sample xmas.math.NumbersTest.plus
      */
     operator fun plus(addend: Num): Num
 
     /**
      * Returns a [Num] whose value is [value] - [subtrahend].
+     *
+     * Note this method should be called using the `-` operator.
      *
      * @sample xmas.math.NumbersTest.minus
      */
@@ -75,12 +79,16 @@ interface Num {
     /**
      * Returns a [Num] whose value is [value] * [multiplicand].
      *
+     * Note this method should be called using the `*` operator.
+     *
      * @sample xmas.math.NumbersTest.times
      */
     operator fun times(multiplicand: Num): Num
 
     /**
      * Returns a [Num] whose value is [value] / [divisor].
+     *
+     * Note this method should be called using the `/` operator.
      *
      * @sample xmas.math.NumbersTest.div
      */

@@ -27,8 +27,18 @@ package xmas.series
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import xmas.math.numOf
 
 internal class SeriesTest {
+
+    @Test
+    fun withIndexingOperator() {
+        val series = seriesOf(10, 20, 30)
+
+        assertThat(series[0]).isEqualTo(numOf(30)) // current bar
+        assertThat(series[1]).isEqualTo(numOf(20)) // previous bar
+        assertThat(series[2]).isEqualTo(numOf(10)) // oldest bar
+    }
 
     @Test
     fun cross() {
