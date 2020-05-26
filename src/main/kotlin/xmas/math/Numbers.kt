@@ -35,46 +35,64 @@ interface Num {
 
     /**
      * Returns a [Num] whose value is [value] + [addend].
+     *
+     * @sample xmas.math.NumbersTest.plus
      */
     operator fun plus(addend: Num): Num
 
     /**
      * Returns a [Num] whose value is [value] - [subtrahend].
+     *
+     * @sample xmas.math.NumbersTest.minus
      */
     operator fun minus(subtrahend: Num): Num
 
     /**
      * Returns a [Num] whose value is [value] * [multiplicand].
+     *
+     * @sample xmas.math.NumbersTest.times
      */
     operator fun times(multiplicand: Num): Num
 
     /**
      * Returns a [Num] whose value is [value] / [divisor].
+     *
+     * @sample xmas.math.NumbersTest.div
      */
     operator fun div(divisor: Num): Num
 
     /**
      * Returns `-1`, `0`, or `1` as current [value] is numerically less than, equal to, or greater than [other].
+     *
+     * @sample xmas.math.NumbersTest.compare
      */
     operator fun compareTo(other: Num): Int
 
     /**
      * Returns a [Int] representation.
+     *
+     * @sample xmas.math.NumbersTest.toInt
      */
     fun toInt(): Int? = value?.toInt()
 
     /**
      * Returns a [Long] representation.
+     *
+     * @sample xmas.math.NumbersTest.toLong
      */
     fun toLong(): Long? = value?.toLong()
 
     /**
      * Returns a [Double] representation.
+     *
+     * @sample xmas.math.NumbersTest.toDouble
      */
     fun toDouble(): Double? = value?.toDouble()
 
     /**
      * Returns a [Float] representation.
+     *
+     * @sample xmas.math.NumbersTest.toFloat
      */
     fun toFloat(): Float? = value?.toFloat()
 
@@ -97,6 +115,8 @@ interface Num {
 
 /**
  * [NaN] in the pine way.
+ *
+ * @sample xmas.math.NumbersTest.na
  */
 typealias na = NaN
 
@@ -111,26 +131,36 @@ object NaN : Num {
 
     /**
      * Returns a [NaN] since [NaN] + any [Num] is always [NaN].
+     *
+     * @sample xmas.math.NumbersTest.plus
      */
     override fun plus(addend: Num): Num = NaN
 
     /**
      * Returns a [NaN] since [NaN] - any [Num] is always [NaN].
+     *
+     * @sample xmas.math.NumbersTest.minus
      */
     override fun minus(subtrahend: Num): Num = NaN
 
     /**
      * Returns a [NaN] since [NaN] * any [Num] is always [NaN].
+     *
+     * @sample xmas.math.NumbersTest.times
      */
     override fun times(multiplicand: Num): Num = NaN
 
     /**
      * Returns a [NaN] since [NaN] / any [Num] is always [NaN].
+     *
+     * @sample xmas.math.NumbersTest.div
      */
     override fun div(divisor: Num): Num = NaN
 
     /**
      * Returns always `0`.
+     *
+     * @sample xmas.math.NumbersTest.compare
      */
     override fun compareTo(other: Num): Int = 0
 }

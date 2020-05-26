@@ -16,7 +16,7 @@ fun cross(x: Series, y: Series) = x cross y
 /**
  * Returns if [x] series has crossed over the [y] series (same as `x crossOver y`).
  *
- * @see Series.crossesOver
+ * @see Series.crossOver
  * @sample xmas.rules.RulesTest.crossover
  */
 fun crossover(x: Series, y: Series) = x crossOver y
@@ -24,7 +24,7 @@ fun crossover(x: Series, y: Series) = x crossOver y
 /**
  * Returns if [x] series has crossed under the [y] series (same as `x crossUnder y`).
  *
- * @see Series.crossesUnder
+ * @see Series.crossUnder
  * @sample xmas.rules.RulesTest.crossunder
  */
 fun crossunder(x: Series, y: Series) = x crossUnder y

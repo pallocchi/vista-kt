@@ -5,27 +5,27 @@ import xmas.math.Num
 import xmas.math.numOf
 
 /**
- * Returns a series of [Num] numbers.
+ * Returns a [Num] series from given [values].
  */
 fun seriesOf(vararg values: Num): Series = SimpleSeries(mutableListOf(*values))
 
 /**
- * Returns a series of [Int] numbers.
+ * Returns a [Num] series from given [Int] values.
  */
 fun seriesOf(vararg values: Int): Series = SimpleSeries(values.map { numOf(it) })
 
 /**
- * Returns a series of [Long] numbers.
+ * Returns a [Num] series from given [Long] values.
  */
 fun seriesOf(vararg values: Long): Series = SimpleSeries(values.map { numOf(it) })
 
 /**
- * Returns a series of [Double] numbers.
+ * Returns a [Num] series from given [Double] values.
  */
 fun seriesOf(vararg values: Double): Series = SimpleSeries(values.map { numOf(it) })
 
 /**
- * Returns a series of [String] numbers.
+ * Returns a [Num] series from given [String] values.
  */
 fun seriesOf(vararg values: String): Series = SimpleSeries(values.map { numOf(it) })
 
