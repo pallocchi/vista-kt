@@ -25,42 +25,42 @@
 
 package xmas.indicators
 
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Test
-import xmas.data.close
-import xmas.loadAmazonData
-import xmas.loadIndicatorData
-import xmas.math.RoundMode
-import xmas.math.na
+import xmas.math.NaN
+import xmas.math.Num
 import xmas.math.numOf
-import xmas.series.seriesOf
+import xmas.series.Series
 
-internal class SimpleMovingAverageTest {
+/**
+ * Exponential Moving Average (EMA) indicator.
+ */
+internal class ExponentialMovingAverage(
+    private val source: Series,
+    private val n: Int
+) : Indicator(source) {
 
-    @Test
-    fun withIntSeries() {
+    /**
+     * Increasing this value gives the most recent observation more weight.
+     */
+    private val smoothing = 2
 
-        // create the series for numbers
-        val series = seriesOf(1, 2, 3)
+    private val alpha = numOf(smoothing) / n + 1
 
-        // create a sma(2) series
-        val sma = sma(series, 2)
-
-        assertThat(sma[0]).isEqualTo(numOf(2.5))   // current value
-        assertThat(sma[1]).isEqualTo(numOf(1.5))   // previous value
-        assertThat(sma[2]).isEqualTo(na)           // oldest value
-    }
-
-    @Test
-    fun withMarketData() {
-
-        val data = loadAmazonData()
-        val expected = loadIndicatorData("sma.json")
-        val close = close(data)
-
-        val actual = sma(close, 5)
-
-        for (i in 0 until data.size)
-            assertThat(expected[i].value).isEqualTo(actual[i].round(2, RoundMode.HALF_UP))
+    override fun calculate(index: Int): Num {
+        if (index in 0..(size - n)) {
+            return alpha * source[index] + (numOf(1) - alpha) * this[index + 1]
+        }
+        return NaN
     }
 }
+
+/**
+ * The exponential moving average, that places a greater weight and significance on the most recent data points.
+ *
+ * **See:** [Investopedia](https://www.investopedia.com/terms/e/ema.asp),
+ * [TradingView](https://www.tradingview.com/pine-script-reference/#fun_ema)
+ *
+ * @param source Series of values to process
+ * @param n Number of bars (length)
+ * @sample xmas.indicators.SimpleMovingAverageTest.withIntSeries
+ */
+fun ema(source: Series, n: Int): Series = ExponentialMovingAverage(source, n)

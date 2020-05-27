@@ -34,7 +34,7 @@ import xmas.math.numOf
 import xmas.series.Series
 import xmas.series.seriesOf
 
-class IndicatorTest {
+internal class IndicatorTest {
 
     @Test
     fun size() {

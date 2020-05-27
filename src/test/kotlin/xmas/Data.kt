@@ -23,21 +23,56 @@
  *
  */
 
+package xmas
+
+import com.fasterxml.jackson.core.JsonParser
+import com.fasterxml.jackson.databind.DeserializationContext
+import com.fasterxml.jackson.databind.JsonDeserializer
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.module.SimpleModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import xmas.data.Data
 import xmas.data.Data.Bar
-import java.math.BigDecimal
+import xmas.math.NaN
+import xmas.math.Num
+import xmas.math.numOf
+
+fun jsonObjectMapper(): ObjectMapper {
+    val mapper = jacksonObjectMapper()
+    val module = SimpleModule()
+    module.addDeserializer(Num::class.java, NumDeserializer())
+    mapper.registerModule(module)
+    return mapper
+}
 
 fun loadAmazonData(): Data {
     val json = Data::class.java.classLoader.getResourceAsStream("data.json")
-    val bars: MutableList<Bar> = jacksonObjectMapper().readValue(json)
+    val bars: MutableList<Bar> = jsonObjectMapper().readValue(json)
     return Data(bars)
 }
 
 fun loadIndicatorData(file: String): List<IndicatorValue> {
     val json = Data::class.java.classLoader.getResourceAsStream(file)
-    return jacksonObjectMapper().readValue(json)
+    val values: List<IndicatorValue> = jsonObjectMapper().readValue(json)
+    values.forEach { it.value = it.value ?: NaN }
+    return values.reversed()
 }
 
-data class IndicatorValue(val date: String, val value: BigDecimal?)
+/**
+ * Single indicator value.
+ */
+data class IndicatorValue(val date: String, var value: Num?)
+
+/**
+ * Custom deserializer for [Num] types.
+ */
+private class NumDeserializer : JsonDeserializer<Num>() {
+
+    override fun deserialize(jp: JsonParser, ctx: DeserializationContext): Num {
+        val value: String? = jp.valueAsString
+        if (value != null)
+            return numOf(value)
+        return NaN
+    }
+}

@@ -52,7 +52,8 @@ internal class SimpleMovingAverage(
 /**
  * The simple moving average, that is the sum of last [n] values of [source], divided by [n].
  *
- * **See:** [Investopedia](https://www.investopedia.com/terms/s/sma.asp)
+ * **See:** [Investopedia](https://www.investopedia.com/terms/s/sma.asp),
+ * [TradingView](https://www.tradingview.com/pine-script-reference/#fun_sma)
  *
  * @param source Series of values to process
  * @param n Number of bars (length)
