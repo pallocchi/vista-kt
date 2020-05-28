@@ -43,12 +43,13 @@ internal class ExponentialMovingAverage(
      */
     private val smoothing = 2
 
-    private val alpha = numOf(smoothing) / n + 1
+    private val alpha = numOf(smoothing) / (n + 1)
 
     override fun calculate(index: Int): Num {
-        if (index in 0..(size - n)) {
+        if (index == size - n)
+            return sma(source, n)[index]
+        if (index in 0 until size - n)
             return alpha * source[index] + (numOf(1) - alpha) * this[index + 1]
-        }
         return NaN
     }
 }
@@ -61,6 +62,6 @@ internal class ExponentialMovingAverage(
  *
  * @param source Series of values to process
  * @param n Number of bars (length)
- * @sample xmas.indicators.SimpleMovingAverageTest.withIntSeries
+ * @sample xmas.indicators.ExponentialMovingAverageTest.withIntSeries
  */
 fun ema(source: Series, n: Int): Series = ExponentialMovingAverage(source, n)

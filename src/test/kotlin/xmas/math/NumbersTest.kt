@@ -88,6 +88,31 @@ internal class NumbersTest {
     }
 
     @Test
+    fun matches() {
+        assertThat(numOf("1.0").matches(numOf("1.01"), .01)).isTrue()
+        assertThat(numOf("1.0").matches(numOf("1.01"), .0099)).isFalse()
+    }
+
+    @Test
+    fun abs() {
+        assertThat(numOf(1).abs()).isEqualTo(numOf(1))
+        assertThat(numOf(-1).abs()).isEqualTo(numOf(1))
+        assertThat(NaN.abs()).isEqualTo(NaN)
+    }
+
+    @Test
+    fun isEqual() {
+        val one = numOf(1)
+        val two = numOf(2)
+
+        assertThat(one.isEqual(one)).isTrue()
+        assertThat(one.isEqual(two)).isFalse()
+        assertThat(one.isEqual(NaN)).isFalse()
+        assertThat(NaN.isEqual(one)).isFalse()
+        assertThat(NaN.isEqual(NaN)).isTrue()
+    }
+
+    @Test
     fun toInt() {
         assertThat(numOf(1).toInt()).isEqualTo(1)
         assertThat(numOf(1L).toInt()).isEqualTo(1)

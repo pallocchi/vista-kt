@@ -27,27 +27,28 @@ package xmas.math
 
 import xmas.math.NaN.value
 import java.math.BigDecimal
+import java.math.MathContext
 import java.math.RoundingMode
 
 /**
  * Returns a [Num] converting the given [Int] [value].
  */
-fun numOf(value: Int): Num = NumImpl(BigDecimal(value))
+fun numOf(value: Int): Num = NumImpl(value)
 
 /**
  * Returns a [Num] converting the given [Long] [value].
  */
-fun numOf(value: Long): Num = NumImpl(BigDecimal(value))
+fun numOf(value: Long): Num = NumImpl(value)
 
 /**
  * Returns a [Num] converting the given [Double] [value].
  */
-fun numOf(value: Double): Num = NumImpl(BigDecimal(value))
+fun numOf(value: Double): Num = NumImpl(value)
 
 /**
  * Returns a [Num] converting the given [String] [value].
  */
-fun numOf(value: String): Num = NumImpl(BigDecimal(value))
+fun numOf(value: String): Num = NumImpl(value)
 
 /**
  * Immutable, arbitrary-precision signed decimal numbers.
@@ -139,11 +140,32 @@ interface Num {
     operator fun compareTo(other: Num): Int
 
     /**
+     * Returns if this value is equal to the [other].
+     *
+     * @sample xmas.math.NumbersTest.isEqual
+     */
+    fun isEqual(other: Num): Boolean
+
+    /**
+     * Returns if this value matches the [other] within a [delta].
+     *
+     * @sample xmas.math.NumbersTest.matches
+     */
+    fun matches(other: Num, delta: Double): Boolean
+
+    /**
      * Returns the rounded [Num] to [n] decimal places, using given rounding [mode].
      *
      * @sample xmas.math.NumbersTest.round
      */
     fun round(n: Int, mode: RoundMode): Num
+
+    /**
+     * Returns a [Num] whose value is the absolute one of this.
+     *
+     * @sample xmas.math.NumbersTest.abs
+     */
+    fun abs(): Num
 
     /**
      * Returns a [Int] representation.
@@ -177,7 +199,22 @@ interface Num {
 /**
  * [Num] implementation that delegates to a [BigDecimal] instance.
  */
-private data class NumImpl(override val value: BigDecimal) : Num {
+private data class NumImpl(
+    override val value: BigDecimal
+) : Num {
+
+    private companion object {
+
+        const val DEFAULT_PRECISION = 32
+    }
+
+    constructor(value: Int) : this(BigDecimal(value, MathContext(DEFAULT_PRECISION, RoundingMode.HALF_UP)))
+
+    constructor(value: Long) : this(BigDecimal(value, MathContext(DEFAULT_PRECISION, RoundingMode.HALF_UP)))
+
+    constructor(value: Double) : this(BigDecimal(value, MathContext(DEFAULT_PRECISION, RoundingMode.HALF_UP)))
+
+    constructor(value: String) : this(BigDecimal(value, MathContext(DEFAULT_PRECISION, RoundingMode.HALF_UP)))
 
     override operator fun plus(addend: Num) = addend.value?.let { NumImpl(value.plus(it)) } ?: NaN
 
@@ -185,11 +222,18 @@ private data class NumImpl(override val value: BigDecimal) : Num {
 
     override operator fun times(multiplicand: Num) = multiplicand.value?.let { NumImpl(value.multiply(it)) } ?: NaN
 
-    override operator fun div(divisor: Num) = divisor.value?.let { NumImpl(value.divide(it)) } ?: NaN
+    override operator fun div(divisor: Num) =
+        divisor.value?.let { NumImpl(value.divide(it, MathContext(DEFAULT_PRECISION, RoundingMode.HALF_UP))) } ?: NaN
 
     override operator fun compareTo(other: Num) = other.value?.let { value.compareTo(it) } ?: 0
 
+    override fun isEqual(other: Num) = other != NaN && compareTo(other) == 0
+
+    override fun matches(other: Num, delta: Double) = this.minus(other).abs() <= numOf(delta)
+
     override fun round(n: Int, mode: RoundMode): Num = NumImpl(value.setScale(n, mode.value))
+
+    override fun abs(): Num = NumImpl(value.abs())
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -199,9 +243,7 @@ private data class NumImpl(override val value: BigDecimal) : Num {
         return true
     }
 
-    override fun hashCode(): Int {
-        return value.hashCode()
-    }
+    override fun hashCode() = value.hashCode()
 }
 
 /**
@@ -221,28 +263,28 @@ object NaN : Num {
     override val value: BigDecimal? = null
 
     /**
-     * Returns a [NaN] since [NaN] + any [Num] is always [NaN].
+     * Returns always a [NaN].
      *
      * @sample xmas.math.NumbersTest.plus
      */
     override fun plus(addend: Num): Num = NaN
 
     /**
-     * Returns a [NaN] since [NaN] - any [Num] is always [NaN].
+     * Returns always a [NaN].
      *
      * @sample xmas.math.NumbersTest.minus
      */
     override fun minus(subtrahend: Num): Num = NaN
 
     /**
-     * Returns a [NaN] since [NaN] * any [Num] is always [NaN].
+     * Returns always a [NaN].
      *
      * @sample xmas.math.NumbersTest.times
      */
     override fun times(multiplicand: Num): Num = NaN
 
     /**
-     * Returns a [NaN] since [NaN] / any [Num] is always [NaN].
+     * Returns always a [NaN].
      *
      * @sample xmas.math.NumbersTest.div
      */
@@ -256,9 +298,32 @@ object NaN : Num {
     override fun compareTo(other: Num): Int = 0
 
     /**
-     * Returns always a [NaN]
+     * Returns `true` when [other] is also a [NaN].
+     *
+     * @sample xmas.math.NumbersTest.isEqual
+     */
+    override fun isEqual(other: Num): Boolean = other == NaN
+
+    /**
+     * Returns always a `false`.
+     *
+     * @sample xmas.math.NumbersTest.matches
+     */
+    override fun matches(other: Num, delta: Double) = false
+
+    /**
+     * Returns always a [NaN].
+     *
+     * @sample xmas.math.NumbersTest.round
      */
     override fun round(n: Int, mode: RoundMode): Num = NaN
+
+    /**
+     * Returns always a [NaN].
+     *
+     * @sample xmas.math.NumbersTest.abs
+     */
+    override fun abs(): Num = NaN
 }
 
 /**
