@@ -25,41 +25,41 @@
 
 package xmas.indicators
 
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Test
-import xmas.data.close
-import xmas.loadAmazonData
-import xmas.loadIndicatorData
-import xmas.math.na
-import xmas.math.numOf
-import xmas.series.seriesOf
+import xmas.math.NaN
+import xmas.math.Num
+import xmas.series.Series
 
-internal class SimpleMovingAverageTest {
+/**
+ * Weighted Moving Average (WMA) indicator.
+ */
+internal class WeightedMovingAverage(
+    private val source: Series,
+    private val n: Int
+) : Indicator(source) {
 
-    @Test
-    fun withIntSeries() {
-
-        // create the series for numbers
-        val series = seriesOf(1, 2, 3)
-
-        // create a sma(2) series
-        val sma = sma(series, 2)
-
-        assertThat(sma[0]).isEqualTo(numOf(2.5))   // current value
-        assertThat(sma[1]).isEqualTo(numOf(1.5))   // previous value
-        assertThat(sma[2]).isEqualTo(na)           // oldest value
-    }
-
-    @Test
-    fun withMarketData() {
-
-        val data = loadAmazonData()
-        val expected = loadIndicatorData("sma.csv")
-        val close = close(data)
-
-        val actual = sma(close, 5)
-
-        for (i in 0 until data.size)
-            assertThat(actual[i].round(2)).isEqualTo(expected[i])
+    override fun calculate(index: Int): Num {
+        if (index in 0..(size - n)) {
+            var norm = Num.ZERO
+            var sum = Num.ZERO
+            for (i in 0 until n) {
+                val weight = (n - i) * n
+                norm += weight
+                sum += source[index + i] * weight
+            }
+            return sum / norm
+        }
+        return NaN
     }
 }
+
+/**
+ * The weighted moving average of [source] for [n] bars back.
+ * In wma weighting factors decrease in arithmetical progression.
+ *
+ * **See:** [TradingView](https://www.tradingview.com/pine-script-reference/#fun_wma)
+ *
+ * @param source Series of values to process
+ * @param n Number of bars (length)
+ * @sample xmas.indicators.WeightedMovingAverageTest.withIntSeries
+ */
+fun wma(source: Series, n: Int): Series = WeightedMovingAverage(source, n)

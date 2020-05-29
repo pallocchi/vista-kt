@@ -30,12 +30,11 @@ import org.junit.jupiter.api.Test
 import xmas.data.close
 import xmas.loadAmazonData
 import xmas.loadIndicatorData
-import xmas.math.RoundMode
 import xmas.math.na
 import xmas.math.numOf
 import xmas.series.seriesOf
 
-class ExponentialMovingAverageTest {
+internal class ExponentialMovingAverageTest {
 
     @Test
     fun withIntSeries() {
@@ -43,7 +42,7 @@ class ExponentialMovingAverageTest {
         // create the series for numbers
         val series = seriesOf(1, 2, 3)
 
-        // create a sma(2) series
+        // create a ema(2) series
         val ema = ema(series, 2)
 
         assertThat(ema[0]).isEqualTo(numOf(2.5))   // current value
@@ -55,12 +54,12 @@ class ExponentialMovingAverageTest {
     fun withMarketData() {
 
         val data = loadAmazonData()
-        val expected = loadIndicatorData("ema.json")
+        val expected = loadIndicatorData("ema.csv")
         val close = close(data)
 
         val actual = ema(close, 5)
 
         for (i in 0 until data.size)
-            assertThat(actual[i].round(2, RoundMode.HALF_UP)).isEqualTo(expected[i].value)
+            assertThat(actual[i].round(2)).isEqualTo(expected[i])
     }
 }

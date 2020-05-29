@@ -49,7 +49,7 @@ internal class ExponentialMovingAverage(
         if (index == size - n)
             return sma(source, n)[index]
         if (index in 0 until size - n)
-            return alpha * source[index] + (numOf(1) - alpha) * this[index + 1]
+            return alpha * source[index] + (Num.ONE - alpha) * this[index + 1]
         return NaN
     }
 }

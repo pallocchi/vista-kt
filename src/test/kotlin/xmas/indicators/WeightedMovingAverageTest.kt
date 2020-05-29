@@ -34,7 +34,7 @@ import xmas.math.na
 import xmas.math.numOf
 import xmas.series.seriesOf
 
-internal class SimpleMovingAverageTest {
+internal class WeightedMovingAverageTest {
 
     @Test
     fun withIntSeries() {
@@ -42,22 +42,22 @@ internal class SimpleMovingAverageTest {
         // create the series for numbers
         val series = seriesOf(1, 2, 3)
 
-        // create a sma(2) series
-        val sma = sma(series, 2)
+        // create a wma(2) series
+        val wma = wma(series, 2)
 
-        assertThat(sma[0]).isEqualTo(numOf(2.5))   // current value
-        assertThat(sma[1]).isEqualTo(numOf(1.5))   // previous value
-        assertThat(sma[2]).isEqualTo(na)           // oldest value
+        assertThat(wma[0].round(2)).isEqualTo(numOf(2.67))   // current value
+        assertThat(wma[1].round(2)).isEqualTo(numOf(1.67))   // previous value
+        assertThat(wma[2]).isEqualTo(na)                     // oldest value
     }
 
     @Test
     fun withMarketData() {
 
         val data = loadAmazonData()
-        val expected = loadIndicatorData("sma.csv")
+        val expected = loadIndicatorData("wma.csv")
         val close = close(data)
 
-        val actual = sma(close, 5)
+        val actual = wma(close, 5)
 
         for (i in 0 until data.size)
             assertThat(actual[i].round(2)).isEqualTo(expected[i])

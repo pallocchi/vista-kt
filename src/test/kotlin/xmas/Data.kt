@@ -25,54 +25,47 @@
 
 package xmas
 
-import com.fasterxml.jackson.core.JsonParser
-import com.fasterxml.jackson.databind.DeserializationContext
-import com.fasterxml.jackson.databind.JsonDeserializer
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.module.SimpleModule
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
 import xmas.data.Data
 import xmas.data.Data.Bar
 import xmas.math.NaN
 import xmas.math.Num
 import xmas.math.numOf
 
-fun jsonObjectMapper(): ObjectMapper {
-    val mapper = jacksonObjectMapper()
-    val module = SimpleModule()
-    module.addDeserializer(Num::class.java, NumDeserializer())
-    mapper.registerModule(module)
-    return mapper
-}
-
+/**
+ * Load the market data from resources folder.
+ */
 fun loadAmazonData(): Data {
-    val json = Data::class.java.classLoader.getResourceAsStream("data.json")
-    val bars: MutableList<Bar> = jsonObjectMapper().readValue(json)
-    return Data(bars)
+    val bars = mutableListOf<Bar>()
+    val csv = Data::class.java.classLoader.getResourceAsStream("data.csv")
+    csv!!.bufferedReader().useLines { lines -> lines.drop(1).forEach { bars.add(line2bar(it)) } }
+    val data = Data(bars)
+    assert(data.size == 100)
+    return data
 }
 
-fun loadIndicatorData(file: String): List<IndicatorValue> {
-    val json = Data::class.java.classLoader.getResourceAsStream(file)
-    val values: List<IndicatorValue> = jsonObjectMapper().readValue(json)
-    values.forEach { it.value = it.value ?: NaN }
+/**
+ * Returns the [Bar] parsed from string [line].
+ */
+private fun line2bar(line: String): Bar {
+    val split = line.split("\t")
+    return Bar(split[0], split[1], split[2], split[3], split[4], split[5])
+}
+
+/**
+ * Load the indicator values [file] from resources folder.
+ */
+fun loadIndicatorData(file: String): List<Num> {
+    val values = mutableListOf<Num>()
+    val csv = Data::class.java.classLoader.getResourceAsStream(file)
+    csv!!.bufferedReader().useLines { lines -> lines.drop(1).forEach { values.add(line2num(it)) } }
+    assert(values.size == 100)
     return values.reversed()
 }
 
 /**
- * Single indicator value.
+ * Returns the [Num] parsed from string [line].
  */
-data class IndicatorValue(val date: String, var value: Num?)
-
-/**
- * Custom deserializer for [Num] types.
- */
-private class NumDeserializer : JsonDeserializer<Num>() {
-
-    override fun deserialize(jp: JsonParser, ctx: DeserializationContext): Num {
-        val value: String? = jp.valueAsString
-        if (value != null)
-            return numOf(value)
-        return NaN
-    }
+private fun line2num(line: String): Num {
+    val split = line.split("\t")
+    return if (split.size == 2) numOf(split[1]) else NaN
 }

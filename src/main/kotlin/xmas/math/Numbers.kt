@@ -58,6 +58,26 @@ fun numOf(value: String): Num = NumImpl(value)
  */
 interface Num {
 
+    /** Useful numbers **/
+    companion object {
+
+        /** [Num] instance with `value = 0` **/
+        val ZERO = numOf(0)
+
+        /** [Num] instance with `value = 1` **/
+        val ONE = numOf(1)
+
+        /** [Num] instance with `value = 10` **/
+        val TEN = numOf(10)
+
+        /** [Num] instance with `value = 100` **/
+        val HUNDRED = numOf(100)
+
+        /** [Num] instance with `value = 1000` **/
+        val THOUSAND = numOf(1000)
+    }
+
+    /** Delegate that actually holds the number **/
     val value: BigDecimal?
 
     /**
@@ -156,9 +176,11 @@ interface Num {
     /**
      * Returns the rounded [Num] to [n] decimal places, using given rounding [mode].
      *
+     * If rounding [mode] is not specified, `RoundMode.HALF_UP` is used.
+     *
      * @sample xmas.math.NumbersTest.round
      */
-    fun round(n: Int, mode: RoundMode): Num
+    fun round(n: Int, mode: RoundMode = RoundMode.HALF_UP): Num
 
     /**
      * Returns a [Num] whose value is the absolute one of this.
@@ -394,6 +416,8 @@ object NaN : Num {
      * @sample xmas.math.NumbersTest.abs
      */
     override fun abs(): Num = NaN
+
+    override fun toString(): String = "NaN"
 }
 
 /**
