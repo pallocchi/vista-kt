@@ -67,11 +67,121 @@ abstract class Series() {
     /**
      * Returns the series value at given index.
      *
-     * Note this method should be called using the indexing operator [].
-     *
      * @sample xmas.series.SeriesTest.withIndexingOperator
      */
     abstract operator fun get(index: Int): Num
+
+    /**
+     * Returns a [Series] whose values are the current ones `+` [other].
+     *
+     * @sample xmas.series.SeriesTest.plus
+     */
+    operator fun plus(other: Series): Series = OperatorSeries(this, other) { l, r -> l + r }
+
+    /**
+     * Returns a [Series] whose values are the current ones `+` [other].
+     *
+     * @sample xmas.series.SeriesTest.plus
+     */
+    operator fun plus(other: Num): Series = OperatorSeries(this, StaticSeries(other)) { l, r -> l + r }
+
+    /**
+     * Returns a [Series] whose values are the current ones `+` [other].
+     *
+     * @sample xmas.series.SeriesTest.plus
+     */
+    operator fun plus(other: Int): Series = plus(numOf(other))
+
+    /**
+     * Returns a [Series] whose values are the current ones `+` [other].
+     *
+     * @sample xmas.series.SeriesTest.plus
+     */
+    operator fun plus(other: Double): Series = plus(numOf(other))
+
+    /**
+     * Returns a [Series] whose values are the current ones `-` [other].
+     *
+     * @sample xmas.series.SeriesTest.minus
+     */
+    operator fun minus(other: Series): Series = OperatorSeries(this, other) { l, r -> l - r }
+
+    /**
+     * Returns a [Series] whose values are the current ones `-` [other].
+     *
+     * @sample xmas.series.SeriesTest.minus
+     */
+    operator fun minus(other: Num): Series = OperatorSeries(this, StaticSeries(other)) { l, r -> l - r }
+
+    /**
+     * Returns a [Series] whose values are the current ones `-` [other].
+     *
+     * @sample xmas.series.SeriesTest.minus
+     */
+    operator fun minus(other: Int): Series = minus(numOf(other))
+
+    /**
+     * Returns a [Series] whose values are the current ones `-` [other].
+     *
+     * @sample xmas.series.SeriesTest.minus
+     */
+    operator fun minus(other: Double): Series = minus(numOf(other))
+
+    /**
+     * Returns a [Series] whose values are the current ones `*` [other].
+     *
+     * @sample xmas.series.SeriesTest.times
+     */
+    operator fun times(other: Series): Series = OperatorSeries(this, other) { l, r -> l * r }
+
+    /**
+     * Returns a [Series] whose values are the current ones `*` [other].
+     *
+     * @sample xmas.series.SeriesTest.times
+     */
+    operator fun times(other: Num): Series = OperatorSeries(this, StaticSeries(other)) { l, r -> l * r }
+
+    /**
+     * Returns a [Series] whose values are the current ones `*` [other].
+     *
+     * @sample xmas.series.SeriesTest.times
+     */
+    operator fun times(other: Int): Series = times(numOf(other))
+
+    /**
+     * Returns a [Series] whose values are the current ones `*` [other].
+     *
+     * @sample xmas.series.SeriesTest.times
+     */
+    operator fun times(other: Double): Series = times(numOf(other))
+
+    /**
+     * Returns a [Series] whose values are the current ones `/` [other].
+     *
+     * @sample xmas.series.SeriesTest.div
+     */
+    operator fun div(other: Series): Series = OperatorSeries(this, other) { l, r -> l / r }
+
+    /**
+     * Returns a [Series] whose values are the current ones `/` [other].
+     *
+     * @sample xmas.series.SeriesTest.div
+     */
+    operator fun div(other: Num): Series = OperatorSeries(this, StaticSeries(other)) { l, r -> l / r }
+
+    /**
+     * Returns a [Series] whose values are the current ones `/` [other].
+     *
+     * @sample xmas.series.SeriesTest.div
+     */
+    operator fun div(other: Int): Series = div(numOf(other))
+
+    /**
+     * Returns a [Series] whose values are the current ones `/` [other].
+     *
+     * @sample xmas.series.SeriesTest.div
+     */
+    operator fun div(other: Double): Series = div(numOf(other))
 }
 
 /**
@@ -96,9 +206,9 @@ infix fun Series.crossOver(other: Series) = this[0] > other[0] && this[1] < othe
 infix fun Series.crossUnder(other: Series) = this[0] < other[0] && this[1] > other[1]
 
 /**
- * Basic series of numbers implementation.
+ * Series of numbers.
  */
-internal class SimpleSeries(private val values: List<Num>) : Series() {
+private class SimpleSeries(private val values: List<Num>) : Series() {
 
     override val size: Int get() = values.size
 
@@ -108,4 +218,30 @@ internal class SimpleSeries(private val values: List<Num>) : Series() {
             return values[rIndex]
         return NaN
     }
+}
+
+/**
+ * Series that always returns the same fixed [value] for any index.
+ */
+private class StaticSeries(
+    private val value: Num
+) : Series() {
+
+    override val size: Int get() = Int.MAX_VALUE
+
+    override fun get(index: Int) = value
+}
+
+/**
+ * Series that performs an [operation] over the values of sources [left] and [right].
+ */
+private class OperatorSeries(
+    private val left: Series,
+    private val right: Series,
+    private val operation: (Num, Num) -> Num
+) : Series() {
+
+    override val size: Int get() = left.size
+
+    override fun get(index: Int) = operation(left[index], right[index])
 }

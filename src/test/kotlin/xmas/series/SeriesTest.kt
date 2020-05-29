@@ -41,8 +41,128 @@ internal class SeriesTest {
     }
 
     @Test
-    fun cross() {
+    fun plus() {
+        val a = seriesOf(1, 2, 3)
+        val b = seriesOf(1, 2, 3)
 
+        // adding another series
+
+        val c = a + b
+
+        assertThat(c[0]).isEqualTo(numOf(6))
+        assertThat(c[1]).isEqualTo(numOf(4))
+        assertThat(c[2]).isEqualTo(numOf(2))
+
+        // adding a fixed int
+
+        val d = a + 1
+
+        assertThat(d[0]).isEqualTo(numOf(4))
+        assertThat(d[1]).isEqualTo(numOf(3))
+        assertThat(d[2]).isEqualTo(numOf(2))
+
+        // adding a fixed double
+
+        val e = a + .5
+
+        assertThat(e[0]).isEqualTo(numOf(3.5))
+        assertThat(e[1]).isEqualTo(numOf(2.5))
+        assertThat(e[2]).isEqualTo(numOf(1.5))
+    }
+
+    @Test
+    fun minus() {
+        val a = seriesOf(1, 2, 3)
+        val b = seriesOf(6, 5, 4)
+
+
+        // subtracting another series
+
+        val c = b - a
+
+        assertThat(c[0]).isEqualTo(numOf(1))
+        assertThat(c[1]).isEqualTo(numOf(3))
+        assertThat(c[2]).isEqualTo(numOf(5))
+
+        // subtracting a fixed int
+
+        val d = a - 1
+
+        assertThat(d[0]).isEqualTo(numOf(2))
+        assertThat(d[1]).isEqualTo(numOf(1))
+        assertThat(d[2]).isEqualTo(numOf(0))
+
+        // subtracting a fixed double
+
+        val e = a - .5
+
+        assertThat(e[0]).isEqualTo(numOf(2.5))
+        assertThat(e[1]).isEqualTo(numOf(1.5))
+        assertThat(e[2]).isEqualTo(numOf(.5))
+    }
+
+    @Test
+    fun times() {
+        val a = seriesOf(1, 2, 3)
+        val b = seriesOf(1, 2, 3)
+
+        // multiplying by another series
+
+        val c = a * b
+
+        assertThat(c[0]).isEqualTo(numOf(9))
+        assertThat(c[1]).isEqualTo(numOf(4))
+        assertThat(c[2]).isEqualTo(numOf(1))
+
+        // multiplying by a fixed int
+
+        val d = a * 2
+
+        assertThat(d[0]).isEqualTo(numOf(6))
+        assertThat(d[1]).isEqualTo(numOf(4))
+        assertThat(d[2]).isEqualTo(numOf(2))
+
+        // multiplying by a fixed double
+
+        val e = a * .5
+
+        assertThat(e[0]).isEqualTo(numOf(1.5))
+        assertThat(e[1]).isEqualTo(numOf(1))
+        assertThat(e[2]).isEqualTo(numOf(.5))
+    }
+
+    @Test
+    fun div() {
+        val a = seriesOf(1, 2, 3)
+        val b = seriesOf(4, 5, 6)
+
+        // dividing by another series
+
+        val c = b / a
+
+        assertThat(c[0]).isEqualTo(numOf(2))
+        assertThat(c[1]).isEqualTo(numOf(2.5))
+        assertThat(c[2]).isEqualTo(numOf(4))
+
+        // dividing by a fixed int
+
+        val d = a / 2
+
+        assertThat(d[0]).isEqualTo(numOf(1.5))
+        assertThat(d[1]).isEqualTo(numOf(1))
+        assertThat(d[2]).isEqualTo(numOf(.5))
+
+        // dividing by a fixed double
+
+        val e = a / .5
+
+        assertThat(e[0]).isEqualTo(numOf(6))
+        assertThat(e[1]).isEqualTo(numOf(4))
+        assertThat(e[2]).isEqualTo(numOf(2))
+    }
+
+    @Test
+    fun cross() {
         val bearish = seriesOf(1, 0)
         val bullish = seriesOf(0, 1)
 
@@ -53,7 +173,6 @@ internal class SeriesTest {
 
     @Test
     fun crossOver() {
-
         val bearish = seriesOf(1, 0)
         val bullish = seriesOf(0, 1)
 
@@ -64,7 +183,6 @@ internal class SeriesTest {
 
     @Test
     fun crossUnder() {
-
         val bearish = seriesOf(1, 0)
         val bullish = seriesOf(0, 1)
 
