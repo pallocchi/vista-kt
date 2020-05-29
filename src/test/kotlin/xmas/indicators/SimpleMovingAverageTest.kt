@@ -39,7 +39,7 @@ internal class SimpleMovingAverageTest {
     @Test
     fun withIntSeries() {
 
-        // create the series for numbers
+        // create a series of numbers
         val series = seriesOf(1, 2, 3)
 
         // create a sma(2) series

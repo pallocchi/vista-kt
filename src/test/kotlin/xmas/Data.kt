@@ -36,7 +36,7 @@ import xmas.math.numOf
  */
 fun loadAmazonData(): Data {
     val bars = mutableListOf<Bar>()
-    val csv = Data::class.java.classLoader.getResourceAsStream("data.csv")
+    val csv = Data::class.java.classLoader.getResourceAsStream("amzn.csv")
     csv!!.bufferedReader().useLines { lines -> lines.drop(1).forEach { bars.add(line2bar(it)) } }
     val data = Data(bars)
     assert(data.size == 100)
