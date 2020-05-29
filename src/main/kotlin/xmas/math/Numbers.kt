@@ -204,42 +204,112 @@ private data class NumImpl(
 ) : Num {
 
     private companion object {
-
+        /** Precision used for [value] **/
         const val DEFAULT_PRECISION = 32
+
+        /** Defines the precision and rounding for [value] **/
+        val MATH_CONTEXT = MathContext(DEFAULT_PRECISION, RoundingMode.HALF_UP)
     }
 
-    constructor(value: Int) : this(BigDecimal(value, MathContext(DEFAULT_PRECISION, RoundingMode.HALF_UP)))
+    /**
+     * Creates instance from given int [value], using the default [MATH_CONTEXT].
+     */
+    constructor(value: Int) : this(BigDecimal(value, MATH_CONTEXT))
 
-    constructor(value: Long) : this(BigDecimal(value, MathContext(DEFAULT_PRECISION, RoundingMode.HALF_UP)))
+    /**
+     * Creates instance from given long [value], using the default [MATH_CONTEXT].
+     */
+    constructor(value: Long) : this(BigDecimal(value, MATH_CONTEXT))
 
-    constructor(value: Double) : this(BigDecimal(value, MathContext(DEFAULT_PRECISION, RoundingMode.HALF_UP)))
+    /**
+     * Creates instance from given double [value], using the default [MATH_CONTEXT].
+     */
+    constructor(value: Double) : this(BigDecimal.valueOf(value))
 
-    constructor(value: String) : this(BigDecimal(value, MathContext(DEFAULT_PRECISION, RoundingMode.HALF_UP)))
+    /**
+     * Creates instance from given string [value], using the default [MATH_CONTEXT].
+     */
+    constructor(value: String) : this(BigDecimal(value, MATH_CONTEXT))
 
-    override operator fun plus(addend: Num) = addend.value?.let { NumImpl(value.plus(it)) } ?: NaN
+    /**
+     * Returns a [Num] whose value is [value] + [addend].
+     *
+     * @sample xmas.math.NumbersTest.plus
+     */
+    override operator fun plus(addend: Num) =
+        addend.value?.let { NumImpl(value.plus(it)) } ?: NaN
 
-    override operator fun minus(subtrahend: Num) = subtrahend.value?.let { NumImpl(value.minus(it)) } ?: NaN
+    /**
+     * Returns a [Num] whose value is [value] - [subtrahend].
+     *
+     * @sample xmas.math.NumbersTest.minus
+     */
+    override operator fun minus(subtrahend: Num) =
+        subtrahend.value?.let { NumImpl(value.minus(it)) } ?: NaN
 
-    override operator fun times(multiplicand: Num) = multiplicand.value?.let { NumImpl(value.multiply(it)) } ?: NaN
+    /**
+     * Returns a [Num] whose value is [value] * [multiplicand].
+     *
+     * Note this method should be called using the `*` operator.
+     *
+     * @sample xmas.math.NumbersTest.times
+     */
+    override operator fun times(multiplicand: Num) =
+        multiplicand.value?.let { NumImpl(value.multiply(it, MATH_CONTEXT)) } ?: NaN
 
+    /**
+     * Returns a [Num] whose value is [value] / [divisor].
+     *
+     * Note this method should be called using the `/` operator.
+     *
+     * @sample xmas.math.NumbersTest.div
+     */
     override operator fun div(divisor: Num) =
-        divisor.value?.let { NumImpl(value.divide(it, MathContext(DEFAULT_PRECISION, RoundingMode.HALF_UP))) } ?: NaN
+        divisor.value?.let { NumImpl(value.divide(it, MATH_CONTEXT)) } ?: NaN
 
+    /**
+     * Returns `-1`, `0`, or `1` as current [value] is numerically less than, equal to, or greater than [other].
+     *
+     * @sample xmas.math.NumbersTest.compare
+     */
     override operator fun compareTo(other: Num) = other.value?.let { value.compareTo(it) } ?: 0
 
+    /**
+     * Returns if this value is equal to the [other].
+     *
+     * @sample xmas.math.NumbersTest.isEqual
+     */
     override fun isEqual(other: Num) = other != NaN && compareTo(other) == 0
 
+    /**
+     * Returns if this value matches the [other] within a [delta].
+     *
+     * @sample xmas.math.NumbersTest.matches
+     */
     override fun matches(other: Num, delta: Double) = this.minus(other).abs() <= numOf(delta)
 
+    /**
+     * Returns the rounded [Num] to [n] decimal places, using given rounding [mode].
+     *
+     * @sample xmas.math.NumbersTest.round
+     */
     override fun round(n: Int, mode: RoundMode): Num = NumImpl(value.setScale(n, mode.value))
 
+    /**
+     * Returns a [Num] whose value is the absolute one of this.
+     *
+     * @sample xmas.math.NumbersTest.abs
+     */
     override fun abs(): Num = NumImpl(value.abs())
 
+    /**
+     * Equals implementation using the [Num.compareTo] method.
+     */
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
         other as NumImpl
-        if (value.compareTo(other.value) != 0) return false
+        if (compareTo(other) != 0) return false
         return true
     }
 

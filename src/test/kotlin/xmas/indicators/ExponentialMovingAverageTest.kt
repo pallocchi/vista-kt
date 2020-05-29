@@ -46,10 +46,9 @@ class ExponentialMovingAverageTest {
         // create a sma(2) series
         val ema = ema(series, 2)
 
-        println(ema[0])
-        assertThat(ema[0].matches(numOf(2.5), .01)).isTrue()   // current value
-        assertThat(ema[1].matches(numOf(1.5), .01)).isTrue()   // previous value
-        assertThat(ema[2]).isEqualTo(na)                       // oldest value
+        assertThat(ema[0]).isEqualTo(numOf(2.5))   // current value
+        assertThat(ema[1]).isEqualTo(numOf(1.5))   // previous value
+        assertThat(ema[2]).isEqualTo(na)           // oldest value
     }
 
     @Test

@@ -79,18 +79,18 @@ internal class NumbersTest {
 
     @Test
     fun round() {
-        assertThat(numOf("1.01").round(1, RoundMode.UP)).isEqualTo(numOf("1.1"))
-        assertThat(numOf("1.01").round(1, RoundMode.DOWN)).isEqualTo(numOf("1.0"))
-        assertThat(numOf("1.01").round(1, RoundMode.HALF_UP)).isEqualTo(numOf("1.0"))
-        assertThat(numOf("1.05").round(1, RoundMode.HALF_UP)).isEqualTo(numOf("1.1"))
-        assertThat(numOf("1.01").round(1, RoundMode.HALF_DOWN)).isEqualTo(numOf("1.0"))
-        assertThat(numOf("1.05").round(1, RoundMode.HALF_DOWN)).isEqualTo(numOf("1.0"))
+        assertThat(numOf(1.01).round(1, RoundMode.UP)).isEqualTo(numOf(1.1))
+        assertThat(numOf(1.01).round(1, RoundMode.DOWN)).isEqualTo(numOf(1.0))
+        assertThat(numOf(1.01).round(1, RoundMode.HALF_UP)).isEqualTo(numOf(1.0))
+        assertThat(numOf(1.05).round(1, RoundMode.HALF_UP)).isEqualTo(numOf(1.1))
+        assertThat(numOf(1.01).round(1, RoundMode.HALF_DOWN)).isEqualTo(numOf(1.0))
+        assertThat(numOf(1.05).round(1, RoundMode.HALF_DOWN)).isEqualTo(numOf(1.0))
     }
 
     @Test
     fun matches() {
-        assertThat(numOf("1.0").matches(numOf("1.01"), .01)).isTrue()
-        assertThat(numOf("1.0").matches(numOf("1.01"), .0099)).isFalse()
+        assertThat(numOf(1.0).matches(numOf(1.01), .01)).isTrue()
+        assertThat(numOf(1.0).matches(numOf(1.01), .0099)).isFalse()
     }
 
     @Test
