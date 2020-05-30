@@ -38,15 +38,20 @@ internal class RelativeStrengthIndex(
     private val n: Int
 ) : Indicator(source) {
 
+    companion object {
+        val MIN_VALUE = Num.ZERO
+        val MAX_VALUE = Num.HUNDRED
+    }
+
     private val upward = rma(max(source - source(1), Num.ZERO), n)
     private val downward = rma(max(source(1) - source, Num.ZERO), n)
 
     override fun calculate(index: Int): Num {
         if (index in 0..(size - n)) {
             if (downward[index] == Num.ZERO)
-                return if (upward[index] == Num.ZERO) Num.ZERO else Num.HUNDRED
+                return if (upward[index] == Num.ZERO) MIN_VALUE else MAX_VALUE
             val rs = upward[index] / downward[index]
-            return Num.HUNDRED - Num.HUNDRED / (Num.ONE + rs)
+            return MAX_VALUE - MAX_VALUE / (Num.ONE + rs)
         }
         return NaN
     }
