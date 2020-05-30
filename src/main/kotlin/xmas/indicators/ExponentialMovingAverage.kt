@@ -59,6 +59,7 @@ internal class ExponentialMovingAverage(
  * @param source Series of values to process
  * @param n Number of bars (length)
  * @sample xmas.indicators.ExponentialMovingAverageTest.emaWithIntSeries
+ * @see [sma]
  */
 fun ema(source: Series, n: Int): Series = ExponentialMovingAverage(source, n)
 
@@ -72,5 +73,6 @@ fun ema(source: Series, n: Int): Series = ExponentialMovingAverage(source, n)
  * @param source Series of values to process
  * @param n Number of bars (length)
  * @sample xmas.indicators.ExponentialMovingAverageTest.rmaWithIntSeries
+ * @see [ema]
  */
 fun rma(source: Series, n: Int): Series = ExponentialMovingAverage(source, n, Num.ONE.div(n))

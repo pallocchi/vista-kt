@@ -61,5 +61,6 @@ internal class WeightedMovingAverage(
  * @param source Series of values to process
  * @param n Number of bars (length)
  * @sample xmas.indicators.WeightedMovingAverageTest.withIntSeries
+ * @see [sma]
  */
 fun wma(source: Series, n: Int): Series = WeightedMovingAverage(source, n)

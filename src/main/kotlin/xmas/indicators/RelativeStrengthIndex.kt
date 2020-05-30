@@ -60,10 +60,13 @@ internal class RelativeStrengthIndex(
 /**
  * The relative strength index of [source] for [n] bars back, to evaluate overbought or oversold conditions.
  *
+ * Oscillates between `0` (oversold) and `100` (overbought).
+ *
  * **See:** [TradingView](https://www.tradingview.com/pine-script-reference/#fun_rsi)
  *
  * @param source Series of values to process
  * @param n Number of bars (length)
  * @sample xmas.indicators.RelativeStrengthIndexTest.withIntSeries
+ * @see [rma]
  */
 fun rsi(source: Series, n: Int): Series = RelativeStrengthIndex(source, n)

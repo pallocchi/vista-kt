@@ -64,5 +64,6 @@ internal class HullMovingAverage(
  * @param source Series of values to process
  * @param n Number of bars (length)
  * @sample xmas.indicators.HullMovingAverageTest.withIntSeries
+ * @see [wma]
  */
 fun hma(source: Series, n: Int): Series = HullMovingAverage(source, n)
