@@ -190,6 +190,13 @@ interface Num {
     fun abs(): Num
 
     /**
+     * Returns a [Num] whose value is `√(this)`.
+     *
+     * @sample xmas.math.NumbersTest.sqrt
+     */
+    fun sqrt(): Num
+
+    /**
      * Returns a [Int] representation.
      *
      * @sample xmas.math.NumbersTest.toInt
@@ -325,6 +332,13 @@ private data class NumImpl(
     override fun abs(): Num = NumImpl(value.abs())
 
     /**
+     * Returns a [Num] whose value is `√(this)`.
+     *
+     * @sample xmas.math.NumbersTest.sqrt
+     */
+    override fun sqrt(): Num = NumImpl(value.sqrt(MATH_CONTEXT))
+
+    /**
      * Equals implementation using the [Num.compareTo] method.
      */
     override fun equals(other: Any?): Boolean {
@@ -416,6 +430,13 @@ object NaN : Num {
      * @sample xmas.math.NumbersTest.abs
      */
     override fun abs(): Num = NaN
+
+    /**
+     * Returns always a [NaN].
+     *
+     * @sample xmas.math.NumbersTest.sqrt
+     */
+    override fun sqrt(): Num = NaN
 
     override fun toString(): String = "NaN"
 }

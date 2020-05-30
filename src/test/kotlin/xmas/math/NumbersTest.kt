@@ -101,6 +101,14 @@ internal class NumbersTest {
     }
 
     @Test
+    fun sqrt() {
+        assertThat(numOf(1).sqrt()).isEqualTo(numOf(1))
+        assertThat(numOf(4).sqrt()).isEqualTo(numOf(2))
+        assertThat(numOf(9).sqrt()).isEqualTo(numOf(3))
+        assertThat(NaN.sqrt()).isEqualTo(NaN)
+    }
+
+    @Test
     fun isEqual() {
         val one = numOf(1)
         val two = numOf(2)
