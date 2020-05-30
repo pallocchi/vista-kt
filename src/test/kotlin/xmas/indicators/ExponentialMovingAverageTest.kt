@@ -37,12 +37,10 @@ import xmas.series.seriesOf
 internal class ExponentialMovingAverageTest {
 
     @Test
-    fun withIntSeries() {
+    fun emaWithIntSeries() {
 
-        // create a series of numbers
         val series = seriesOf(1, 2, 3)
 
-        // create a ema(2) series
         val ema = ema(series, 2)
 
         assertThat(ema[0]).isEqualTo(numOf(2.5))   // current value
@@ -51,7 +49,7 @@ internal class ExponentialMovingAverageTest {
     }
 
     @Test
-    fun withMarketData() {
+    fun emaWithMarketData() {
 
         val data = loadAmazonData()
         val expected = loadIndicatorData("ema.csv")
@@ -61,5 +59,17 @@ internal class ExponentialMovingAverageTest {
 
         for (i in 0 until data.size)
             assertThat(actual[i].round(2)).isEqualTo(expected[i])
+    }
+
+    @Test
+    fun rmaWithIntSeries() {
+
+        val series = seriesOf(1, 2, 3)
+
+        val rma = rma(series, 2)
+
+        assertThat(rma[0]).isEqualTo(numOf(2.25))  // current value
+        assertThat(rma[1]).isEqualTo(numOf(1.5))   // previous value
+        assertThat(rma[2]).isEqualTo(na)           // oldest value
     }
 }

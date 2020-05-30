@@ -34,28 +34,28 @@ import xmas.math.na
 import xmas.math.numOf
 import xmas.series.seriesOf
 
-internal class HullMovingAverageTest {
+internal class RelativeStrengthIndexTest {
 
     @Test
     fun withIntSeries() {
 
-        val series = seriesOf(1, 2, 3)
+        val series = seriesOf(1, 2, 1)
 
-        val hma = hma(series, 2)
+        val rsi = rsi(series, 2)
 
-        assertThat(hma[0].round(2)).isEqualTo(numOf(3.33))   // current value
-        assertThat(hma[1].round(2)).isEqualTo(numOf(2.33))   // previous value
-        assertThat(hma[2]).isEqualTo(na)                     // oldest value
+        assertThat(rsi[0].round(2)).isEqualTo(numOf(33.33))   // current value
+        assertThat(rsi[1].round(2)).isEqualTo(numOf(100))     // previous value
+        assertThat(rsi[2]).isEqualTo(na)                      // oldest value
     }
 
     @Test
     fun withMarketData() {
 
         val data = loadAmazonData()
-        val expected = loadIndicatorData("hma.csv")
+        val expected = loadIndicatorData("rsi.csv")
         val close = close(data)
 
-        val actual = hma(close, 5)
+        val actual = rsi(close, 5)
 
         for (i in 0 until data.size)
             assertThat(actual[i].round(2)).isEqualTo(expected[i])

@@ -39,10 +39,8 @@ internal class SimpleMovingAverageTest {
     @Test
     fun withIntSeries() {
 
-        // create a series of numbers
         val series = seriesOf(1, 2, 3)
 
-        // create a sma(2) series
         val sma = sma(series, 2)
 
         assertThat(sma[0]).isEqualTo(numOf(2.5))   // current value

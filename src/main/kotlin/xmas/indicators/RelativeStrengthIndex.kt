@@ -27,50 +27,38 @@ package xmas.indicators
 
 import xmas.math.NaN
 import xmas.math.Num
-import xmas.math.numOf
 import xmas.series.Series
+import xmas.series.max
 
 /**
- * Exponential Moving Average (EMA) indicator.
+ * Relative strength index (RSI) indicator.
  */
-internal class ExponentialMovingAverage(
-    private val source: Series,
-    private val n: Int,
-    private val alpha: Num = numOf(2) / (n + 1)
+internal class RelativeStrengthIndex(
+    source: Series,
+    private val n: Int
 ) : Indicator(source) {
 
+    private val upward = rma(max(source - source(1), Num.ZERO), n)
+    private val downward = rma(max(source(1) - source, Num.ZERO), n)
+
     override fun calculate(index: Int): Num {
-        if (index == size - n)
-            return sma(source, n)[index]
-        if (index in 0 until size - n)
-            return alpha * source[index] + (Num.ONE - alpha) * this[index + 1]
+        if (index in 0..(size - n)) {
+            if (downward[index] == Num.ZERO)
+                return if (upward[index] == Num.ZERO) Num.ZERO else Num.HUNDRED
+            val rs = upward[index] / downward[index]
+            return Num.HUNDRED - Num.HUNDRED / (Num.ONE + rs)
+        }
         return NaN
     }
 }
 
 /**
- * The exponential moving average, that places a greater weight and significance on the most recent data points.
+ * The relative strength index of [source] for [n] bars back, to evaluate overbought or oversold conditions.
  *
- * Uses the `alpha = 2 / (n + 1)`.
- *
- * **See:** [Investopedia](https://www.investopedia.com/terms/e/ema.asp),
- * [TradingView](https://www.tradingview.com/pine-script-reference/#fun_ema)
+ * **See:** [TradingView](https://www.tradingview.com/pine-script-reference/#fun_rsi)
  *
  * @param source Series of values to process
  * @param n Number of bars (length)
- * @sample xmas.indicators.ExponentialMovingAverageTest.emaWithIntSeries
+ * @sample xmas.indicators.RelativeStrengthIndexTest.withIntSeries
  */
-fun ema(source: Series, n: Int): Series = ExponentialMovingAverage(source, n)
-
-/**
- * The exponential moving average used by RSI.
- *
- * Uses the `alpha = 1 / n`.
- *
- * **See:** [TradingView](https://www.tradingview.com/pine-script-reference/#fun_rma)
- *
- * @param source Series of values to process
- * @param n Number of bars (length)
- * @sample xmas.indicators.ExponentialMovingAverageTest.rmaWithIntSeries
- */
-fun rma(source: Series, n: Int): Series = ExponentialMovingAverage(source, n, Num.ONE.div(n))
+fun rsi(source: Series, n: Int): Series = RelativeStrengthIndex(source, n)

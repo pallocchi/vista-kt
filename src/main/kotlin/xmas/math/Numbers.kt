@@ -287,7 +287,7 @@ private data class NumImpl(
      * @sample xmas.math.NumbersTest.div
      */
     override operator fun div(divisor: Num) =
-        divisor.value?.let { NumImpl(value.divide(it, MATH_CONTEXT)) } ?: NaN
+        if (divisor != Num.ZERO) divisor.value?.let { NumImpl(value.divide(it, MATH_CONTEXT)) } ?: NaN else NaN
 
     /**
      * Returns `-1`, `0`, or `1` as current [value] is numerically less than, equal to, or greater than [other].

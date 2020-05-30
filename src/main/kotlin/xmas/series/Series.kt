@@ -55,9 +55,37 @@ fun seriesOf(vararg values: Double): Series = SimpleSeries(values.map { numOf(it
 fun seriesOf(vararg values: String): Series = SimpleSeries(values.map { numOf(it) }.toMutableList())
 
 /**
+ * Returns a [Num] series with the min values between [x] and [y].
+ *
+ * @sample xmas.series.SeriesTest.min
+ */
+fun min(x: Series, y: Series): Series = MinSeries(x, y)
+
+/**
+ * Returns a [Num] series with the min values between [x] and [y].
+ *
+ * @sample xmas.series.SeriesTest.min
+ */
+fun min(x: Series, y: Num): Series = MinSeries(x, StaticSeries(y))
+
+/**
+ * Returns a [Num] series with the max values between [x] and [y].
+ *
+ * @sample xmas.series.SeriesTest.max
+ */
+fun max(x: Series, y: Series): Series = MaxSeries(x, y)
+
+/**
+ * Returns a [Num] series with the max values between [x] and [y].
+ *
+ * @sample xmas.series.SeriesTest.max
+ */
+fun max(x: Series, y: Num): Series = MaxSeries(x, StaticSeries(y))
+
+/**
  * Series of numbers.
  */
-abstract class Series() {
+abstract class Series {
 
     /**
      * Returns the series size.
@@ -65,11 +93,26 @@ abstract class Series() {
     abstract val size: Int
 
     /**
+     * Returns the latest value in the series (same as `series[0]`).
+     */
+    val current: Num get() = this[0]
+
+    /**
+     * Returns the previous value in the series (same as `series[1]`).
+     */
+    val previous: Num get() = this[1]
+
+    /**
      * Returns the series value at given index.
      *
      * @sample xmas.series.SeriesTest.withIndexingOperator
      */
     abstract operator fun get(index: Int): Num
+
+    /**
+     * Returns a [Series] whose vales are moved by [index] positions.
+     */
+    operator fun invoke(index: Int): Series = MovedSeries(this, index)
 
     /**
      * Returns a [Series] whose values are the current ones `+` [other].
@@ -182,6 +225,13 @@ abstract class Series() {
      * @sample xmas.series.SeriesTest.div
      */
     operator fun div(other: Double): Series = div(numOf(other))
+
+    /**
+     * Returns `-1`, `0`, or `1` as [current] value is numerically less than, equal to, or greater than [other].
+     *
+     * @sample xmas.series.SeriesTest.compareTo
+     */
+    operator fun compareTo(other: Series): Int = this.current.compareTo(other.current)
 }
 
 /**
@@ -196,14 +246,14 @@ infix fun Series.cross(other: Series) = this crossOver other || this crossUnder 
  *
  * @sample xmas.series.SeriesTest.crossOver
  */
-infix fun Series.crossOver(other: Series) = this[0] > other[0] && this[1] < other[1]
+infix fun Series.crossOver(other: Series) = this.current > other.current && this.previous < other.previous
 
 /**
  * Returns if current series has crossed under the [other].
  *
  * @sample xmas.series.SeriesTest.crossUnder
  */
-infix fun Series.crossUnder(other: Series) = this[0] < other[0] && this[1] > other[1]
+infix fun Series.crossUnder(other: Series) = this.current < other.current && this.previous > other.previous
 
 /**
  * Series of numbers.
@@ -221,6 +271,33 @@ private class SimpleSeries(private val values: List<Num>) : Series() {
 }
 
 /**
+ * Series that performs an [operation] over the values of sources [x] and [y].
+ */
+private class OperatorSeries(
+    private val x: Series,
+    private val y: Series,
+    private val operation: (Num, Num) -> Num
+) : Series() {
+
+    override val size: Int get() = x.size
+
+    override fun get(index: Int) = operation(x[index], y[index])
+}
+
+/**
+ * Series that returns the [n]-th previous value of [source].
+ */
+private class MovedSeries(
+    private val source: Series,
+    private val n: Int
+) : Series() {
+
+    override val size: Int get() = source.size
+
+    override fun get(index: Int) = source[index + n]
+}
+
+/**
  * Series that always returns the same fixed [value] for any index.
  */
 private class StaticSeries(
@@ -233,15 +310,27 @@ private class StaticSeries(
 }
 
 /**
- * Series that performs an [operation] over the values of sources [left] and [right].
+ * Series that returns the max value in each index.
  */
-private class OperatorSeries(
-    private val left: Series,
-    private val right: Series,
-    private val operation: (Num, Num) -> Num
+private class MaxSeries(
+    private val x: Series,
+    private val y: Series
 ) : Series() {
 
-    override val size: Int get() = left.size
+    override val size: Int get() = x.size
 
-    override fun get(index: Int) = operation(left[index], right[index])
+    override fun get(index: Int) = if (x[index] > y[index]) x[index] else y[index]
+}
+
+/**
+ * Series that returns the min value in each index.
+ */
+private class MinSeries(
+    private val x: Series,
+    private val y: Series
+) : Series() {
+
+    override val size: Int get() = x.size
+
+    override fun get(index: Int) = if (x[index] < y[index]) x[index] else y[index]
 }

@@ -39,10 +39,8 @@ internal class WeightedMovingAverageTest {
     @Test
     fun withIntSeries() {
 
-        // create a series of numbers
         val series = seriesOf(1, 2, 3)
 
-        // create a wma(2) series
         val wma = wma(series, 2)
 
         assertThat(wma[0].round(2)).isEqualTo(numOf(2.67))   // current value
