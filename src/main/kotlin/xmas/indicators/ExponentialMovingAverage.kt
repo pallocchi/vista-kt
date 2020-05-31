@@ -77,4 +77,4 @@ fun ema(source: Series, n: Int): Series = ExponentialMovingAverage(source, n)
  * @sample xmas.indicators.ExponentialMovingAverageTest.rmaWithIntSeries
  * @see [ema]
  */
-fun rma(source: Series, n: Int): Series = ExponentialMovingAverage(source, n, Num.ONE.div(n))
+fun rma(source: Series, n: Int = 9): Series = ExponentialMovingAverage(source, n, Num.ONE.div(n))

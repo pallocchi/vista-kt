@@ -68,4 +68,4 @@ internal class HullMovingAverage(
  * @sample xmas.indicators.HullMovingAverageTest.withIntSeries
  * @see [wma]
  */
-fun hma(source: Series, n: Int): Series = HullMovingAverage(source, n)
+fun hma(source: Series, n: Int = 9): Series = HullMovingAverage(source, n)

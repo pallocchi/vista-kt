@@ -61,4 +61,4 @@ internal class SimpleMovingAverage(
  * @param n Number of bars (length)
  * @sample xmas.indicators.SimpleMovingAverageTest.withIntSeries
  */
-fun sma(source: Series, n: Int): Series = SimpleMovingAverage(source, n)
+fun sma(source: Series, n: Int = 9): Series = SimpleMovingAverage(source, n)

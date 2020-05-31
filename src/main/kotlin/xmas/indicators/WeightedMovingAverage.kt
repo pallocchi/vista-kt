@@ -65,4 +65,4 @@ internal class WeightedMovingAverage(
  * @sample xmas.indicators.WeightedMovingAverageTest.withIntSeries
  * @see [sma]
  */
-fun wma(source: Series, n: Int): Series = WeightedMovingAverage(source, n)
+fun wma(source: Series, n: Int = 9): Series = WeightedMovingAverage(source, n)

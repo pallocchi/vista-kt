@@ -71,4 +71,4 @@ internal class RelativeStrengthIndex(
  * @sample xmas.indicators.RelativeStrengthIndexTest.withIntSeries
  * @see [rma]
  */
-fun rsi(source: Series, n: Int): Series = RelativeStrengthIndex(source, n)
+fun rsi(source: Series, n: Int = 14): Series = RelativeStrengthIndex(source, n)
