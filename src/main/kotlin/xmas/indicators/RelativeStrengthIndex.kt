@@ -34,7 +34,7 @@ import xmas.series.max
  * Relative strength index (RSI) indicator.
  */
 internal class RelativeStrengthIndex(
-    source: Series,
+    private val source: Series,
     private val n: Int
 ) : Indicator(source) {
 
@@ -43,11 +43,13 @@ internal class RelativeStrengthIndex(
         val MAX_VALUE = Num.HUNDRED
     }
 
+    override val size: Int get() = source.size - n
+
     private val upward = rma(max(source - source(1), Num.ZERO), n)
     private val downward = rma(max(source(1) - source, Num.ZERO), n)
 
     override fun calculate(index: Int): Num {
-        if (index in 0..(size - n)) {
+        if (index in 0..size) {
             if (downward[index] == Num.ZERO)
                 return if (upward[index] == Num.ZERO) MIN_VALUE else MAX_VALUE
             val rs = upward[index] / downward[index]

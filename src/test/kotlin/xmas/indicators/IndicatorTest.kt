@@ -94,6 +94,8 @@ internal class IndicatorTest {
         private val source: Series
     ) : Indicator(source) {
 
+        override val size: Int get() = source.size
+
         /**
          * Returns the [index] value of [source].
          */

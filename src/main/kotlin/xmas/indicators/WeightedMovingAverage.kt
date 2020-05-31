@@ -37,8 +37,10 @@ internal class WeightedMovingAverage(
     private val n: Int
 ) : Indicator(source) {
 
+    override val size: Int get() = source.size + 1 - n
+
     override fun calculate(index: Int): Num {
-        if (index in 0..(size - n)) {
+        if (index in 0..size) {
             var norm = Num.ZERO
             var sum = Num.ZERO
             for (i in 0 until n) {

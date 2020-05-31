@@ -49,16 +49,29 @@ internal class ExponentialMovingAverageTest {
     }
 
     @Test
+    fun emaNestedWithIntSeries() {
+
+        val series = seriesOf(1, 2, 3)
+
+        val ema1 = ema(series, 2)
+        val ema2 = ema(ema1, 2)
+
+        assertThat(ema2[0]).isEqualTo(numOf(2.0))   // current value
+        assertThat(ema2[1]).isEqualTo(na)           // previous value
+        assertThat(ema2[2]).isEqualTo(na)           // oldest value
+    }
+
+    @Test
     fun emaWithMarketData() {
 
         val data = loadAmazonData()
         val expected = loadIndicatorData("ema.csv")
         val close = close(data)
 
-        val actual = ema(close, 5)
+        val actual = ema(close, 9)
 
-        for (i in 0 until data.size)
-            assertThat(actual[i].round(2)).isEqualTo(expected[i])
+        for (i in 0..99)
+            assertThat(actual[i].round(2)).isEqualTo(expected[i][0])
     }
 
     @Test

@@ -38,8 +38,8 @@ fun loadAmazonData(): Data {
     val bars = mutableListOf<Bar>()
     val csv = Data::class.java.classLoader.getResourceAsStream("amzn.csv")
     csv!!.bufferedReader().useLines { lines -> lines.drop(1).forEach { bars.add(line2bar(it)) } }
-    val data = Data(bars)
-    assert(data.size == 100)
+    val data = Data(bars.asReversed())
+    assert(data.size == 500)
     return data
 }
 
@@ -47,25 +47,39 @@ fun loadAmazonData(): Data {
  * Returns the [Bar] parsed from string [line].
  */
 private fun line2bar(line: String): Bar {
-    val split = line.split("\t")
+    val split = line.split(",")
     return Bar(split[0], split[1], split[2], split[3], split[4], split[5])
 }
 
 /**
  * Load the indicator values [file] from resources folder.
  */
-fun loadIndicatorData(file: String): List<Num> {
-    val values = mutableListOf<Num>()
+fun loadIndicatorData(file: String): List<List<Num>> {
+    val values = mutableListOf<List<Num>>()
     val csv = Data::class.java.classLoader.getResourceAsStream(file)
-    csv!!.bufferedReader().useLines { lines -> lines.drop(1).forEach { values.add(line2num(it)) } }
+    csv!!.bufferedReader().useLines { lines ->
+        var size: Int? = null
+        for (line in lines) {
+            if (size != null) {
+                values.add(line2num(line, size))
+            } else {
+                size = line.split(",").size
+            }
+        }
+    }
     assert(values.size == 100)
-    return values.reversed()
+    return values
 }
 
 /**
  * Returns the [Num] parsed from string [line].
  */
-private fun line2num(line: String): Num {
-    val split = line.split("\t")
-    return if (split.size == 2) numOf(split[1]) else NaN
+private fun line2num(line: String, size: Int): List<Num> {
+    val values = mutableListOf<Num>()
+    val split = line.split(",")
+    for (i in 1 until size) {
+        val value = if (i < split.size) numOf(split[i]) else NaN
+        values.add(value)
+    }
+    return values
 }

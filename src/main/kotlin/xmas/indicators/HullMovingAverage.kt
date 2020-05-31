@@ -34,9 +34,11 @@ import kotlin.math.sqrt
  * Hull Moving Average (HMA) indicator.
  */
 internal class HullMovingAverage(
-    source: Series,
+    private val source: Series,
     private val n: Int
 ) : Indicator(source) {
+
+    override val size: Int get() = source.size + 1 - n
 
     private val wma: Series
 
@@ -48,7 +50,7 @@ internal class HullMovingAverage(
     }
 
     override fun calculate(index: Int): Num {
-        if (index in 0..(size - n))
+        if (index in 0..size)
             return wma[index]
         return NaN
     }

@@ -33,8 +33,6 @@ import xmas.series.Series
  */
 internal abstract class Indicator(private val source: Series) : Series() {
 
-    override val size: Int get() = source.size
-
     /**
      * Returns the calculated indicator value at given [index].
      */

@@ -279,7 +279,7 @@ private class OperatorSeries(
     private val operation: (Num, Num) -> Num
 ) : Series() {
 
-    override val size: Int get() = x.size
+    override val size: Int get() = kotlin.math.min(x.size, y.size)
 
     override fun get(index: Int) = operation(x[index], y[index])
 }
@@ -317,7 +317,7 @@ private class MaxSeries(
     private val y: Series
 ) : Series() {
 
-    override val size: Int get() = x.size
+    override val size: Int get() = kotlin.math.min(x.size, y.size)
 
     override fun get(index: Int) = if (x[index] > y[index]) x[index] else y[index]
 }
@@ -330,7 +330,7 @@ private class MinSeries(
     private val y: Series
 ) : Series() {
 
-    override val size: Int get() = x.size
+    override val size: Int get() = kotlin.math.min(x.size, y.size)
 
     override fun get(index: Int) = if (x[index] < y[index]) x[index] else y[index]
 }

@@ -55,9 +55,10 @@ internal class RelativeStrengthIndexTest {
         val expected = loadIndicatorData("rsi.csv")
         val close = close(data)
 
-        val actual = rsi(close, 5)
+        val actual = rsi(close, 14)
 
-        for (i in 0 until data.size)
-            assertThat(actual[i].round(2)).isEqualTo(expected[i])
+        for (i in 0..99) {
+            assertThat(actual[i].round(2)).isEqualTo(expected[i][0])
+        }
     }
 }

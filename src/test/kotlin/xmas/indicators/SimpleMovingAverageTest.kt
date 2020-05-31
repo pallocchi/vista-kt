@@ -38,7 +38,6 @@ internal class SimpleMovingAverageTest {
 
     @Test
     fun withIntSeries() {
-
         val series = seriesOf(1, 2, 3)
 
         val sma = sma(series, 2)
@@ -50,14 +49,13 @@ internal class SimpleMovingAverageTest {
 
     @Test
     fun withMarketData() {
-
         val data = loadAmazonData()
         val expected = loadIndicatorData("sma.csv")
         val close = close(data)
 
-        val actual = sma(close, 5)
+        val actual = sma(close, 9)
 
-        for (i in 0 until data.size)
-            assertThat(actual[i].round(2)).isEqualTo(expected[i])
+        for (i in 0..99)
+            assertThat(actual[i].round(2)).isEqualTo(expected[i][0])
     }
 }

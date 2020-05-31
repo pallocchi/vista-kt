@@ -55,9 +55,9 @@ internal class WeightedMovingAverageTest {
         val expected = loadIndicatorData("wma.csv")
         val close = close(data)
 
-        val actual = wma(close, 5)
+        val actual = wma(close, 9)
 
-        for (i in 0 until data.size)
-            assertThat(actual[i].round(2)).isEqualTo(expected[i])
+        for (i in 0..99)
+            assertThat(actual[i].round(2)).isEqualTo(expected[i][0])
     }
 }
