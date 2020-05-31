@@ -34,12 +34,23 @@ import xmas.series.Series
 internal abstract class Indicator(private val source: Series) : Series() {
 
     /**
-     * Returns the calculated indicator value at given [index].
+     * Returns the calculated indicator value [i] bars from now.
      */
-    override fun get(index: Int): Num = calculate(index)
+    override fun get(i: Int): Num = calculate(i)
 
     /**
-     * Returns the calculated indicator value at given [index].
+     * Returns the calculated indicator value [i] bars from now.
      */
-    abstract fun calculate(index: Int): Num
+    abstract fun calculate(i: Int): Num
+}
+
+/**
+ * Indicator that caches the already calculated values.
+ */
+internal abstract class CacheIndicator(private val source: Series) : Indicator(source) {
+
+    /**
+     * Returns the calculated indicator value [i] bars from now.
+     */
+    override fun get(i: Int): Num = calculate(i)
 }

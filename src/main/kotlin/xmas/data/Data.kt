@@ -38,6 +38,9 @@ import xmas.series.Series
 class Data(
     private val bars: MutableList<Bar> = mutableListOf()
 ) {
+
+    val index: Int = size - 1
+
     /**
      * Returns the bars count.
      */
@@ -49,7 +52,7 @@ class Data(
     fun add(bar: Bar) = bars.add(bar)
 
     /**
-     * Returns the [Bar] at the n-th time from now.
+     * Returns the [Bar] at [i] bars time from now.
      *
      * Note this method should be called using the indexing operator `[]`.
      *
@@ -108,7 +111,7 @@ private class Open(
 
     override val size: Int get() = data.size
 
-    override fun get(index: Int): Num = data[index]?.open ?: NaN
+    override fun get(i: Int): Num = data[i]?.open ?: NaN
 }
 
 /**
@@ -120,7 +123,7 @@ private class High(
 
     override val size: Int get() = data.size
 
-    override fun get(index: Int): Num = data[index]?.high ?: NaN
+    override fun get(i: Int): Num = data[i]?.high ?: NaN
 }
 
 /**
@@ -132,7 +135,7 @@ private class Low(
 
     override val size: Int get() = data.size
 
-    override fun get(index: Int): Num = data[index]?.low ?: NaN
+    override fun get(i: Int): Num = data[i]?.low ?: NaN
 }
 
 /**
@@ -144,7 +147,7 @@ private class Close(
 
     override val size: Int get() = data.size
 
-    override fun get(index: Int): Num = data[index]?.close ?: NaN
+    override fun get(i: Int): Num = data[i]?.close ?: NaN
 }
 
 /**
@@ -156,7 +159,7 @@ private class Volume(
 
     override val size: Int get() = data.size
 
-    override fun get(index: Int): Num = data[index]?.volume ?: NaN
+    override fun get(i: Int): Num = data[i]?.volume ?: NaN
 }
 
 /**

@@ -40,11 +40,11 @@ internal class SimpleMovingAverage(
 
     override val size: Int get() = source.size + 1 - n
 
-    override fun calculate(index: Int): Num {
-        if (index in 0..size) {
+    override fun calculate(i: Int): Num {
+        if (i in 0..size) {
             var sum = Num.ZERO
-            for (i in 0 until n)
-                sum += source[index + i]
+            for (j in 0 until n)
+                sum += source[i + j]
             return sum / numOf(n)
         }
         return NaN

@@ -103,16 +103,16 @@ abstract class Series {
     val previous: Num get() = this[1]
 
     /**
-     * Returns the series value at given index.
+     * Returns the series value [i] bars from now.
      *
      * @sample xmas.series.SeriesTest.withIndexingOperator
      */
-    abstract operator fun get(index: Int): Num
+    abstract operator fun get(i: Int): Num
 
     /**
-     * Returns a [Series] whose vales are moved by [index] positions.
+     * Returns a [Series] whose vales are moved by [i] positions.
      */
-    operator fun invoke(index: Int): Series = MovedSeries(this, index)
+    operator fun invoke(i: Int): Series = MovedSeries(this, i)
 
     /**
      * Returns a [Series] whose values are the current ones `+` [other].
@@ -262,8 +262,8 @@ private class SimpleSeries(private val values: List<Num>) : Series() {
 
     override val size: Int get() = values.size
 
-    override operator fun get(index: Int): Num {
-        val rIndex = size - index - 1
+    override operator fun get(i: Int): Num {
+        val rIndex = size - i - 1
         if (rIndex in 0..size)
             return values[rIndex]
         return NaN
@@ -281,7 +281,7 @@ private class OperatorSeries(
 
     override val size: Int get() = kotlin.math.min(x.size, y.size)
 
-    override fun get(index: Int) = operation(x[index], y[index])
+    override fun get(i: Int) = operation(x[i], y[i])
 }
 
 /**
@@ -294,7 +294,7 @@ private class MovedSeries(
 
     override val size: Int get() = source.size
 
-    override fun get(index: Int) = source[index + n]
+    override fun get(i: Int) = source[i + n]
 }
 
 /**
@@ -306,7 +306,7 @@ private class StaticSeries(
 
     override val size: Int get() = Int.MAX_VALUE
 
-    override fun get(index: Int) = value
+    override fun get(i: Int) = value
 }
 
 /**
@@ -319,7 +319,7 @@ private class MaxSeries(
 
     override val size: Int get() = kotlin.math.min(x.size, y.size)
 
-    override fun get(index: Int) = if (x[index] > y[index]) x[index] else y[index]
+    override fun get(i: Int) = if (x[i] > y[i]) x[i] else y[i]
 }
 
 /**
@@ -332,5 +332,5 @@ private class MinSeries(
 
     override val size: Int get() = kotlin.math.min(x.size, y.size)
 
-    override fun get(index: Int) = if (x[index] < y[index]) x[index] else y[index]
+    override fun get(i: Int) = if (x[i] < y[i]) x[i] else y[i]
 }

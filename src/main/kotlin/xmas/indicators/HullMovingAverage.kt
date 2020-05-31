@@ -49,9 +49,9 @@ internal class HullMovingAverage(
         wma = wma(wma1 - wma2, sqrN)
     }
 
-    override fun calculate(index: Int): Num {
-        if (index in 0..size)
-            return wma[index]
+    override fun calculate(i: Int): Num {
+        if (i in 0..size)
+            return wma[i]
         return NaN
     }
 }

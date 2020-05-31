@@ -42,6 +42,7 @@ internal class ExponentialMovingAverage(
     override val size: Int get() = source.size + 1 - n
 
     override fun calculate(index: Int): Num {
+        println("calculating EMA($n) for index: $index")
         if (index == size - 1)
             return sma(source, n)[index]
         if (index in 0 until size)
@@ -63,7 +64,7 @@ internal class ExponentialMovingAverage(
  * @sample xmas.indicators.ExponentialMovingAverageTest.emaWithIntSeries
  * @see [sma]
  */
-fun ema(source: Series, n: Int): Series = ExponentialMovingAverage(source, n)
+fun ema(source: Series, n: Int = 9): Series = ExponentialMovingAverage(source, n)
 
 /**
  * The exponential moving average used by RSI.
