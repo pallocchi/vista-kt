@@ -55,34 +55,6 @@ fun seriesOf(vararg values: Double): Series = SimpleSeries(values.map { numOf(it
 fun seriesOf(vararg values: String): Series = SimpleSeries(values.map { numOf(it) }.toMutableList())
 
 /**
- * Returns a [Num] series with the min values between [x] and [y].
- *
- * @sample xmas.series.SeriesTest.min
- */
-fun min(x: Series, y: Series): Series = MinSeries(x, y)
-
-/**
- * Returns a [Num] series with the min values between [x] and [y].
- *
- * @sample xmas.series.SeriesTest.min
- */
-fun min(x: Series, y: Num): Series = MinSeries(x, StaticSeries(y))
-
-/**
- * Returns a [Num] series with the max values between [x] and [y].
- *
- * @sample xmas.series.SeriesTest.max
- */
-fun max(x: Series, y: Series): Series = MaxSeries(x, y)
-
-/**
- * Returns a [Num] series with the max values between [x] and [y].
- *
- * @sample xmas.series.SeriesTest.max
- */
-fun max(x: Series, y: Num): Series = MaxSeries(x, StaticSeries(y))
-
-/**
  * Series of numbers.
  */
 abstract class Series {
@@ -310,7 +282,7 @@ private class MovedSeries(
 /**
  * Series that always returns the same fixed [value] for any index.
  */
-private class StaticSeries(
+internal class StaticSeries(
     private val value: Num
 ) : Series() {
 
@@ -319,34 +291,4 @@ private class StaticSeries(
     override val size: Int get() = Int.MAX_VALUE
 
     override fun get(i: Int) = value
-}
-
-/**
- * Series that returns the max value in each index.
- */
-private class MaxSeries(
-    private val x: Series,
-    private val y: Series
-) : Series() {
-
-    override val time: Int get() = kotlin.math.min(x.time, y.time)
-
-    override val size: Int get() = kotlin.math.min(x.size, y.size)
-
-    override fun get(i: Int) = if (x[i] > y[i]) x[i] else y[i]
-}
-
-/**
- * Series that returns the min value in each index.
- */
-private class MinSeries(
-    private val x: Series,
-    private val y: Series
-) : Series() {
-
-    override val time: Int get() = kotlin.math.min(x.time, y.time)
-
-    override val size: Int get() = kotlin.math.min(x.size, y.size)
-
-    override fun get(i: Int) = if (x[i] < y[i]) x[i] else y[i]
 }

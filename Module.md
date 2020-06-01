@@ -12,7 +12,7 @@ Contains the rules, such `cross`, `crossover`, `crossunder`.
 
 # Package xmas.series
 
-Contains the series and related functions, such `min` and `max`.
+Contains the series.
 
 # Package xmas.data
 
@@ -24,4 +24,4 @@ Contains the indicators, such `sma`, `rsi`, `macd`.
 
 # Package xmas.math
 
-Contains the precision number implementation and math related stuff.
+Contains the number implementations and related functions, such `min` or `max`.
