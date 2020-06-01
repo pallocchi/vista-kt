@@ -86,6 +86,10 @@ fun max(x: Series, y: Num): Series = MaxSeries(x, StaticSeries(y))
  * Series of numbers.
  */
 abstract class Series {
+    /**
+     * Returns the latest index.
+     */
+    abstract val time: Int
 
     /**
      * Returns the series size.
@@ -260,6 +264,8 @@ infix fun Series.crossUnder(other: Series) = this.current < other.current && thi
  */
 private class SimpleSeries(private val values: List<Num>) : Series() {
 
+    override val time: Int get() = values.size - 1
+
     override val size: Int get() = values.size
 
     override operator fun get(i: Int): Num {
@@ -279,6 +285,8 @@ private class OperatorSeries(
     private val operation: (Num, Num) -> Num
 ) : Series() {
 
+    override val time: Int get() = kotlin.math.min(x.time, y.time)
+
     override val size: Int get() = kotlin.math.min(x.size, y.size)
 
     override fun get(i: Int) = operation(x[i], y[i])
@@ -292,6 +300,8 @@ private class MovedSeries(
     private val n: Int
 ) : Series() {
 
+    override val time: Int get() = source.time
+
     override val size: Int get() = source.size
 
     override fun get(i: Int) = source[i + n]
@@ -303,6 +313,8 @@ private class MovedSeries(
 private class StaticSeries(
     private val value: Num
 ) : Series() {
+
+    override val time: Int get() = Int.MAX_VALUE
 
     override val size: Int get() = Int.MAX_VALUE
 
@@ -317,6 +329,8 @@ private class MaxSeries(
     private val y: Series
 ) : Series() {
 
+    override val time: Int get() = kotlin.math.min(x.time, y.time)
+
     override val size: Int get() = kotlin.math.min(x.size, y.size)
 
     override fun get(i: Int) = if (x[i] > y[i]) x[i] else y[i]
@@ -329,6 +343,8 @@ private class MinSeries(
     private val x: Series,
     private val y: Series
 ) : Series() {
+
+    override val time: Int get() = kotlin.math.min(x.time, y.time)
 
     override val size: Int get() = kotlin.math.min(x.size, y.size)
 

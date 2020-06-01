@@ -38,8 +38,10 @@ import xmas.series.Series
 class Data(
     private val bars: MutableList<Bar> = mutableListOf()
 ) {
-
-    val index: Int = size - 1
+    /**
+     * Returns the latest index.
+     */
+    var time: Int = size - 1
 
     /**
      * Returns the bars count.
@@ -49,7 +51,10 @@ class Data(
     /**
      * Adds the given [bar] to the historical data.
      */
-    fun add(bar: Bar) = bars.add(bar)
+    fun add(bar: Bar) {
+        bars.add(bar)
+        time++
+    }
 
     /**
      * Returns the [Bar] at [i] bars time from now.
@@ -109,6 +114,8 @@ private class Open(
     private val data: Data
 ) : Series() {
 
+    override val time: Int get() = data.time
+
     override val size: Int get() = data.size
 
     override fun get(i: Int): Num = data[i]?.open ?: NaN
@@ -120,6 +127,8 @@ private class Open(
 private class High(
     private val data: Data
 ) : Series() {
+
+    override val time: Int get() = data.time
 
     override val size: Int get() = data.size
 
@@ -133,6 +142,8 @@ private class Low(
     private val data: Data
 ) : Series() {
 
+    override val time: Int get() = data.time
+
     override val size: Int get() = data.size
 
     override fun get(i: Int): Num = data[i]?.low ?: NaN
@@ -145,6 +156,8 @@ private class Close(
     private val data: Data
 ) : Series() {
 
+    override val time: Int get() = data.time
+
     override val size: Int get() = data.size
 
     override fun get(i: Int): Num = data[i]?.close ?: NaN
@@ -156,6 +169,8 @@ private class Close(
 private class Volume(
     private val data: Data
 ) : Series() {
+
+    override val time: Int get() = data.time
 
     override val size: Int get() = data.size
 

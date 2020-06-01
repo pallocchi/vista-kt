@@ -36,7 +36,7 @@ import kotlin.math.sqrt
 internal class HullMovingAverage(
     private val source: Series,
     private val n: Int
-) : Indicator(source) {
+) : CachedIndicator(source) {
 
     override val size: Int get() = source.size + 1 - n
 

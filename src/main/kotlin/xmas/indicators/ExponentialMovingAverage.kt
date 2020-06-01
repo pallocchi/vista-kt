@@ -37,16 +37,15 @@ internal class ExponentialMovingAverage(
     private val source: Series,
     private val n: Int,
     private val alpha: Num = numOf(2) / (n + 1)
-) : Indicator(source) {
+) : CachedIndicator(source) {
 
     override val size: Int get() = source.size + 1 - n
 
-    override fun calculate(index: Int): Num {
-        println("calculating EMA($n) for index: $index")
-        if (index == size - 1)
-            return sma(source, n)[index]
-        if (index in 0 until size)
-            return alpha * source[index] + (Num.ONE - alpha) * this[index + 1]
+    override fun calculate(i: Int): Num {
+        if (i == size - 1)
+            return sma(source, n)[i]
+        if (i in 0 until size)
+            return alpha * source[i] + (Num.ONE - alpha) * this[i + 1]
         return NaN
     }
 }

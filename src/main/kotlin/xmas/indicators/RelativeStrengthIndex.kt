@@ -29,6 +29,7 @@ import xmas.math.NaN
 import xmas.math.Num
 import xmas.series.Series
 import xmas.series.max
+import kotlin.math.min
 
 /**
  * Relative strength index (RSI) indicator.
@@ -36,14 +37,14 @@ import xmas.series.max
 internal class RelativeStrengthIndex(
     private val source: Series,
     private val n: Int
-) : Indicator(source) {
+) : CachedIndicator(source) {
 
     companion object {
         val MIN_VALUE = Num.ZERO
         val MAX_VALUE = Num.HUNDRED
     }
 
-    override val size: Int get() = source.size - n
+    override val size: Int get() = min(upward.size, downward.size)
 
     private val upward = rma(max(source - source(1), Num.ZERO), n)
     private val downward = rma(max(source(1) - source, Num.ZERO), n)

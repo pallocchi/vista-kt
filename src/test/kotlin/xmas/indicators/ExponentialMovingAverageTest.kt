@@ -35,7 +35,7 @@ import xmas.math.numOf
 import xmas.series.seriesOf
 
 internal class ExponentialMovingAverageTest {
-
+    
     @Test
     fun emaWithIntSeries() {
 
