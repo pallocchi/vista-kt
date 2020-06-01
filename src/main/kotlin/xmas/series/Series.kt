@@ -89,7 +89,7 @@ abstract class Series {
     /**
      * Returns a [Series] whose vales are moved by [i] positions.
      */
-    operator fun invoke(i: Int): Series = MovedSeries(this, i)
+    operator fun invoke(i: Int): Series = ShiftedSeries(this, i)
 
     /**
      * Returns a [Series] whose values are the current ones `+` [other].
@@ -266,9 +266,9 @@ private class OperatorSeries(
 }
 
 /**
- * Series that returns the [n]-th previous value of [source].
+ * Series that has been shifted by [n] bars.
  */
-private class MovedSeries(
+private class ShiftedSeries(
     private val source: Series,
     private val n: Int
 ) : Series() {
