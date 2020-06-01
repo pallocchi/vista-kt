@@ -1,4 +1,4 @@
-# Module xmas
+# Module Insight
 
 Technical Analysis for Kotlin.
 
@@ -6,22 +6,22 @@ Technical Analysis for Kotlin.
 
 This library was inspired by [Pine Script](https://www.tradingview.com/pine-script-docs/en/v4/Introduction.html) from [Trading View](https://www.tradingview.com/).
 
-# Package xmas.rules
+# Package insight.rules
 
 Contains the rules, such `cross`, `crossover`, `crossunder`.
 
-# Package xmas.series
+# Package insight.series
 
 Contains the series.
 
-# Package xmas.data
+# Package insight.data
 
 Contains the market data series, such `open`, `high`, `low`, and `close` prices.
 
-# Package xmas.indicators
+# Package insight.indicators
 
 Contains the indicators, such `sma`, `rsi`, `macd`.
 
-# Package xmas.math
+# Package insight.math
 
 Contains the number implementations and related functions, such `min` or `max`.
