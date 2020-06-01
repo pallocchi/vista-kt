@@ -25,7 +25,6 @@
 
 package xmas.indicators
 
-import xmas.math.NaN
 import xmas.math.Num
 import xmas.series.Series
 
@@ -40,17 +39,14 @@ internal class WeightedMovingAverage(
     override val size: Int get() = source.size + 1 - n
 
     override fun calculate(i: Int): Num {
-        if (i in 0..size) {
-            var norm = Num.ZERO
-            var sum = Num.ZERO
-            for (j in 0 until n) {
-                val weight = (n - j) * n
-                norm += weight
-                sum += source[i + j] * weight
-            }
-            return sum / norm
+        var norm = Num.ZERO
+        var sum = Num.ZERO
+        for (j in 0 until n) {
+            val weight = (n - j) * n
+            norm += weight
+            sum += source[i + j] * weight
         }
-        return NaN
+        return sum / norm
     }
 }
 

@@ -25,7 +25,6 @@
 
 package xmas.indicators
 
-import xmas.math.NaN
 import xmas.math.Num
 import xmas.math.numOf
 import xmas.series.Series
@@ -41,13 +40,10 @@ internal class SimpleMovingAverage(
     override val size: Int get() = source.size + 1 - n
 
     override fun calculate(i: Int): Num {
-        if (i in 0..size) {
-            var sum = Num.ZERO
-            for (j in 0 until n)
-                sum += source[i + j]
-            return sum / numOf(n)
-        }
-        return NaN
+        var sum = Num.ZERO
+        for (j in 0 until n)
+            sum += source[i + j]
+        return sum / numOf(n)
     }
 }
 

@@ -25,7 +25,6 @@
 
 package xmas.indicators
 
-import xmas.math.NaN
 import xmas.math.Num
 import xmas.series.Series
 import xmas.series.max
@@ -50,13 +49,10 @@ internal class RelativeStrengthIndex(
     private val downward = rma(max(source(1) - source, Num.ZERO), n)
 
     override fun calculate(i: Int): Num {
-        if (i in 0..size) {
-            if (downward[i] == Num.ZERO)
-                return if (upward[i] == Num.ZERO) MIN_VALUE else MAX_VALUE
-            val rs = upward[i] / downward[i]
-            return MAX_VALUE - MAX_VALUE / (Num.ONE + rs)
-        }
-        return NaN
+        if (downward[i] == Num.ZERO)
+            return if (upward[i] == Num.ZERO) MIN_VALUE else MAX_VALUE
+        val rs = upward[i] / downward[i]
+        return MAX_VALUE - MAX_VALUE / (Num.ONE + rs)
     }
 }
 

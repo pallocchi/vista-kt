@@ -25,7 +25,6 @@
 
 package xmas.indicators
 
-import xmas.math.NaN
 import xmas.math.Num
 import xmas.math.numOf
 import xmas.series.Series
@@ -44,9 +43,7 @@ internal class ExponentialMovingAverage(
     override fun calculate(i: Int): Num {
         if (i == size - 1)
             return sma(source, n)[i]
-        if (i in 0 until size)
-            return alpha * source[i] + (Num.ONE - alpha) * this[i + 1]
-        return NaN
+        return alpha * source[i] + (Num.ONE - alpha) * this[i + 1]
     }
 }
 

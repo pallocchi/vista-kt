@@ -39,7 +39,7 @@ internal abstract class Indicator(private val source: Series) : Series() {
     /**
      * Returns the calculated indicator value [i] bars from now.
      */
-    override fun get(i: Int): Num = calculate(i)
+    override fun get(i: Int): Num = if (i in 0 until size) calculate(i) else NaN
 
     /**
      * Returns the calculated indicator value [i] bars from now.
@@ -68,20 +68,20 @@ internal abstract class CachedIndicator(private val source: Series) : Indicator(
     override fun get(i: Int): Num {
         // calculate how many bars this cache is outdated
         val misses = time - lastCachedTime
-        return if (i >= misses) {
-            // the requested value is older than the latest cached value,
-            // so we can retrieve it from directly from the cache
-            cache[time - i]
-        } else {
-            // the requested value is missing, so we proceed to calculate
-            // the missing values and save them into the cache
-            var value: Num = NaN
-            for (j in misses - 1 downTo 0) {
-                value = calculate(j)
-                cache.add(value)
-                lastCachedTime++
+        return when (i) {
+            in misses until size -> cache[time - i]
+            in 0 until misses -> {
+                // the requested value is not present, so we calculate
+                // the missing values and save them into the cache
+                var value: Num = NaN
+                for (j in misses - 1 downTo 0) {
+                    value = calculate(j)
+                    cache.add(value)
+                    lastCachedTime++
+                }
+                value
             }
-            value
+            else -> NaN
         }
     }
 }
