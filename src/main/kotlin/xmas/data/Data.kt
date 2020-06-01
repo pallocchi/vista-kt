@@ -41,7 +41,7 @@ class Data(
     /**
      * Returns the latest index.
      */
-    var time: Int = size - 1
+    val time: Int get() = bars.size - 1
 
     /**
      * Returns the bars count.
@@ -53,7 +53,6 @@ class Data(
      */
     fun add(bar: Bar) {
         bars.add(bar)
-        time++
     }
 
     /**
@@ -108,73 +107,18 @@ class Data(
 }
 
 /**
- * Series of open prices.
+ * Series of specific values of [Data] object.
  */
-private class Open(
-    private val data: Data
+private class DataSeries(
+    private val data: Data,
+    private val projection: (Data.Bar) -> Num
 ) : Series() {
 
     override val time: Int get() = data.time
 
     override val size: Int get() = data.size
 
-    override fun get(i: Int): Num = data[i]?.open ?: NaN
-}
-
-/**
- * Series of high prices.
- */
-private class High(
-    private val data: Data
-) : Series() {
-
-    override val time: Int get() = data.time
-
-    override val size: Int get() = data.size
-
-    override fun get(i: Int): Num = data[i]?.high ?: NaN
-}
-
-/**
- * Series of low prices.
- */
-private class Low(
-    private val data: Data
-) : Series() {
-
-    override val time: Int get() = data.time
-
-    override val size: Int get() = data.size
-
-    override fun get(i: Int): Num = data[i]?.low ?: NaN
-}
-
-/**
- * Series of close prices.
- */
-private class Close(
-    private val data: Data
-) : Series() {
-
-    override val time: Int get() = data.time
-
-    override val size: Int get() = data.size
-
-    override fun get(i: Int): Num = data[i]?.close ?: NaN
-}
-
-/**
- * Series of volume values.
- */
-private class Volume(
-    private val data: Data
-) : Series() {
-
-    override val time: Int get() = data.time
-
-    override val size: Int get() = data.size
-
-    override fun get(i: Int): Num = data[i]?.volume ?: NaN
+    override fun get(i: Int) = data[i]?.let { projection(it) } ?: NaN
 }
 
 /**
@@ -183,7 +127,7 @@ private class Volume(
  * @sample xmas.data.DataTest.init
  * @sample xmas.data.DataTest.withOpenSeries
  */
-fun open(data: Data): Series = Open(data)
+fun open(data: Data): Series = DataSeries(data) { it.open }
 
 /**
  * The high price series.
@@ -191,7 +135,7 @@ fun open(data: Data): Series = Open(data)
  * @sample xmas.data.DataTest.init
  * @sample xmas.data.DataTest.withHighSeries
  */
-fun high(data: Data): Series = High(data)
+fun high(data: Data): Series = DataSeries(data) { it.high }
 
 /**
  * The low price series.
@@ -199,7 +143,7 @@ fun high(data: Data): Series = High(data)
  * @sample xmas.data.DataTest.init
  * @sample xmas.data.DataTest.withLowSeries
  */
-fun low(data: Data): Series = Low(data)
+fun low(data: Data): Series = DataSeries(data) { it.low }
 
 /**
  * The close price series.
@@ -207,7 +151,7 @@ fun low(data: Data): Series = Low(data)
  * @sample xmas.data.DataTest.init
  * @sample xmas.data.DataTest.withCloseSeries
  */
-fun close(data: Data): Series = Close(data)
+fun close(data: Data): Series = DataSeries(data) { it.close }
 
 /**
  * The volume series.
@@ -215,4 +159,4 @@ fun close(data: Data): Series = Close(data)
  * @sample xmas.data.DataTest.init
  * @sample xmas.data.DataTest.withVolumeSeries
  */
-fun volume(data: Data): Series = Volume(data)
+fun volume(data: Data): Series = DataSeries(data) { it.volume }
