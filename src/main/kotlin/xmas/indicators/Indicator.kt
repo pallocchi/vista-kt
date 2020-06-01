@@ -69,19 +69,22 @@ internal abstract class CachedIndicator(private val source: Series) : Indicator(
         // calculate how many bars this cache is outdated
         val misses = time - lastCachedTime
         return when (i) {
-            in misses until size -> cache[time - i]
-            in 0 until misses -> {
-                // the requested value is not present, so we calculate
-                // the missing values and save them into the cache
-                var value: Num = NaN
-                for (j in misses - 1 downTo 0) {
-                    value = calculate(j)
-                    cache.add(value)
-                    lastCachedTime++
-                }
-                value
-            }
-            else -> NaN
+            in misses until size -> cache[time - i]     // value is in cache
+            in 0 until misses -> calculate(misses, i)   // value is missing
+            else -> NaN                                 // value out of range
         }
+    }
+
+    /**
+     * Calculates the missing values from the [start] to the [end], and return the last one.
+     */
+    private fun calculate(start: Int, end: Int): Num {
+        var value: Num = NaN
+        for (j in start - 1 downTo end) {
+            value = calculate(j)
+            cache.add(value)
+            lastCachedTime++
+        }
+        return value
     }
 }
