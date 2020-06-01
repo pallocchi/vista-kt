@@ -25,36 +25,8 @@
 
 package xmas.indicators
 
-import xmas.math.NaN
-import xmas.math.Num
 import xmas.series.Series
 import kotlin.math.sqrt
-
-/**
- * Hull Moving Average (HMA) indicator.
- */
-internal class HullMovingAverage(
-    private val source: Series,
-    private val n: Int
-) : CachedIndicator(source) {
-
-    override val size: Int get() = source.size + 1 - n
-
-    private val wma: Series
-
-    init {
-        val wma1 = wma(source, n / 2) * 2
-        val wma2 = wma(source, n)
-        val sqrN = sqrt(n.toDouble()).toInt()
-        wma = wma(wma1 - wma2, sqrN)
-    }
-
-    override fun calculate(i: Int): Num {
-        if (i in 0..size)
-            return wma[i]
-        return NaN
-    }
-}
 
 /**
  * The hull moving average of [source] for [n] bars back, which reduces lag of traditional moving averages.
@@ -68,4 +40,9 @@ internal class HullMovingAverage(
  * @sample xmas.indicators.HullMovingAverageTest.withIntSeries
  * @see [wma]
  */
-fun hma(source: Series, n: Int = 9): Series = HullMovingAverage(source, n)
+fun hma(source: Series, n: Int = 9): Series {
+    val wma1 = wma(source, n / 2) * 2
+    val wma2 = wma(source, n)
+    val length = sqrt(n.toDouble()).toInt()
+    return wma(wma1 - wma2, length)
+}
