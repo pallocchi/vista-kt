@@ -199,48 +199,4 @@ internal class SeriesTest {
         assertThat(bullish crossUnder bearish).isFalse()
         assertThat(bullish crossUnder bullish).isFalse()
     }
-
-    @Test
-    fun min() {
-        val a = seriesOf(1, 2, 3)
-        val b = seriesOf(3, 2, 1)
-
-        // min between two series
-
-        val c = min(a, b)
-
-        assertThat(c[0]).isEqualTo(numOf(1))
-        assertThat(c[1]).isEqualTo(numOf(2))
-        assertThat(c[2]).isEqualTo(numOf(1))
-
-        // min between series and number
-
-        val d = min(a, numOf(2))
-
-        assertThat(d[0]).isEqualTo(numOf(2))
-        assertThat(d[1]).isEqualTo(numOf(2))
-        assertThat(d[2]).isEqualTo(numOf(1))
-    }
-
-    @Test
-    fun max() {
-        val a = seriesOf(1, 2, 3)
-        val b = seriesOf(3, 2, 1)
-
-        // max between two series
-
-        val c = max(a, b)
-
-        assertThat(c[0]).isEqualTo(numOf(3))
-        assertThat(c[1]).isEqualTo(numOf(2))
-        assertThat(c[2]).isEqualTo(numOf(3))
-
-        // max between series and number
-
-        val d = max(a, numOf(2))
-
-        assertThat(d[0]).isEqualTo(numOf(3))
-        assertThat(d[1]).isEqualTo(numOf(2))
-        assertThat(d[2]).isEqualTo(numOf(2))
-    }
 }

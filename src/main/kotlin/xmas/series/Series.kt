@@ -27,6 +27,7 @@ package xmas.series
 
 import xmas.math.NaN
 import xmas.math.Num
+import xmas.math.min
 import xmas.math.numOf
 
 /**
@@ -257,9 +258,9 @@ private class OperatorSeries(
     private val operation: (Num, Num) -> Num
 ) : Series() {
 
-    override val time: Int get() = kotlin.math.min(x.time, y.time)
+    override val time: Int get() = min(x.time, y.time)
 
-    override val size: Int get() = kotlin.math.min(x.size, y.size)
+    override val size: Int get() = min(x.size, y.size)
 
     override fun get(i: Int) = operation(x[i], y[i])
 }

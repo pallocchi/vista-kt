@@ -30,49 +30,57 @@ import xmas.series.StaticSeries
 
 /**
  * Returns the lowest of [x] and [y].
+ *
+ * @sample xmas.math.FunctionsTest.minWithInt
  */
 fun min(x: Int, y: Int): Int = if (x <= y) x else y
 
 /**
  * Returns the greatest of [x] and [y].
+ *
+ * @sample xmas.math.FunctionsTest.maxWithNum
  */
 fun max(x: Int, y: Int): Int = if (x >= y) x else y
 
 /**
  * Returns the lowest of [x] and [y].
+ *
+ * @sample xmas.math.FunctionsTest.minWithNum
  */
-fun min(x: Num, y: Num): Num = if (x <= y) x else y
+fun min(x: Num, y: Num): Num = if (x < y) x else y
 
 /**
  * Returns the greatest of [x] and [y].
+ *
+ * @sample xmas.math.FunctionsTest.maxWithNum
  */
-fun max(x: Num, y: Num): Num = if (x >= y) x else y
+fun max(x: Num, y: Num): Num = if (x > y) x else y
 
 /**
  * Returns a series with the lowest of [x] and [y].
  *
- * @sample xmas.series.SeriesTest.min
+ * @sample xmas.math.FunctionsTest.minWithSeries
  */
 fun min(x: Series, y: Series): Series = MinSeries(x, y)
 
 /**
  * Returns a series with the greatest of [x] and [y].
  *
- * @sample xmas.series.SeriesTest.max
+ * @sample xmas.math.FunctionsTest.maxWithSeries
  */
 fun max(x: Series, y: Series): Series = MaxSeries(x, y)
 
 /**
  * Returns a series with the lowest of [x] and [y].
  *
- * @sample xmas.series.SeriesTest.min
+ * @sample xmas.math.FunctionsTest.minWithSeries
  */
 fun min(x: Series, y: Num): Series = MinSeries(x, StaticSeries(y))
 
 /**
  * Returns a series with the greatest of [x] and [y].
  *
- * @sample xmas.series.SeriesTest.max
+ * @sample xmas.math.FunctionsTest.maxWithSeries
  */
 fun max(x: Series, y: Num): Series = MaxSeries(x, StaticSeries(y))
 
