@@ -23,17 +23,17 @@
  *
  */
 
-package xmas.data
+package vista.data
 
-import xmas.math.NaN
-import xmas.math.Num
-import xmas.math.numOf
-import xmas.series.Series
+import vista.math.NaN
+import vista.math.Num
+import vista.math.numOf
+import vista.series.Series
 
 /**
  * Market data.
  *
- * @sample xmas.data.DataTest.init
+ * @sample vista.data.DataTest.init
  */
 class Data(
     private val bars: MutableList<Bar> = mutableListOf()
@@ -60,7 +60,7 @@ class Data(
      *
      * Note this method should be called using the indexing operator `[]`.
      *
-     * @sample xmas.data.DataTest.withIndexingOperator
+     * @sample vista.data.DataTest.withIndexingOperator
      */
     operator fun get(i: Int): Bar? {
         val index = size - i - 1
@@ -124,39 +124,39 @@ private class DataSeries(
 /**
  * The open price series.
  *
- * @sample xmas.data.DataTest.init
- * @sample xmas.data.DataTest.withOpenSeries
+ * @sample vista.data.DataTest.init
+ * @sample vista.data.DataTest.withOpenSeries
  */
 fun open(data: Data): Series = DataSeries(data) { it.open }
 
 /**
  * The high price series.
  *
- * @sample xmas.data.DataTest.init
- * @sample xmas.data.DataTest.withHighSeries
+ * @sample vista.data.DataTest.init
+ * @sample vista.data.DataTest.withHighSeries
  */
 fun high(data: Data): Series = DataSeries(data) { it.high }
 
 /**
  * The low price series.
  *
- * @sample xmas.data.DataTest.init
- * @sample xmas.data.DataTest.withLowSeries
+ * @sample vista.data.DataTest.init
+ * @sample vista.data.DataTest.withLowSeries
  */
 fun low(data: Data): Series = DataSeries(data) { it.low }
 
 /**
  * The close price series.
  *
- * @sample xmas.data.DataTest.init
- * @sample xmas.data.DataTest.withCloseSeries
+ * @sample vista.data.DataTest.init
+ * @sample vista.data.DataTest.withCloseSeries
  */
 fun close(data: Data): Series = DataSeries(data) { it.close }
 
 /**
  * The volume series.
  *
- * @sample xmas.data.DataTest.init
- * @sample xmas.data.DataTest.withVolumeSeries
+ * @sample vista.data.DataTest.init
+ * @sample vista.data.DataTest.withVolumeSeries
  */
 fun volume(data: Data): Series = DataSeries(data) { it.volume }

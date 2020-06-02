@@ -23,11 +23,11 @@
  *
  */
 
-package xmas.indicators
+package vista.indicators
 
-import xmas.math.Num
-import xmas.math.pow
-import xmas.series.Series
+import vista.math.Num
+import vista.math.pow
+import vista.series.Series
 
 /**
  * Standard deviation indicator.
@@ -55,7 +55,7 @@ internal class StandardDeviation(
  *
  * @param source Series of values to process
  * @param n Number of bars (length)
- * @sample xmas.indicators.StandardDeviationTest.withIntSeries
+ * @sample vista.indicators.StandardDeviationTest.withIntSeries
  * @see [dev]
  */
 fun stdev(source: Series, n: Int): Series = StandardDeviation(source, n)

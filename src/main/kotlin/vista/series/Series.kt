@@ -23,12 +23,12 @@
  *
  */
 
-package xmas.series
+package vista.series
 
-import xmas.math.NaN
-import xmas.math.Num
-import xmas.math.min
-import xmas.math.numOf
+import vista.math.NaN
+import vista.math.Num
+import vista.math.min
+import vista.math.numOf
 
 /**
  * Returns a [Num] series from given [values].
@@ -82,7 +82,7 @@ abstract class Series {
     /**
      * Returns the series value [i] bars from now.
      *
-     * @sample xmas.series.SeriesTest.withIndexingOperator
+     * @sample vista.series.SeriesTest.withIndexingOperator
      */
     abstract operator fun get(i: Int): Num
 
@@ -94,119 +94,119 @@ abstract class Series {
     /**
      * Returns a [Series] whose values are the current ones `+` [other].
      *
-     * @sample xmas.series.SeriesTest.plus
+     * @sample vista.series.SeriesTest.plus
      */
     operator fun plus(other: Series): Series = BiCalculatedSeries(this, other) { x, y -> x + y }
 
     /**
      * Returns a [Series] whose values are the current ones `+` [other].
      *
-     * @sample xmas.series.SeriesTest.plus
+     * @sample vista.series.SeriesTest.plus
      */
     operator fun plus(other: Num): Series = CalculatedSeries(this) { it + other }
 
     /**
      * Returns a [Series] whose values are the current ones `+` [other].
      *
-     * @sample xmas.series.SeriesTest.plus
+     * @sample vista.series.SeriesTest.plus
      */
     operator fun plus(other: Int): Series = plus(numOf(other))
 
     /**
      * Returns a [Series] whose values are the current ones `+` [other].
      *
-     * @sample xmas.series.SeriesTest.plus
+     * @sample vista.series.SeriesTest.plus
      */
     operator fun plus(other: Double): Series = plus(numOf(other))
 
     /**
      * Returns a [Series] whose values are the current ones `-` [other].
      *
-     * @sample xmas.series.SeriesTest.minus
+     * @sample vista.series.SeriesTest.minus
      */
     operator fun minus(other: Series): Series = BiCalculatedSeries(this, other) { x, y -> x - y }
 
     /**
      * Returns a [Series] whose values are the current ones `-` [other].
      *
-     * @sample xmas.series.SeriesTest.minus
+     * @sample vista.series.SeriesTest.minus
      */
     operator fun minus(other: Num): Series = CalculatedSeries(this) { it - other }
 
     /**
      * Returns a [Series] whose values are the current ones `-` [other].
      *
-     * @sample xmas.series.SeriesTest.minus
+     * @sample vista.series.SeriesTest.minus
      */
     operator fun minus(other: Int): Series = minus(numOf(other))
 
     /**
      * Returns a [Series] whose values are the current ones `-` [other].
      *
-     * @sample xmas.series.SeriesTest.minus
+     * @sample vista.series.SeriesTest.minus
      */
     operator fun minus(other: Double): Series = minus(numOf(other))
 
     /**
      * Returns a [Series] whose values are the current ones `*` [other].
      *
-     * @sample xmas.series.SeriesTest.times
+     * @sample vista.series.SeriesTest.times
      */
     operator fun times(other: Series): Series = BiCalculatedSeries(this, other) { x, y -> x * y }
 
     /**
      * Returns a [Series] whose values are the current ones `*` [other].
      *
-     * @sample xmas.series.SeriesTest.times
+     * @sample vista.series.SeriesTest.times
      */
     operator fun times(other: Num): Series = CalculatedSeries(this) { it * other }
 
     /**
      * Returns a [Series] whose values are the current ones `*` [other].
      *
-     * @sample xmas.series.SeriesTest.times
+     * @sample vista.series.SeriesTest.times
      */
     operator fun times(other: Int): Series = times(numOf(other))
 
     /**
      * Returns a [Series] whose values are the current ones `*` [other].
      *
-     * @sample xmas.series.SeriesTest.times
+     * @sample vista.series.SeriesTest.times
      */
     operator fun times(other: Double): Series = times(numOf(other))
 
     /**
      * Returns a [Series] whose values are the current ones `/` [other].
      *
-     * @sample xmas.series.SeriesTest.div
+     * @sample vista.series.SeriesTest.div
      */
     operator fun div(other: Series): Series = BiCalculatedSeries(this, other) { x, y -> x / y }
 
     /**
      * Returns a [Series] whose values are the current ones `/` [other].
      *
-     * @sample xmas.series.SeriesTest.div
+     * @sample vista.series.SeriesTest.div
      */
     operator fun div(other: Num): Series = CalculatedSeries(this) { it / other }
 
     /**
      * Returns a [Series] whose values are the current ones `/` [other].
      *
-     * @sample xmas.series.SeriesTest.div
+     * @sample vista.series.SeriesTest.div
      */
     operator fun div(other: Int): Series = div(numOf(other))
 
     /**
      * Returns a [Series] whose values are the current ones `/` [other].
      *
-     * @sample xmas.series.SeriesTest.div
+     * @sample vista.series.SeriesTest.div
      */
     operator fun div(other: Double): Series = div(numOf(other))
 
     /**
      * Returns `-1`, `0`, or `1` as [current] value is numerically less than, equal to, or greater than [other].
      *
-     * @sample xmas.series.SeriesTest.compareTo
+     * @sample vista.series.SeriesTest.compareTo
      */
     operator fun compareTo(other: Series): Int = this.current.compareTo(other.current)
 }
@@ -214,21 +214,21 @@ abstract class Series {
 /**
  * Returns if two series has crossed each other.
  *
- * @sample xmas.series.SeriesTest.cross
+ * @sample vista.series.SeriesTest.cross
  */
 infix fun Series.cross(other: Series) = this crossOver other || this crossUnder other
 
 /**
  * Returns if current series has crossed over the [other].
  *
- * @sample xmas.series.SeriesTest.crossOver
+ * @sample vista.series.SeriesTest.crossOver
  */
 infix fun Series.crossOver(other: Series) = this.current > other.current && this.previous < other.previous
 
 /**
  * Returns if current series has crossed under the [other].
  *
- * @sample xmas.series.SeriesTest.crossUnder
+ * @sample vista.series.SeriesTest.crossUnder
  */
 infix fun Series.crossUnder(other: Series) = this.current < other.current && this.previous > other.previous
 

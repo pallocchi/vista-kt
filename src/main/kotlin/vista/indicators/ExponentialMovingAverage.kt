@@ -23,11 +23,11 @@
  *
  */
 
-package xmas.indicators
+package vista.indicators
 
-import xmas.math.Num
-import xmas.math.numOf
-import xmas.series.Series
+import vista.math.Num
+import vista.math.numOf
+import vista.series.Series
 
 /**
  * Exponential Moving Average (EMA) indicator.
@@ -57,7 +57,7 @@ internal class ExponentialMovingAverage(
  *
  * @param source Series of values to process
  * @param n Number of bars (length)
- * @sample xmas.indicators.ExponentialMovingAverageTest.emaWithIntSeries
+ * @sample vista.indicators.ExponentialMovingAverageTest.emaWithIntSeries
  * @see [sma]
  */
 fun ema(source: Series, n: Int = 9): Series = ExponentialMovingAverage(source, n)
@@ -71,7 +71,7 @@ fun ema(source: Series, n: Int = 9): Series = ExponentialMovingAverage(source, n
  *
  * @param source Series of values to process
  * @param n Number of bars (length)
- * @sample xmas.indicators.ExponentialMovingAverageTest.rmaWithIntSeries
+ * @sample vista.indicators.ExponentialMovingAverageTest.rmaWithIntSeries
  * @see [ema]
  */
 fun rma(source: Series, n: Int = 9): Series = ExponentialMovingAverage(source, n, Num.ONE.div(n))

@@ -23,16 +23,16 @@
  *
  */
 
-package xmas.indicators
+package vista.indicators
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import xmas.data.Data
-import xmas.data.close
-import xmas.math.Num
-import xmas.math.numOf
-import xmas.series.Series
-import xmas.series.seriesOf
+import vista.data.Data
+import vista.data.close
+import vista.math.Num
+import vista.math.numOf
+import vista.series.Series
+import vista.series.seriesOf
 
 internal class IndicatorTest {
 

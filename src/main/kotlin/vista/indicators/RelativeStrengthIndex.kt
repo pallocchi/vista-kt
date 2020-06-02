@@ -23,11 +23,11 @@
  *
  */
 
-package xmas.indicators
+package vista.indicators
 
-import xmas.math.Num
-import xmas.math.max
-import xmas.series.Series
+import vista.math.Num
+import vista.math.max
+import vista.series.Series
 
 /**
  * Relative strength index (RSI) indicator.
@@ -64,7 +64,7 @@ internal class RelativeStrengthIndex(
  *
  * @param source Series of values to process
  * @param n Number of bars (length)
- * @sample xmas.indicators.RelativeStrengthIndexTest.withIntSeries
+ * @sample vista.indicators.RelativeStrengthIndexTest.withIntSeries
  * @see [rma]
  */
 fun rsi(source: Series, n: Int = 14): Series = RelativeStrengthIndex(source, n)

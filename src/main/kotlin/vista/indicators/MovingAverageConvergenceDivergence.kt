@@ -23,9 +23,9 @@
  *
  */
 
-package xmas.indicators
+package vista.indicators
 
-import xmas.series.Series
+import vista.series.Series
 
 /**
  * The moving average convergence/divergence of [source], to evaluate strength, direction, momentum, and duration of a trend.
@@ -38,7 +38,7 @@ import xmas.series.Series
  * @param fastLength Number of bars (length) used by the fast [sma]
  * @param slowLength Number of bars (length) used by the slow [sma]
  * @param slowLength Number of bars (length) used by the signal line
- * @sample xmas.indicators.MovingAverageConvergenceDivergenceTest.withIntSeries
+ * @sample vista.indicators.MovingAverageConvergenceDivergenceTest.withIntSeries
  * @see [sma]
  */
 fun macd(

@@ -23,16 +23,16 @@
  *
  */
 
-package xmas.indicators
+package vista.indicators
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import xmas.data.close
-import xmas.loadAmazonData
-import xmas.loadIndicatorData
-import xmas.math.na
-import xmas.math.numOf
-import xmas.series.seriesOf
+import vista.data.close
+import vista.loadAmazonData
+import vista.loadIndicatorData
+import vista.math.na
+import vista.math.numOf
+import vista.series.seriesOf
 
 internal class BollingerBandTest {
 
@@ -42,19 +42,22 @@ internal class BollingerBandTest {
 
         val series = seriesOf(*values)
 
-        val (macd, signal, hist) = macd(series)
+        val (middle, upper, lower) = bb(series)
 
-        assertThat(macd[0].round(2)).isEqualTo(numOf(7))    // current value
-        assertThat(macd[1].round(2)).isEqualTo(numOf(7))    // previous value
-        assertThat(macd[49]).isEqualTo(na)                  // oldest value
+        assertThat(middle[0].round(2)).isEqualTo(numOf(39.50))    // current value
+        assertThat(middle[1].round(2)).isEqualTo(numOf(38.50))    // previous value
+        assertThat(middle[30].round(2)).isEqualTo(numOf(9.50))
+        assertThat(middle[31]).isEqualTo(na)
 
-        assertThat(signal[0].round(2)).isEqualTo(numOf(7))  // current value
-        assertThat(signal[1].round(2)).isEqualTo(numOf(7))  // previous value
-        assertThat(signal[49]).isEqualTo(na)                // oldest value
+        assertThat(upper[0].round(2)).isEqualTo(numOf(51.03))     // current value
+        assertThat(upper[1].round(2)).isEqualTo(numOf(50.03))     // previous value
+        assertThat(upper[30].round(2)).isEqualTo(numOf(21.03))
+        assertThat(upper[31]).isEqualTo(na)
 
-        assertThat(hist[0].round(2)).isEqualTo(numOf(0))    // current value
-        assertThat(hist[1].round(2)).isEqualTo(numOf(0))    // previous value
-        assertThat(hist[49]).isEqualTo(na)                  // oldest value
+        assertThat(lower[0].round(2)).isEqualTo(numOf(27.97))     // current value
+        assertThat(lower[1].round(2)).isEqualTo(numOf(26.97))     // previous value
+        assertThat(lower[30].round(2)).isEqualTo(numOf(-2.03))
+        assertThat(lower[31]).isEqualTo(na)
     }
 
     @Test

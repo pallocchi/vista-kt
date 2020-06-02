@@ -23,85 +23,85 @@
  *
  */
 
-package xmas.math
+package vista.math
 
-import xmas.series.BiCalculatedSeries
-import xmas.series.CalculatedSeries
-import xmas.series.Series
+import vista.series.BiCalculatedSeries
+import vista.series.CalculatedSeries
+import vista.series.Series
 
 /**
  * Returns the lowest of [x] and [y].
  *
- * @sample xmas.math.FunctionsTest.minWithInt
+ * @sample vista.math.FunctionsTest.minWithInt
  */
 fun min(x: Int, y: Int): Int = if (x <= y) x else y
 
 /**
  * Returns the greatest of [x] and [y].
  *
- * @sample xmas.math.FunctionsTest.maxWithNum
+ * @sample vista.math.FunctionsTest.maxWithNum
  */
 fun max(x: Int, y: Int): Int = if (x >= y) x else y
 
 /**
  * Returns the lowest of [x] and [y].
  *
- * @sample xmas.math.FunctionsTest.minWithNum
+ * @sample vista.math.FunctionsTest.minWithNum
  */
 fun min(x: Num, y: Num): Num = if (x < y) x else y
 
 /**
  * Returns the greatest of [x] and [y].
  *
- * @sample xmas.math.FunctionsTest.maxWithNum
+ * @sample vista.math.FunctionsTest.maxWithNum
  */
 fun max(x: Num, y: Num): Num = if (x > y) x else y
 
 /**
  * Returns a series with the lowest of [x] and [y].
  *
- * @sample xmas.math.FunctionsTest.minWithSeries
+ * @sample vista.math.FunctionsTest.minWithSeries
  */
 fun min(x: Series, y: Series): Series = BiCalculatedSeries(x, y) { a, b -> min(a, b) }
 
 /**
  * Returns a series with the greatest of [x] and [y].
  *
- * @sample xmas.math.FunctionsTest.maxWithSeries
+ * @sample vista.math.FunctionsTest.maxWithSeries
  */
 fun max(x: Series, y: Series): Series = BiCalculatedSeries(x, y) { a, b -> max(a, b) }
 
 /**
  * Returns a series with the lowest of [x] and [y].
  *
- * @sample xmas.math.FunctionsTest.minWithSeries
+ * @sample vista.math.FunctionsTest.minWithSeries
  */
 fun min(x: Series, y: Num): Series = CalculatedSeries(x) { a -> min(a, y) }
 
 /**
  * Returns a series with the greatest of [x] and [y].
  *
- * @sample xmas.math.FunctionsTest.maxWithSeries
+ * @sample vista.math.FunctionsTest.maxWithSeries
  */
 fun max(x: Series, y: Num): Series = CalculatedSeries(x) { a -> max(a, y) }
 
 /**
  * Returns a series whose values are the square root of the current ones.
  *
- * @sample xmas.math.FunctionsTest.sqrtWithSeries
+ * @sample vista.math.FunctionsTest.sqrtWithSeries
  */
 fun sqrt(x: Series): Series = CalculatedSeries(x) { it.sqrt() }
 
 /**
  * Returns a series whose values are the current ones raised to the power of [n].
  *
- * @sample xmas.math.FunctionsTest.powWithSeries
+ * @sample vista.math.FunctionsTest.powWithSeries
  */
 fun pow(x: Series, n: Int): Series = CalculatedSeries(x) { it.pow(n) }
 
 /**
  * Returns a series whose values are the absolute value of the current ones.
  *
- * @sample xmas.math.FunctionsTest.absWithSeries
+ * @sample vista.math.FunctionsTest.absWithSeries
  */
 fun abs(x: Series): Series = CalculatedSeries(x) { if (it >= Num.ZERO) it else -it }

@@ -23,10 +23,10 @@
  *
  */
 
-package xmas.indicators
+package vista.indicators
 
-import xmas.math.Num
-import xmas.series.Series
+import vista.math.Num
+import vista.series.Series
 
 /**
  * Weighted Moving Average (WMA) indicator.
@@ -58,7 +58,7 @@ internal class WeightedMovingAverage(
  *
  * @param source Series of values to process
  * @param n Number of bars (length)
- * @sample xmas.indicators.WeightedMovingAverageTest.withIntSeries
+ * @sample vista.indicators.WeightedMovingAverageTest.withIntSeries
  * @see [sma]
  */
 fun wma(source: Series, n: Int = 9): Series = WeightedMovingAverage(source, n)

@@ -23,12 +23,12 @@
  *
  */
 
-package xmas.data
+package vista.data
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import xmas.math.numOf
+import vista.math.numOf
 
 internal class DataTest {
 

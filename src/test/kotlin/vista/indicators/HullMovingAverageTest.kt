@@ -23,16 +23,16 @@
  *
  */
 
-package xmas.indicators
+package vista.indicators
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import xmas.data.close
-import xmas.loadAmazonData
-import xmas.loadIndicatorData
-import xmas.math.na
-import xmas.math.numOf
-import xmas.series.seriesOf
+import vista.data.close
+import vista.loadAmazonData
+import vista.loadIndicatorData
+import vista.math.na
+import vista.math.numOf
+import vista.series.seriesOf
 
 internal class HullMovingAverageTest {
 

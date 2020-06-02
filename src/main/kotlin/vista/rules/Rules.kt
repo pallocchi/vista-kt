@@ -23,18 +23,18 @@
  *
  */
 
-package xmas.rules
+package vista.rules
 
-import xmas.series.Series
-import xmas.series.cross
-import xmas.series.crossOver
-import xmas.series.crossUnder
+import vista.series.Series
+import vista.series.cross
+import vista.series.crossOver
+import vista.series.crossUnder
 
 /**
  * Returns if two series has crossed each other (same as `x cross y`).
  *
  * @see Series.cross
- * @sample xmas.rules.RulesTest.cross
+ * @sample vista.rules.RulesTest.cross
  */
 fun cross(x: Series, y: Series) = x cross y
 
@@ -42,7 +42,7 @@ fun cross(x: Series, y: Series) = x cross y
  * Returns if [x] series has crossed over the [y] series (same as `x crossOver y`).
  *
  * @see Series.crossOver
- * @sample xmas.rules.RulesTest.crossover
+ * @sample vista.rules.RulesTest.crossover
  */
 fun crossover(x: Series, y: Series) = x crossOver y
 
@@ -50,6 +50,6 @@ fun crossover(x: Series, y: Series) = x crossOver y
  * Returns if [x] series has crossed under the [y] series (same as `x crossUnder y`).
  *
  * @see Series.crossUnder
- * @sample xmas.rules.RulesTest.crossunder
+ * @sample vista.rules.RulesTest.crossunder
  */
 fun crossunder(x: Series, y: Series) = x crossUnder y

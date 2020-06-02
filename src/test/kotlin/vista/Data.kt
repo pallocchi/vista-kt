@@ -23,13 +23,13 @@
  *
  */
 
-package xmas
+package vista
 
-import xmas.data.Data
-import xmas.data.Data.Bar
-import xmas.math.NaN
-import xmas.math.Num
-import xmas.math.numOf
+import vista.data.Data
+import vista.data.Data.Bar
+import vista.math.NaN
+import vista.math.Num
+import vista.math.numOf
 
 /**
  * Load the market data from resources folder.

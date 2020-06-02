@@ -23,11 +23,11 @@
  *
  */
 
-package xmas.series
+package vista.series
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import xmas.math.numOf
+import vista.math.numOf
 
 internal class SeriesTest {
 

@@ -23,9 +23,9 @@
  *
  */
 
-package xmas.indicators
+package vista.indicators
 
-import xmas.series.Series
+import vista.series.Series
 
 /**
  * The Bollinger Bands, defined as two standard deviations (positively and negatively) away from the [sma].
@@ -37,7 +37,7 @@ import xmas.series.Series
  * @param source Series of values to process
  * @param n Number of bars (length)
  * @param factor Standard deviation factor
- * @sample xmas.indicators.BollingerBandTest.withIntSeries
+ * @sample vista.indicators.BollingerBandTest.withIntSeries
  * @see [sma] [stdev]
  */
 fun bb(

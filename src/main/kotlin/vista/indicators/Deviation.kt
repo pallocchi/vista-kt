@@ -23,11 +23,11 @@
  *
  */
 
-package xmas.indicators
+package vista.indicators
 
-import xmas.math.Num
-import xmas.math.abs
-import xmas.series.Series
+import vista.math.Num
+import vista.math.abs
+import vista.series.Series
 
 /**
  * Deviation indicator.
@@ -56,7 +56,7 @@ internal class Deviation(
  *
  * @param source Series of values to process
  * @param n Number of bars (length)
- * @sample xmas.indicators.DeviationTest.withIntSeries
+ * @sample vista.indicators.DeviationTest.withIntSeries
  * @see [stdev]
  */
 fun dev(source: Series, n: Int): Series = Deviation(source, n)

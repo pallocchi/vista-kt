@@ -23,9 +23,9 @@
  *
  */
 
-package xmas.math
+package vista.math
 
-import xmas.math.NaN.value
+import vista.math.NaN.value
 import java.math.BigDecimal
 import java.math.MathContext
 import java.math.RoundingMode
@@ -83,7 +83,7 @@ interface Num {
     /**
      * Returns a [Num] whose value is `-`[value].
      *
-     * @sample xmas.math.NumbersTest.unaryMinus
+     * @sample vista.math.NumbersTest.unaryMinus
      */
     operator fun unaryMinus(): Num
 
@@ -92,7 +92,7 @@ interface Num {
      *
      * Note this method should be called using the `+` operator.
      *
-     * @sample xmas.math.NumbersTest.plus
+     * @sample vista.math.NumbersTest.plus
      */
     operator fun plus(addend: Num): Num
 
@@ -101,7 +101,7 @@ interface Num {
      *
      * Note this method should be called using the `+` operator.
      *
-     * @sample xmas.math.NumbersTest.plus
+     * @sample vista.math.NumbersTest.plus
      */
     operator fun plus(addend: Int): Num = plus(numOf(addend))
 
@@ -110,7 +110,7 @@ interface Num {
      *
      * Note this method should be called using the `-` operator.
      *
-     * @sample xmas.math.NumbersTest.minus
+     * @sample vista.math.NumbersTest.minus
      */
     operator fun minus(subtrahend: Num): Num
 
@@ -119,7 +119,7 @@ interface Num {
      *
      * Note this method should be called using the `-` operator.
      *
-     * @sample xmas.math.NumbersTest.minus
+     * @sample vista.math.NumbersTest.minus
      */
     operator fun minus(subtrahend: Int): Num = minus(numOf(subtrahend))
 
@@ -128,7 +128,7 @@ interface Num {
      *
      * Note this method should be called using the `*` operator.
      *
-     * @sample xmas.math.NumbersTest.times
+     * @sample vista.math.NumbersTest.times
      */
     operator fun times(multiplicand: Num): Num
 
@@ -137,7 +137,7 @@ interface Num {
      *
      * Note this method should be called using the `*` operator.
      *
-     * @sample xmas.math.NumbersTest.times
+     * @sample vista.math.NumbersTest.times
      */
     operator fun times(multiplicand: Int): Num = times(numOf(multiplicand))
 
@@ -146,7 +146,7 @@ interface Num {
      *
      * Note this method should be called using the `/` operator.
      *
-     * @sample xmas.math.NumbersTest.div
+     * @sample vista.math.NumbersTest.div
      */
     operator fun div(divisor: Num): Num
 
@@ -155,28 +155,28 @@ interface Num {
      *
      * Note this method should be called using the `/` operator.
      *
-     * @sample xmas.math.NumbersTest.div
+     * @sample vista.math.NumbersTest.div
      */
     operator fun div(divisor: Int): Num = div(numOf(divisor))
 
     /**
      * Returns `-1`, `0`, or `1` as current [value] is numerically less than, equal to, or greater than [other].
      *
-     * @sample xmas.math.NumbersTest.compare
+     * @sample vista.math.NumbersTest.compare
      */
     operator fun compareTo(other: Num): Int
 
     /**
      * Returns if this value is equal to the [other].
      *
-     * @sample xmas.math.NumbersTest.isEqual
+     * @sample vista.math.NumbersTest.isEqual
      */
     fun isEqual(other: Num): Boolean
 
     /**
      * Returns if this value matches the [other] within a [delta].
      *
-     * @sample xmas.math.NumbersTest.matches
+     * @sample vista.math.NumbersTest.matches
      */
     fun matches(other: Num, delta: Double): Boolean
 
@@ -185,56 +185,56 @@ interface Num {
      *
      * If rounding [mode] is not specified, `RoundMode.HALF_UP` is used.
      *
-     * @sample xmas.math.NumbersTest.round
+     * @sample vista.math.NumbersTest.round
      */
     fun round(n: Int, mode: RoundMode = RoundMode.HALF_UP): Num
 
     /**
      * Returns a [Num] whose value is the absolute one of this.
      *
-     * @sample xmas.math.NumbersTest.abs
+     * @sample vista.math.NumbersTest.abs
      */
     fun abs(): Num
 
     /**
      * Returns a [Num] whose value is `√(this)`.
      *
-     * @sample xmas.math.NumbersTest.sqrt
+     * @sample vista.math.NumbersTest.sqrt
      */
     fun sqrt(): Num
 
     /**
      * Returns a [Num] whose value is the current one raised to the power of [n].
      *
-     * @sample xmas.math.NumbersTest.pow
+     * @sample vista.math.NumbersTest.pow
      */
     fun pow(n: Int): Num
 
     /**
      * Returns a [Int] representation.
      *
-     * @sample xmas.math.NumbersTest.toInt
+     * @sample vista.math.NumbersTest.toInt
      */
     fun toInt(): Int? = value?.toInt()
 
     /**
      * Returns a [Long] representation.
      *
-     * @sample xmas.math.NumbersTest.toLong
+     * @sample vista.math.NumbersTest.toLong
      */
     fun toLong(): Long? = value?.toLong()
 
     /**
      * Returns a [Double] representation.
      *
-     * @sample xmas.math.NumbersTest.toDouble
+     * @sample vista.math.NumbersTest.toDouble
      */
     fun toDouble(): Double? = value?.toDouble()
 
     /**
      * Returns a [Float] representation.
      *
-     * @sample xmas.math.NumbersTest.toFloat
+     * @sample vista.math.NumbersTest.toFloat
      */
     fun toFloat(): Float? = value?.toFloat()
 }
@@ -277,14 +277,14 @@ private data class NumImpl(
     /**
      * Returns a [Num] whose value is `-`[value].
      *
-     * @sample xmas.math.NumbersTest.unaryMinus
+     * @sample vista.math.NumbersTest.unaryMinus
      */
     override operator fun unaryMinus(): Num = NumImpl(value.negate())
 
     /**
      * Returns a [Num] whose value is [value] + [addend].
      *
-     * @sample xmas.math.NumbersTest.plus
+     * @sample vista.math.NumbersTest.plus
      */
     override operator fun plus(addend: Num) =
         addend.value?.let { NumImpl(value.plus(it)) } ?: NaN
@@ -292,7 +292,7 @@ private data class NumImpl(
     /**
      * Returns a [Num] whose value is [value] - [subtrahend].
      *
-     * @sample xmas.math.NumbersTest.minus
+     * @sample vista.math.NumbersTest.minus
      */
     override operator fun minus(subtrahend: Num) =
         subtrahend.value?.let { NumImpl(value.minus(it)) } ?: NaN
@@ -302,7 +302,7 @@ private data class NumImpl(
      *
      * Note this method should be called using the `*` operator.
      *
-     * @sample xmas.math.NumbersTest.times
+     * @sample vista.math.NumbersTest.times
      */
     override operator fun times(multiplicand: Num) =
         multiplicand.value?.let { NumImpl(value.multiply(it, MATH_CONTEXT)) } ?: NaN
@@ -312,7 +312,7 @@ private data class NumImpl(
      *
      * Note this method should be called using the `/` operator.
      *
-     * @sample xmas.math.NumbersTest.div
+     * @sample vista.math.NumbersTest.div
      */
     override operator fun div(divisor: Num) =
         if (divisor != Num.ZERO) divisor.value?.let { NumImpl(value.divide(it, MATH_CONTEXT)) } ?: NaN else NaN
@@ -320,49 +320,49 @@ private data class NumImpl(
     /**
      * Returns `-1`, `0`, or `1` as current [value] is numerically less than, equal to, or greater than [other].
      *
-     * @sample xmas.math.NumbersTest.compare
+     * @sample vista.math.NumbersTest.compare
      */
     override operator fun compareTo(other: Num) = other.value?.let { value.compareTo(it) } ?: 0
 
     /**
      * Returns if this value is equal to the [other].
      *
-     * @sample xmas.math.NumbersTest.isEqual
+     * @sample vista.math.NumbersTest.isEqual
      */
     override fun isEqual(other: Num) = other != NaN && compareTo(other) == 0
 
     /**
      * Returns if this value matches the [other] within a [delta].
      *
-     * @sample xmas.math.NumbersTest.matches
+     * @sample vista.math.NumbersTest.matches
      */
     override fun matches(other: Num, delta: Double) = this.minus(other).abs() <= numOf(delta)
 
     /**
      * Returns the rounded [Num] to [n] decimal places, using given rounding [mode].
      *
-     * @sample xmas.math.NumbersTest.round
+     * @sample vista.math.NumbersTest.round
      */
     override fun round(n: Int, mode: RoundMode): Num = NumImpl(value.setScale(n, mode.value))
 
     /**
      * Returns a [Num] whose value is the absolute one of this.
      *
-     * @sample xmas.math.NumbersTest.abs
+     * @sample vista.math.NumbersTest.abs
      */
     override fun abs(): Num = NumImpl(value.abs())
 
     /**
      * Returns a [Num] whose value is `√(this)`.
      *
-     * @sample xmas.math.NumbersTest.sqrt
+     * @sample vista.math.NumbersTest.sqrt
      */
     override fun sqrt(): Num = NumImpl(value.sqrt(MATH_CONTEXT))
 
     /**
      * Returns a [Num] whose value is the current one raised to the power of [n].
      *
-     * @sample xmas.math.NumbersTest.pow
+     * @sample vista.math.NumbersTest.pow
      */
     override fun pow(n: Int): Num = NumImpl(value.pow(n, MATH_CONTEXT))
 
@@ -383,7 +383,7 @@ private data class NumImpl(
 /**
  * [NaN] in the pine way.
  *
- * @sample xmas.math.NumbersTest.na
+ * @sample vista.math.NumbersTest.na
  */
 typealias na = NaN
 
@@ -399,84 +399,84 @@ object NaN : Num {
     /**
      * Returns always a [NaN].
      *
-     * @sample xmas.math.NumbersTest.unaryMinus
+     * @sample vista.math.NumbersTest.unaryMinus
      */
     override fun unaryMinus(): Num = NaN
 
     /**
      * Returns always a [NaN].
      *
-     * @sample xmas.math.NumbersTest.plus
+     * @sample vista.math.NumbersTest.plus
      */
     override fun plus(addend: Num): Num = NaN
 
     /**
      * Returns always a [NaN].
      *
-     * @sample xmas.math.NumbersTest.minus
+     * @sample vista.math.NumbersTest.minus
      */
     override fun minus(subtrahend: Num): Num = NaN
 
     /**
      * Returns always a [NaN].
      *
-     * @sample xmas.math.NumbersTest.times
+     * @sample vista.math.NumbersTest.times
      */
     override fun times(multiplicand: Num): Num = NaN
 
     /**
      * Returns always a [NaN].
      *
-     * @sample xmas.math.NumbersTest.div
+     * @sample vista.math.NumbersTest.div
      */
     override fun div(divisor: Num): Num = NaN
 
     /**
      * Returns always `0`.
      *
-     * @sample xmas.math.NumbersTest.compare
+     * @sample vista.math.NumbersTest.compare
      */
     override fun compareTo(other: Num): Int = 0
 
     /**
      * Returns `true` when [other] is also a [NaN].
      *
-     * @sample xmas.math.NumbersTest.isEqual
+     * @sample vista.math.NumbersTest.isEqual
      */
     override fun isEqual(other: Num): Boolean = other == NaN
 
     /**
      * Returns always a `false`.
      *
-     * @sample xmas.math.NumbersTest.matches
+     * @sample vista.math.NumbersTest.matches
      */
     override fun matches(other: Num, delta: Double) = false
 
     /**
      * Returns always a [NaN].
      *
-     * @sample xmas.math.NumbersTest.round
+     * @sample vista.math.NumbersTest.round
      */
     override fun round(n: Int, mode: RoundMode): Num = NaN
 
     /**
      * Returns always a [NaN].
      *
-     * @sample xmas.math.NumbersTest.abs
+     * @sample vista.math.NumbersTest.abs
      */
     override fun abs(): Num = NaN
 
     /**
      * Returns always a [NaN].
      *
-     * @sample xmas.math.NumbersTest.sqrt
+     * @sample vista.math.NumbersTest.sqrt
      */
     override fun sqrt(): Num = NaN
 
     /**
      * Returns always a [NaN].
      *
-     * @sample xmas.math.NumbersTest.pow
+     * @sample vista.math.NumbersTest.pow
      */
     override fun pow(n: Int): Num = NaN
 
@@ -486,7 +486,7 @@ object NaN : Num {
 /**
  * Strategy to round the numbers.
  *
- * @sample xmas.math.NumbersTest.round
+ * @sample vista.math.NumbersTest.round
  */
 enum class RoundMode(val value: RoundingMode) {
     /**

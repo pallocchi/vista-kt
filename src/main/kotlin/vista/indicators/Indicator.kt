@@ -23,11 +23,11 @@
  *
  */
 
-package xmas.indicators
+package vista.indicators
 
-import xmas.math.NaN
-import xmas.math.Num
-import xmas.series.Series
+import vista.math.NaN
+import vista.math.Num
+import vista.series.Series
 
 /**
  * Series of indicator values.

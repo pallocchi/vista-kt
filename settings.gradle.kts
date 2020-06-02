@@ -1,1 +1,1 @@
-rootProject.name = "insight"
+rootProject.name = "vista"

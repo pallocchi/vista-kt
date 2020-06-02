@@ -23,9 +23,9 @@
  *
  */
 
-package xmas.indicators
+package vista.indicators
 
-import xmas.series.Series
+import vista.series.Series
 import kotlin.math.sqrt
 
 /**
@@ -37,7 +37,7 @@ import kotlin.math.sqrt
  *
  * @param source Series of values to process
  * @param n Number of bars (length)
- * @sample xmas.indicators.HullMovingAverageTest.withIntSeries
+ * @sample vista.indicators.HullMovingAverageTest.withIntSeries
  * @see [wma]
  */
 fun hma(source: Series, n: Int = 9): Series {
