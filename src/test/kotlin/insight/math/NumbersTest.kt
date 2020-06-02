@@ -31,6 +31,13 @@ import org.junit.jupiter.api.Test
 internal class NumbersTest {
 
     @Test
+    fun unaryMinus() {
+        assertThat(-numOf(1)).isEqualTo(numOf(-1))
+        assertThat(-numOf(-1)).isEqualTo(numOf(1))
+        assertThat(NaN).isEqualTo(NaN)
+    }
+
+    @Test
     fun plus() {
         val one = numOf(1)
 
@@ -106,6 +113,15 @@ internal class NumbersTest {
         assertThat(numOf(4).sqrt()).isEqualTo(numOf(2))
         assertThat(numOf(9).sqrt()).isEqualTo(numOf(3))
         assertThat(NaN.sqrt()).isEqualTo(NaN)
+    }
+
+    @Test
+    fun pow() {
+        assertThat(numOf(2).pow(0)).isEqualTo(numOf(1))
+        assertThat(numOf(2).pow(1)).isEqualTo(numOf(2))
+        assertThat(numOf(2).pow(2)).isEqualTo(numOf(4))
+        assertThat(numOf(3).pow(2)).isEqualTo(numOf(9))
+        assertThat(NaN.pow(2)).isEqualTo(NaN)
     }
 
     @Test

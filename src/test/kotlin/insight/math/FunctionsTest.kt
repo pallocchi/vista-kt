@@ -102,4 +102,37 @@ internal class FunctionsTest {
         assertThat(d[1]).isEqualTo(numOf(2))
         assertThat(d[2]).isEqualTo(numOf(2))
     }
+
+    @Test
+    fun sqrtWithSeries() {
+        val a = seriesOf(1, 4, 9)
+
+        val b = sqrt(a)
+
+        assertThat(b[0]).isEqualTo(numOf(3))
+        assertThat(b[1]).isEqualTo(numOf(2))
+        assertThat(b[2]).isEqualTo(numOf(1))
+    }
+
+    @Test
+    fun powWithSeries() {
+        val a = seriesOf(1, 2, 3)
+
+        val b = pow(a, 2)
+
+        assertThat(b[0]).isEqualTo(numOf(9))
+        assertThat(b[1]).isEqualTo(numOf(4))
+        assertThat(b[2]).isEqualTo(numOf(1))
+    }
+
+    @Test
+    fun absWithSeries() {
+        val a = seriesOf(1, -2, 3)
+
+        val b = abs(a)
+
+        assertThat(b[0]).isEqualTo(numOf(3))
+        assertThat(b[1]).isEqualTo(numOf(2))
+        assertThat(b[2]).isEqualTo(numOf(1))
+    }
 }

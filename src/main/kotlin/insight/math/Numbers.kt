@@ -81,6 +81,13 @@ interface Num {
     val value: BigDecimal?
 
     /**
+     * Returns a [Num] whose value is `-`[value].
+     *
+     * @sample insight.math.NumbersTest.unaryMinus
+     */
+    operator fun unaryMinus(): Num
+
+    /**
      * Returns a [Num] whose value is [value] + [addend].
      *
      * Note this method should be called using the `+` operator.
@@ -197,6 +204,13 @@ interface Num {
     fun sqrt(): Num
 
     /**
+     * Returns a [Num] whose value is the current one raised to the power of [n].
+     *
+     * @sample insight.math.NumbersTest.pow
+     */
+    fun pow(n: Int): Num
+
+    /**
      * Returns a [Int] representation.
      *
      * @sample insight.math.NumbersTest.toInt
@@ -259,6 +273,13 @@ private data class NumImpl(
      * Creates instance from given string [value], using the default [MATH_CONTEXT].
      */
     constructor(value: String) : this(BigDecimal(value, MATH_CONTEXT))
+
+    /**
+     * Returns a [Num] whose value is `-`[value].
+     *
+     * @sample insight.math.NumbersTest.unaryMinus
+     */
+    override operator fun unaryMinus(): Num = NumImpl(value.negate())
 
     /**
      * Returns a [Num] whose value is [value] + [addend].
@@ -339,6 +360,13 @@ private data class NumImpl(
     override fun sqrt(): Num = NumImpl(value.sqrt(MATH_CONTEXT))
 
     /**
+     * Returns a [Num] whose value is the current one raised to the power of [n].
+     *
+     * @sample insight.math.NumbersTest.pow
+     */
+    override fun pow(n: Int): Num = NumImpl(value.pow(n, MATH_CONTEXT))
+
+    /**
      * Equals implementation using the [Num.compareTo] method.
      */
     override fun equals(other: Any?): Boolean {
@@ -367,6 +395,13 @@ typealias na = NaN
 object NaN : Num {
 
     override val value: BigDecimal? = null
+
+    /**
+     * Returns always a [NaN].
+     *
+     * @sample insight.math.NumbersTest.unaryMinus
+     */
+    override fun unaryMinus(): Num = NaN
 
     /**
      * Returns always a [NaN].
@@ -437,6 +472,13 @@ object NaN : Num {
      * @sample insight.math.NumbersTest.sqrt
      */
     override fun sqrt(): Num = NaN
+
+    /**
+     * Returns always a [NaN].
+     *
+     * @sample insight.math.NumbersTest.pow
+     */
+    override fun pow(n: Int): Num = NaN
 
     override fun toString(): String = "NaN"
 }

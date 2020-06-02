@@ -25,8 +25,9 @@
 
 package insight.math
 
+import insight.series.BiCalculatedSeries
+import insight.series.CalculatedSeries
 import insight.series.Series
-import insight.series.StaticSeries
 
 /**
  * Returns the lowest of [x] and [y].
@@ -61,55 +62,46 @@ fun max(x: Num, y: Num): Num = if (x > y) x else y
  *
  * @sample insight.math.FunctionsTest.minWithSeries
  */
-fun min(x: Series, y: Series): Series = MinSeries(x, y)
+fun min(x: Series, y: Series): Series = BiCalculatedSeries(x, y) { a, b -> min(a, b) }
 
 /**
  * Returns a series with the greatest of [x] and [y].
  *
  * @sample insight.math.FunctionsTest.maxWithSeries
  */
-fun max(x: Series, y: Series): Series = MaxSeries(x, y)
+fun max(x: Series, y: Series): Series = BiCalculatedSeries(x, y) { a, b -> max(a, b) }
 
 /**
  * Returns a series with the lowest of [x] and [y].
  *
  * @sample insight.math.FunctionsTest.minWithSeries
  */
-fun min(x: Series, y: Num): Series = MinSeries(x, StaticSeries(y))
+fun min(x: Series, y: Num): Series = CalculatedSeries(x) { a -> min(a, y) }
 
 /**
  * Returns a series with the greatest of [x] and [y].
  *
  * @sample insight.math.FunctionsTest.maxWithSeries
  */
-fun max(x: Series, y: Num): Series = MaxSeries(x, StaticSeries(y))
+fun max(x: Series, y: Num): Series = CalculatedSeries(x) { a -> max(a, y) }
 
 /**
- * Series that returns the max value in each index.
+ * Returns a series whose values are the square root of the current ones.
+ *
+ * @sample insight.math.FunctionsTest.sqrtWithSeries
  */
-private class MaxSeries(
-    private val x: Series,
-    private val y: Series
-) : Series() {
-
-    override val time: Int get() = min(x.time, y.time)
-
-    override val size: Int get() = min(x.size, y.size)
-
-    override fun get(i: Int) = max(x[i], y[i])
-}
+fun sqrt(x: Series): Series = CalculatedSeries(x) { it.sqrt() }
 
 /**
- * Series that returns the min value in each index.
+ * Returns a series whose values are the current ones raised to the power of [n].
+ *
+ * @sample insight.math.FunctionsTest.powWithSeries
  */
-private class MinSeries(
-    private val x: Series,
-    private val y: Series
-) : Series() {
+fun pow(x: Series, n: Int): Series = CalculatedSeries(x) { it.pow(n) }
 
-    override val time: Int get() = min(x.time, y.time)
-
-    override val size: Int get() = min(x.size, y.size)
-
-    override fun get(i: Int) = min(x[i], y[i])
-}
+/**
+ * Returns a series whose values are the absolute value of the current ones.
+ *
+ * @sample insight.math.FunctionsTest.absWithSeries
+ */
+fun abs(x: Series): Series = CalculatedSeries(x) { if (it >= Num.ZERO) it else -it }

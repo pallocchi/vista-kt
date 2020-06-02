@@ -96,14 +96,14 @@ abstract class Series {
      *
      * @sample insight.series.SeriesTest.plus
      */
-    operator fun plus(other: Series): Series = OperatorSeries(this, other) { l, r -> l + r }
+    operator fun plus(other: Series): Series = BiCalculatedSeries(this, other) { x, y -> x + y }
 
     /**
      * Returns a [Series] whose values are the current ones `+` [other].
      *
      * @sample insight.series.SeriesTest.plus
      */
-    operator fun plus(other: Num): Series = OperatorSeries(this, StaticSeries(other)) { l, r -> l + r }
+    operator fun plus(other: Num): Series = CalculatedSeries(this) { it + other }
 
     /**
      * Returns a [Series] whose values are the current ones `+` [other].
@@ -124,14 +124,14 @@ abstract class Series {
      *
      * @sample insight.series.SeriesTest.minus
      */
-    operator fun minus(other: Series): Series = OperatorSeries(this, other) { l, r -> l - r }
+    operator fun minus(other: Series): Series = BiCalculatedSeries(this, other) { x, y -> x - y }
 
     /**
      * Returns a [Series] whose values are the current ones `-` [other].
      *
      * @sample insight.series.SeriesTest.minus
      */
-    operator fun minus(other: Num): Series = OperatorSeries(this, StaticSeries(other)) { l, r -> l - r }
+    operator fun minus(other: Num): Series = CalculatedSeries(this) { it - other }
 
     /**
      * Returns a [Series] whose values are the current ones `-` [other].
@@ -152,14 +152,14 @@ abstract class Series {
      *
      * @sample insight.series.SeriesTest.times
      */
-    operator fun times(other: Series): Series = OperatorSeries(this, other) { l, r -> l * r }
+    operator fun times(other: Series): Series = BiCalculatedSeries(this, other) { x, y -> x * y }
 
     /**
      * Returns a [Series] whose values are the current ones `*` [other].
      *
      * @sample insight.series.SeriesTest.times
      */
-    operator fun times(other: Num): Series = OperatorSeries(this, StaticSeries(other)) { l, r -> l * r }
+    operator fun times(other: Num): Series = CalculatedSeries(this) { it * other }
 
     /**
      * Returns a [Series] whose values are the current ones `*` [other].
@@ -180,14 +180,14 @@ abstract class Series {
      *
      * @sample insight.series.SeriesTest.div
      */
-    operator fun div(other: Series): Series = OperatorSeries(this, other) { l, r -> l / r }
+    operator fun div(other: Series): Series = BiCalculatedSeries(this, other) { x, y -> x / y }
 
     /**
      * Returns a [Series] whose values are the current ones `/` [other].
      *
      * @sample insight.series.SeriesTest.div
      */
-    operator fun div(other: Num): Series = OperatorSeries(this, StaticSeries(other)) { l, r -> l / r }
+    operator fun div(other: Num): Series = CalculatedSeries(this) { it / other }
 
     /**
      * Returns a [Series] whose values are the current ones `/` [other].
@@ -249,10 +249,26 @@ private class SimpleSeries(private val values: List<Num>) : Series() {
     }
 }
 
+
+/**
+ * Series that performs an [operation] over the values of [source].
+ */
+internal class CalculatedSeries(
+    private val source: Series,
+    private val operation: (Num) -> Num
+) : Series() {
+
+    override val time: Int get() = source.time
+
+    override val size: Int get() = source.size
+
+    override fun get(i: Int) = operation(source[i])
+}
+
 /**
  * Series that performs an [operation] over the values of sources [x] and [y].
  */
-private class OperatorSeries(
+internal class BiCalculatedSeries(
     private val x: Series,
     private val y: Series,
     private val operation: (Num, Num) -> Num
