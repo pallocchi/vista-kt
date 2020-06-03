@@ -27,35 +27,22 @@ package vista.indicators
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import vista.data.close
-import vista.loadAmazonData
-import vista.loadIndicatorData
 import vista.math.na
 import vista.math.numOf
 import vista.series.seriesOf
 
-internal class StandardDeviationTest {
+internal class HighestTest {
 
     @Test
-    fun withIntSeries() {
-        val series = seriesOf(1, 2, 4)
+    fun highest() {
+        val series = seriesOf(4, 3, 2)
 
-        val stdev = stdev(series, 2)
+        assertThat(highest(series, 2)[0]).isEqualTo(numOf(3))
+        assertThat(highest(series, 2)[1]).isEqualTo(numOf(4))
+        assertThat(highest(series, 2)[2]).isEqualTo(na)
 
-        assertThat(stdev[0]).isEqualTo(numOf(1))   // current value
-        assertThat(stdev[1]).isEqualTo(numOf(.5))   // previous value
-        assertThat(stdev[2]).isEqualTo(na)          // oldest value
-    }
-
-    @Test
-    fun withMarketData() {
-        val data = loadAmazonData()
-        val expected = loadIndicatorData("stdev.csv")
-        val close = close(data)
-
-        val actual = stdev(close, 20)
-
-        for (i in 0..99)
-            assertThat(actual[i].round(2)).isEqualTo(expected[i][0])
+        assertThat(highest(series, 3)[0]).isEqualTo(numOf(4))
+        assertThat(highest(series, 3)[1]).isEqualTo(na)
+        assertThat(highest(series, 3)[2]).isEqualTo(na)
     }
 }

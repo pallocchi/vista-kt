@@ -57,4 +57,4 @@ internal class SimpleMovingAverage(
  * @param n Number of bars (length)
  * @sample vista.indicators.SimpleMovingAverageTest.withIntSeries
  */
-fun sma(source: Series, n: Int = 9): Series = SimpleMovingAverage(source, n)
+fun sma(source: Series, n: Int = 9): Series = if (n > 1) SimpleMovingAverage(source, n) else source

@@ -25,37 +25,35 @@
 
 package vista.indicators
 
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Test
-import vista.data.close
-import vista.loadAmazonData
-import vista.loadIndicatorData
-import vista.math.na
-import vista.math.numOf
-import vista.series.seriesOf
+import vista.series.Series
 
-internal class StandardDeviationTest {
-
-    @Test
-    fun withIntSeries() {
-        val series = seriesOf(1, 2, 4)
-
-        val stdev = stdev(series, 2)
-
-        assertThat(stdev[0]).isEqualTo(numOf(1))   // current value
-        assertThat(stdev[1]).isEqualTo(numOf(.5))   // previous value
-        assertThat(stdev[2]).isEqualTo(na)          // oldest value
-    }
-
-    @Test
-    fun withMarketData() {
-        val data = loadAmazonData()
-        val expected = loadIndicatorData("stdev.csv")
-        val close = close(data)
-
-        val actual = stdev(close, 20)
-
-        for (i in 0..99)
-            assertThat(actual[i].round(2)).isEqualTo(expected[i][0])
-    }
+/**
+ * The stochastic oscillator of [source] for [k] bars back, to evaluate overbought or oversold conditions.
+ *
+ * Returns a pair of %K and %D series.
+ *
+ * **See:** [TradingView](https://www.tradingview.com/pine-script-reference/#fun_stoch)
+ *
+ * @param source Series of values to process
+ * @param high Series of high values
+ * @param low Series of low values
+ * @param k Number of bars (length) for %K
+ * @param d Number of bars (length) for %D moving average
+ * @param smooth Smooth for %K
+ * @sample vista.indicators.StochasticOscillatorTest.withIntSeries
+ */
+fun stoch(
+    source: Series,
+    high: Series,
+    low: Series,
+    k: Int = 14,
+    d: Int = 3,
+    smooth: Int = 3
+): Pair<Series, Series> {
+    val lowest = lowest(low, k)
+    val highest = highest(high, k)
+    val kLine = ((source - lowest) / (highest - lowest)) * 100
+    val kLineSmoothed = sma(kLine, smooth)
+    val dLine = sma(kLineSmoothed, d)
+    return Pair(kLineSmoothed, dLine)
 }

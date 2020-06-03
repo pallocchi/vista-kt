@@ -25,37 +25,33 @@
 
 package vista.indicators
 
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Test
-import vista.data.close
-import vista.loadAmazonData
-import vista.loadIndicatorData
-import vista.math.na
-import vista.math.numOf
-import vista.series.seriesOf
+import vista.math.Num
+import vista.math.max
+import vista.series.Series
 
-internal class StandardDeviationTest {
+/**
+ * Highest indicator.
+ */
+internal class Highest(
+    private val source: Series,
+    private val n: Int
+) : CachedIndicator(source) {
 
-    @Test
-    fun withIntSeries() {
-        val series = seriesOf(1, 2, 4)
+    override val size: Int get() = source.size + 1 - n
 
-        val stdev = stdev(series, 2)
-
-        assertThat(stdev[0]).isEqualTo(numOf(1))   // current value
-        assertThat(stdev[1]).isEqualTo(numOf(.5))   // previous value
-        assertThat(stdev[2]).isEqualTo(na)          // oldest value
-    }
-
-    @Test
-    fun withMarketData() {
-        val data = loadAmazonData()
-        val expected = loadIndicatorData("stdev.csv")
-        val close = close(data)
-
-        val actual = stdev(close, 20)
-
-        for (i in 0..99)
-            assertThat(actual[i].round(2)).isEqualTo(expected[i][0])
+    override fun calculate(i: Int): Num {
+        var highest = source[i]
+        for (j in 1 until n)
+            highest = max(highest, source[i + j])
+        return highest
     }
 }
+
+/**
+ * The highest value for [n] bars back.
+ *
+ * @param source Series of values to process
+ * @param n Number of bars (length)
+ * @sample vista.indicators.HighestTest.highest
+ */
+fun highest(source: Series, n: Int): Series = Highest(source, n)

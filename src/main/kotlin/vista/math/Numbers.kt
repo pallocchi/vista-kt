@@ -377,6 +377,8 @@ private data class NumImpl(
         return true
     }
 
+    override fun toString(): String = value.toString()
+
     override fun hashCode() = value.hashCode()
 }
 
