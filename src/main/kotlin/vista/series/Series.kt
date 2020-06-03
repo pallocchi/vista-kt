@@ -31,14 +31,19 @@ import vista.math.min
 import vista.math.numOf
 
 /**
- * Returns a [Num] series from given [values].
+ * Returns a [Num] series from given [values] range.
  */
-fun seriesOf(vararg values: Num): Series = SimpleSeries(mutableListOf(*values))
+fun seriesOf(values: IntRange): Series = SimpleSeries(values.map { numOf(it) })
 
 /**
  * Returns a [Num] series from given [Int] values.
  */
 fun seriesOf(vararg values: Int): Series = SimpleSeries(values.map { numOf(it) })
+
+/**
+ * Returns a [Num] series from given [values].
+ */
+fun seriesOf(vararg values: Num): Series = SimpleSeries(mutableListOf(*values))
 
 /**
  * Returns a [Num] series from given [Long] values.

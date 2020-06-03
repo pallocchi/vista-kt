@@ -32,12 +32,21 @@ import vista.math.numOf
 internal class SeriesTest {
 
     @Test
+    fun seriesOf() {
+        val series = seriesOf(1..3)
+
+        assertThat(series[0]).isEqualTo(numOf(3)) // current value
+        assertThat(series[1]).isEqualTo(numOf(2)) // previous value
+        assertThat(series[2]).isEqualTo(numOf(1)) // oldest value
+    }
+
+    @Test
     fun withIndexingOperator() {
         val series = seriesOf(10, 20, 30)
 
-        assertThat(series[0]).isEqualTo(numOf(30)) // current bar
-        assertThat(series[1]).isEqualTo(numOf(20)) // previous bar
-        assertThat(series[2]).isEqualTo(numOf(10)) // oldest bar
+        assertThat(series[0]).isEqualTo(numOf(30)) // current value
+        assertThat(series[1]).isEqualTo(numOf(20)) // previous value
+        assertThat(series[2]).isEqualTo(numOf(10)) // oldest value
     }
 
     @Test

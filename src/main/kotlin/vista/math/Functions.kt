@@ -37,11 +37,11 @@ import vista.series.Series
 fun min(x: Int, y: Int): Int = if (x <= y) x else y
 
 /**
- * Returns the greatest of [x] and [y].
+ * Returns the lowest of [x], [y] y [z].
  *
- * @sample vista.math.FunctionsTest.maxWithNum
+ * @sample vista.math.FunctionsTest.minWithInt
  */
-fun max(x: Int, y: Int): Int = if (x >= y) x else y
+fun min(x: Int, y: Int, z: Int): Int = min(x, min(y, z))
 
 /**
  * Returns the lowest of [x] and [y].
@@ -51,11 +51,11 @@ fun max(x: Int, y: Int): Int = if (x >= y) x else y
 fun min(x: Num, y: Num): Num = if (x < y) x else y
 
 /**
- * Returns the greatest of [x] and [y].
+ * Returns the lowest of [x], [y] and [z].
  *
- * @sample vista.math.FunctionsTest.maxWithNum
+ * @sample vista.math.FunctionsTest.minWithNum
  */
-fun max(x: Num, y: Num): Num = if (x > y) x else y
+fun min(x: Num, y: Num, z: Num): Num = min(x, min(y, z))
 
 /**
  * Returns a series with the lowest of [x] and [y].
@@ -65,11 +65,11 @@ fun max(x: Num, y: Num): Num = if (x > y) x else y
 fun min(x: Series, y: Series): Series = BiCalculatedSeries(x, y) { a, b -> min(a, b) }
 
 /**
- * Returns a series with the greatest of [x] and [y].
+ * Returns a series with the lowest of [x], [y] and [z].
  *
- * @sample vista.math.FunctionsTest.maxWithSeries
+ * @sample vista.math.FunctionsTest.minWithSeries
  */
-fun max(x: Series, y: Series): Series = BiCalculatedSeries(x, y) { a, b -> max(a, b) }
+fun min(x: Series, y: Series, z: Series): Series = min(x, min(y, z))
 
 /**
  * Returns a series with the lowest of [x] and [y].
@@ -77,6 +77,41 @@ fun max(x: Series, y: Series): Series = BiCalculatedSeries(x, y) { a, b -> max(a
  * @sample vista.math.FunctionsTest.minWithSeries
  */
 fun min(x: Series, y: Num): Series = CalculatedSeries(x) { a -> min(a, y) }
+
+/**
+ * Returns the greatest of [x] and [y].
+ *
+ * @sample vista.math.FunctionsTest.maxWithNum
+ */
+fun max(x: Int, y: Int): Int = if (x >= y) x else y
+
+/**
+ * Returns the greatest of [x] and [y].
+ *
+ * @sample vista.math.FunctionsTest.maxWithNum
+ */
+fun max(x: Num, y: Num): Num = if (x > y) x else y
+
+/**
+ * Returns the greatest of [x], [y] and [z].
+ *
+ * @sample vista.math.FunctionsTest.maxWithNum
+ */
+fun max(x: Num, y: Num, z: Num): Num = max(x, max(y, z))
+
+/**
+ * Returns a series with the greatest of [x] and [y].
+ *
+ * @sample vista.math.FunctionsTest.maxWithSeries
+ */
+fun max(x: Series, y: Series): Series = BiCalculatedSeries(x, y) { a, b -> max(a, b) }
+
+/**
+ * Returns a series with the greatest of [x], [y] and [z].
+ *
+ * @sample vista.math.FunctionsTest.maxWithSeries
+ */
+fun max(x: Series, y: Series, z: Series): Series = max(x, max(y, z))
 
 /**
  * Returns a series with the greatest of [x] and [y].
