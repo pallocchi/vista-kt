@@ -40,22 +40,22 @@ internal class StochasticOscillatorTest {
 
     @Test
     fun withIntSeries() {
-        val close = seriesOf(*IntArray(50) { it })
+        val close = seriesOf(1..20)
 
-        val low = seriesOf(*IntArray(50) { it - it % 2 })
-        val high = seriesOf(*IntArray(50) { it + it % 2 })
+        val high = close * 1.5
+        val low = close * 0.5
 
         val (k, d) = stoch(close, high, low)
 
-        assertThat(k[0].round(2)).isEqualTo(numOf(95.24))    // current value
-        assertThat(k[1].round(2)).isEqualTo(numOf(97.62))    // previous value
-        assertThat(k[34].round(2)).isEqualTo(numOf(95.24))
-        assertThat(k[35]).isEqualTo(na)
+        assertThat(k[0].round(2)).isEqualTo(numOf(62.76))    // current value
+        assertThat(k[1].round(2)).isEqualTo(numOf(63.28))    // previous value
+        assertThat(k[4].round(2)).isEqualTo(numOf(65.14))
+        assertThat(k[5]).isEqualTo(na)
 
-        assertThat(d[0].round(2)).isEqualTo(numOf(96.03))    // current value
-        assertThat(d[1].round(2)).isEqualTo(numOf(96.83))    // previous value
-        assertThat(d[32].round(2)).isEqualTo(numOf(96.03))
-        assertThat(d[33]).isEqualTo(na)
+        assertThat(d[0].round(2)).isEqualTo(numOf(63.29))    // current value
+        assertThat(d[1].round(2)).isEqualTo(numOf(63.86))    // previous value
+        assertThat(d[2].round(2)).isEqualTo(numOf(64.48))
+        assertThat(d[3]).isEqualTo(na)
     }
 
     @Test

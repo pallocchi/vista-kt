@@ -38,9 +38,7 @@ internal class MovingAverageConvergenceDivergenceTest {
 
     @Test
     fun withIntSeries() {
-        val values = IntArray(50) { it }
-
-        val series = seriesOf(*values)
+        val series = seriesOf(1..50)
 
         val (macd, signal, hist) = macd(series)
 

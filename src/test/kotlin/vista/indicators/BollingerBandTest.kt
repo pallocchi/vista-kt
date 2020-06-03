@@ -38,25 +38,23 @@ internal class BollingerBandTest {
 
     @Test
     fun withIntSeries() {
-        val values = IntArray(50) { it }
-
-        val series = seriesOf(*values)
+        val series = seriesOf(1..50)
 
         val (middle, upper, lower) = bb(series)
 
-        assertThat(middle[0].round(2)).isEqualTo(numOf(39.50))    // current value
-        assertThat(middle[1].round(2)).isEqualTo(numOf(38.50))    // previous value
-        assertThat(middle[30].round(2)).isEqualTo(numOf(9.50))
+        assertThat(middle[0].round(2)).isEqualTo(numOf(40.50))    // current value
+        assertThat(middle[1].round(2)).isEqualTo(numOf(39.50))    // previous value
+        assertThat(middle[30].round(2)).isEqualTo(numOf(10.50))
         assertThat(middle[31]).isEqualTo(na)
 
-        assertThat(upper[0].round(2)).isEqualTo(numOf(51.03))     // current value
-        assertThat(upper[1].round(2)).isEqualTo(numOf(50.03))     // previous value
-        assertThat(upper[30].round(2)).isEqualTo(numOf(21.03))
+        assertThat(upper[0].round(2)).isEqualTo(numOf(52.03))     // current value
+        assertThat(upper[1].round(2)).isEqualTo(numOf(51.03))     // previous value
+        assertThat(upper[30].round(2)).isEqualTo(numOf(22.03))
         assertThat(upper[31]).isEqualTo(na)
 
-        assertThat(lower[0].round(2)).isEqualTo(numOf(27.97))     // current value
-        assertThat(lower[1].round(2)).isEqualTo(numOf(26.97))     // previous value
-        assertThat(lower[30].round(2)).isEqualTo(numOf(-2.03))
+        assertThat(lower[0].round(2)).isEqualTo(numOf(28.97))     // current value
+        assertThat(lower[1].round(2)).isEqualTo(numOf(27.97))     // previous value
+        assertThat(lower[30].round(2)).isEqualTo(numOf(-1.03))
         assertThat(lower[31]).isEqualTo(na)
     }
 
