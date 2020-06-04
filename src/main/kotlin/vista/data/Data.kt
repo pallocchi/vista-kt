@@ -154,6 +154,14 @@ fun low(data: Data): Series = DataSeries(data) { it.low }
 fun close(data: Data): Series = DataSeries(data) { it.close }
 
 /**
+ * The typical price series.
+ *
+ * @sample vista.data.DataTest.init
+ * @sample vista.data.DataTest.withTypicalSeries
+ */
+fun typical(data: Data): Series = (close(data) + high(data) + low(data)) / 3
+
+/**
  * The volume series.
  *
  * @sample vista.data.DataTest.init

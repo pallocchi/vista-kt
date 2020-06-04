@@ -25,40 +25,19 @@
 
 package vista.indicators
 
-import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Test
-import vista.data.close
-import vista.loadAmazonData
-import vista.loadIndicatorData
-import vista.math.na
-import vista.math.numOf
-import vista.series.seriesOf
+import vista.series.Series
 
-internal class RelativeStrengthIndexTest {
-
-    @Test
-    fun withIntSeries() {
-        val series = seriesOf(1..20)
-
-        val rsi = rsi(series, 14)
-
-        assertThat(rsi[0].round(2)).isEqualTo(numOf(100))   // current value
-        assertThat(rsi[1].round(2)).isEqualTo(numOf(100))   // previous value
-        assertThat(rsi[6].round(2)).isEqualTo(numOf(100))
-        assertThat(rsi[7]).isEqualTo(na)
-    }
-
-    @Test
-    fun withMarketData() {
-
-        val data = loadAmazonData()
-        val expected = loadIndicatorData("rsi.csv")
-        val close = close(data)
-
-        val actual = rsi(close, 14)
-
-        for (i in 0..99) {
-            assertThat(actual[i].round(2)).isEqualTo(expected[i][0])
-        }
-    }
+/**
+ * The commodity channel index, to evaluate overbought or oversold conditions.
+ *
+ * **See:** [TradingView](https://www.tradingview.com/pine-script-reference/#fun_cci)
+ *
+ * @param source Series of values to process
+ * @param n Number of bars (length)
+ * @sample vista.indicators.CommodityChannelIndexTest.withIntSeries
+ */
+fun cci(source: Series, n: Int = 20): Series {
+    val movingAverage = sma(source, n)
+    val meanDeviation = dev(source, n)
+    return (source - movingAverage) / (meanDeviation * .015)
 }

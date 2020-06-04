@@ -34,31 +34,30 @@ import vista.math.na
 import vista.math.numOf
 import vista.series.seriesOf
 
-internal class RelativeStrengthIndexTest {
+internal class CommodityChannelIndexTest {
 
     @Test
     fun withIntSeries() {
-        val series = seriesOf(1..20)
+        val close = seriesOf(1..25)
 
-        val rsi = rsi(series, 14)
+        val cci = cci(close, 20)
 
-        assertThat(rsi[0].round(2)).isEqualTo(numOf(100))   // current value
-        assertThat(rsi[1].round(2)).isEqualTo(numOf(100))   // previous value
-        assertThat(rsi[6].round(2)).isEqualTo(numOf(100))
-        assertThat(rsi[7]).isEqualTo(na)
+        assertThat(cci[0].round(2)).isEqualTo(numOf(126.67))    // current value
+        assertThat(cci[1].round(2)).isEqualTo(numOf(126.67))    // previous value
+        assertThat(cci[5].round(2)).isEqualTo(numOf(126.67))
+        assertThat(cci[6]).isEqualTo(na)
     }
 
     @Test
     fun withMarketData() {
-
         val data = loadAmazonData()
-        val expected = loadIndicatorData("rsi.csv")
+        val expected = loadIndicatorData("cci.csv")
+
         val close = close(data)
 
-        val actual = rsi(close, 14)
+        val cci = cci(close, 20)
 
-        for (i in 0..99) {
-            assertThat(actual[i].round(2)).isEqualTo(expected[i][0])
-        }
+        for (i in 0..99)
+            assertThat(cci[i].round(2)).isEqualTo(expected[i][0])
     }
 }

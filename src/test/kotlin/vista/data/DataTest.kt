@@ -112,6 +112,17 @@ internal class DataTest {
     }
 
     @Test
+    fun withTypicalSeries() {
+
+        // create the close price series
+
+        val typical = typical(data)
+
+        assertThat(typical[0].round(2)).isEqualTo(numOf(2392.38))  // current value
+        assertThat(typical[1].round(2)).isEqualTo(numOf(2377.81))  // previous value
+    }
+
+    @Test
     fun withVolumeSeries() {
 
         // create the volume series
