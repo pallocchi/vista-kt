@@ -27,38 +27,41 @@ package vista.indicators
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import vista.data.close
+import vista.data.volume
 import vista.loadAmazonData
 import vista.loadIndicatorData
 import vista.math.na
 import vista.math.numOf
 import vista.series.seriesOf
 
-internal class ChaikinOscillatorTest {
+internal class OnBalanceVolumeTest {
 
     @Test
     fun withIntSeries() {
-        val close = seriesOf(1..20)
-        val volume = seriesOf(1..20)
 
-        val high = close * 2
-        val low = close * 0.5
+        val close = seriesOf(1, 2, 1)
+        val volume = seriesOf(1, 2, 1)
 
-        val chaikin = chaikin(close, high, low, volume)
+        val obv = obv(close, volume)
 
-        assertThat(chaikin[0].round(2)).isEqualTo(numOf(-17.29))   // current value
-        assertThat(chaikin[1].round(2)).isEqualTo(numOf(-16.20))   // previous value
-        assertThat(chaikin[10].round(2)).isEqualTo(numOf(-8.00))
-        assertThat(chaikin[11]).isEqualTo(na)           // oldest value
+        assertThat(obv[0]).isEqualTo(numOf(1))   // current value
+        assertThat(obv[1]).isEqualTo(numOf(2))   // previous value
+        assertThat(obv[2]).isEqualTo(na)                     // oldest value
     }
 
     @Test
     fun withMarketData() {
-        val data = loadAmazonData()
-        val expected = loadIndicatorData("chaikin.csv")
 
-        val actual = chaikin(data)
+        val data = loadAmazonData()
+        val expected = loadIndicatorData("obv.csv")
+
+        val close = close(data)
+        val volume = volume(data)
+
+        val actual = obv(close, volume)
 
         for (i in 0..99)
-            assertThat(actual[i].round(2)).isEqualTo(expected[i][0])
+            assertThat(actual[i]).isEqualTo(expected[i][0])
     }
 }

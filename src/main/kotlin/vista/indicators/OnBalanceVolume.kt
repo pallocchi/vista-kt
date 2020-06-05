@@ -25,61 +25,45 @@
 
 package vista.indicators
 
-import vista.data.*
 import vista.math.Num
 import vista.series.Series
 
 /**
- * Accumulation/Distribution (ADL) indicator.
+ * On-Balance volume (OBV) indicator.
  *
  * Note as this indicator is an accumulation the calculated values depends on the start date,
  * so in order to compare the results with others, the difference between periods should be used
  * instead of the absolute value.
  */
-internal class AccumulationDistribution(
-    close: Series,
-    high: Series,
-    low: Series,
-    volume: Series
+internal class OnBalanceVolume(
+    private val close: Series,
+    private val volume: Series
 ) : CachedIndicator(close) {
-    //TODO: I don't think it makes sense to pass the close as super param
-    override val size: Int get() = mfv.size
 
-    private val mfv: Series
-
-    init {
-        //TODO: What if high == low???
-        val mfm = ((close - low) - (high - close)) / (high - low)
-        mfv = mfm * volume
-    }
+    override val size: Int get() = close.size - 1
 
     override fun calculate(i: Int): Num {
         if (i == size - 1)
-            return mfv[i]
-        return mfv[i] + this[i + 1]
+            return calculateCurrentOBV(i)
+        return this[i + 1] + calculateCurrentOBV(i)
+    }
+
+    private fun calculateCurrentOBV(i: Int): Num {
+        return when {
+            close[i] > close[i + 1] -> volume[i]
+            close[i] < close[i + 1] -> -volume[i]
+            else -> Num.ZERO
+        }
     }
 }
 
 /**
- * The money flow multiplier, used by Chaikin indicators.
+ * The on-balance volume indicator, which uses volume flow to predict changes in price.
  *
- * **See:** [Investopedia](https://www.investopedia.com/terms/c/chaikinoscillator.asp)
+ * **See:** [Investopedia](https://www.investopedia.com/terms/o/onbalancevolume.asp)
  *
  * @param close Series of close prices
- * @param high Series of high prices
- * @param low Series of low prices
- * @sample vista.indicators.MovingAverageConvergenceDivergenceTest.withIntSeries
+ * @param volume Series of volume values
+ * @sample vista.indicators.OnBalanceVolumeTest.withIntSeries
  */
-fun accdist(close: Series, high: Series, low: Series, volume: Series): Series =
-    AccumulationDistribution(close, high, low, volume)
-
-/**
- * The money flow multiplier, used by Chaikin indicators.
- *
- * **See:** [Investopedia](https://www.investopedia.com/terms/c/chaikinoscillator.asp)
- *
- * @param data Market data to get the close, high, low and volume series from
- * @sample vista.indicators.MovingAverageConvergenceDivergenceTest.withIntSeries
- */
-fun accdist(data: Data): Series =
-    AccumulationDistribution(close(data), high(data), low(data), volume(data))
+fun obv(close: Series, volume: Series): Series = OnBalanceVolume(close, volume)

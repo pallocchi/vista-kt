@@ -140,3 +140,13 @@ fun pow(x: Series, n: Int): Series = CalculatedSeries(x) { it.pow(n) }
  * @sample vista.math.FunctionsTest.absWithSeries
  */
 fun abs(x: Series): Series = CalculatedSeries(x) { if (it >= Num.ZERO) it else -it }
+
+/**
+ * Returns the difference between current value and n-th previous, `x - x[n]`.
+ */
+fun change(x: Series, n: Int): Series = x - x(n)
+
+/**
+ * Returns the sign of [x], which is is zero if the [x] is zero, `1` if the x is greater than zero, `-1` if the x is less than zero.
+ */
+fun sign(x: Series): Series = CalculatedSeries(x) { numOf(it.compareTo(Num.ZERO)) }
