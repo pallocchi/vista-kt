@@ -25,30 +25,40 @@
 
 package vista.indicators
 
-import vista.series.Series
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+import vista.loadAmazonData
+import vista.loadIndicatorData
+import vista.math.na
+import vista.math.numOf
+import vista.series.seriesOf
 
-/**
- * The moving average convergence/divergence of [source], to evaluate strength, direction, momentum, and duration of a trend.
- *
- * Returns a triple of MACD line, signal line and histogram line.
- *
- * **See:** [TradingView](https://www.tradingview.com/pine-script-reference/#fun_macd)
- *
- * @param source Series of values to process
- * @param fastLength Number of bars (length) used by the fast [sma]
- * @param slowLength Number of bars (length) used by the slow [sma]
- * @param signalLength Number of bars (length) used by the signal line
- * @sample vista.indicators.MovingAverageConvergenceDivergenceTest.withIntSeries
- * @see [sma]
- */
-fun macd(
-    source: Series,
-    fastLength: Int = 12,
-    slowLength: Int = 26,
-    signalLength: Int = 9
-): Triple<Series, Series, Series> {
-    val macd = ema(source, fastLength) - ema(source, slowLength)
-    val signal = ema(macd, signalLength)
-    val histogram = macd - signal
-    return Triple(macd, signal, histogram)
+internal class ChaikinOscillatorTest {
+
+    @Test
+    fun withIntSeries() {
+        val close = seriesOf(1..20)
+        val volume = seriesOf(1..20)
+
+        val high = close * 2
+        val low = close * 0.5
+
+        val chaikin = chaikin(close, high, low, volume)
+
+        assertThat(chaikin[0].round(2)).isEqualTo(numOf(-17.29))   // current value
+        assertThat(chaikin[1]).isEqualTo(numOf(-16.20))   // previous value
+        assertThat(chaikin[10].round(2)).isEqualTo(numOf(-8.00))
+        assertThat(chaikin[11]).isEqualTo(na)           // oldest value
+    }
+
+    @Test
+    fun withMarketData() {
+        val data = loadAmazonData()
+        val expected = loadIndicatorData("chaikin.csv")
+
+        val actual = chaikin(data)
+
+        for (i in 0..99)
+            assertThat(actual[i].round(2)).isEqualTo(expected[i][0])
+    }
 }

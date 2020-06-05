@@ -44,8 +44,8 @@ internal class RelativeStrengthIndexTest {
 
         assertThat(rsi[0].round(2)).isEqualTo(numOf(100))   // current value
         assertThat(rsi[1].round(2)).isEqualTo(numOf(100))   // previous value
-        assertThat(rsi[6].round(2)).isEqualTo(numOf(100))
-        assertThat(rsi[7]).isEqualTo(na)
+        assertThat(rsi[5].round(2)).isEqualTo(numOf(100))
+        assertThat(rsi[6]).isEqualTo(na)
     }
 
     @Test

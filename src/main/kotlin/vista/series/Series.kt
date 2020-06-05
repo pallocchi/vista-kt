@@ -94,6 +94,7 @@ abstract class Series {
     /**
      * Returns a [Series] whose vales are moved by [i] positions.
      */
+    //TODO: Review current approach of shifted series
     operator fun invoke(i: Int): Series = ShiftedSeries(this, i)
 
     /**
@@ -296,7 +297,7 @@ private class ShiftedSeries(
 
     override val time: Int get() = source.time
 
-    override val size: Int get() = source.size
+    override val size: Int get() = source.size - n
 
     override fun get(i: Int) = source[i + n]
 }
