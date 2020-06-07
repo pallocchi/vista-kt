@@ -112,7 +112,7 @@ class Data(
 private class DataSeries(
     private val data: Data,
     private val projection: (Data.Bar) -> Num
-) : Series() {
+) : Series {
 
     override val time: Int get() = data.time
 

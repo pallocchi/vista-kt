@@ -63,16 +63,16 @@ fun seriesOf(vararg values: String): Series = SimpleSeries(values.map { numOf(it
 /**
  * Series of numbers.
  */
-abstract class Series {
+interface Series {
     /**
      * Returns the latest index.
      */
-    abstract val time: Int
+    val time: Int
 
     /**
      * Returns the series size.
      */
-    abstract val size: Int
+    val size: Int
 
     /**
      * Returns the latest value in the series (same as `series[0]`).
@@ -89,7 +89,7 @@ abstract class Series {
      *
      * @sample vista.series.SeriesTest.withIndexingOperator
      */
-    abstract operator fun get(i: Int): Num
+    operator fun get(i: Int): Num
 
     /**
      * Returns a [Series] whose vales are moved by [i] positions.
@@ -241,7 +241,7 @@ infix fun Series.crossUnder(other: Series) = this.current < other.current && thi
 /**
  * Series of numbers.
  */
-private class SimpleSeries(private val values: List<Num>) : Series() {
+private class SimpleSeries(private val values: List<Num>) : Series {
 
     override val time: Int get() = values.size - 1
 
@@ -262,7 +262,7 @@ private class SimpleSeries(private val values: List<Num>) : Series() {
 internal class CalculatedSeries(
     private val source: Series,
     private val operation: (Num) -> Num
-) : Series() {
+) : Series {
 
     override val time: Int get() = source.time
 
@@ -278,7 +278,7 @@ internal class BiCalculatedSeries(
     private val x: Series,
     private val y: Series,
     private val operation: (Num, Num) -> Num
-) : Series() {
+) : Series {
 
     override val time: Int get() = min(x.time, y.time)
 
@@ -293,7 +293,7 @@ internal class BiCalculatedSeries(
 private class ShiftedSeries(
     private val source: Series,
     private val n: Int
-) : Series() {
+) : Series {
 
     override val time: Int get() = source.time
 
@@ -307,7 +307,7 @@ private class ShiftedSeries(
  */
 internal class StaticSeries(
     private val value: Num
-) : Series() {
+) : Series {
 
     override val time: Int get() = Int.MAX_VALUE
 

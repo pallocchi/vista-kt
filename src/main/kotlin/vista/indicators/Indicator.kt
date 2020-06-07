@@ -32,7 +32,7 @@ import vista.series.Series
 /**
  * Series of indicator values.
  */
-internal abstract class Indicator(private val source: Series) : Series() {
+internal abstract class Indicator(private val source: Series) : Series {
 
     override val time: Int get() = source.time
 
