@@ -94,7 +94,6 @@ interface Series {
     /**
      * Returns a [Series] whose vales are moved by [i] positions.
      */
-    //TODO: Review current approach of shifted series
     operator fun invoke(i: Int): Series = ShiftedSeries(this, i)
 
     /**
@@ -300,18 +299,4 @@ private class ShiftedSeries(
     override val size: Int get() = source.size - n
 
     override fun get(i: Int) = source[i + n]
-}
-
-/**
- * Series that always returns the same fixed [value] for any index.
- */
-internal class StaticSeries(
-    private val value: Num
-) : Series {
-
-    override val time: Int get() = Int.MAX_VALUE
-
-    override val size: Int get() = Int.MAX_VALUE
-
-    override fun get(i: Int) = value
 }

@@ -97,8 +97,8 @@ internal class IndicatorTest {
         override val size: Int get() = source.size
 
         /**
-         * Returns the [index] value of [source].
+         * Returns the [i] value of [source].
          */
-        override fun calculate(index: Int): Num = source[index]
+        override fun calculate(i: Int): Num = source[i]
     }
 }

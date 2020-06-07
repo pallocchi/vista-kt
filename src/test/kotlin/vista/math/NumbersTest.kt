@@ -95,12 +95,6 @@ internal class NumbersTest {
     }
 
     @Test
-    fun matches() {
-        assertThat(numOf(1.0).matches(numOf(1.01), .01)).isTrue()
-        assertThat(numOf(1.0).matches(numOf(1.01), .0099)).isFalse()
-    }
-
-    @Test
     fun abs() {
         assertThat(numOf(1).abs()).isEqualTo(numOf(1))
         assertThat(numOf(-1).abs()).isEqualTo(numOf(1))

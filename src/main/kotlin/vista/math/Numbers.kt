@@ -174,13 +174,6 @@ interface Num {
     fun isEqual(other: Num): Boolean
 
     /**
-     * Returns if this value matches the [other] within a [delta].
-     *
-     * @sample vista.math.NumbersTest.matches
-     */
-    fun matches(other: Num, delta: Double): Boolean
-
-    /**
      * Returns the rounded [Num] to [n] decimal places, using given rounding [mode].
      *
      * If rounding [mode] is not specified, `RoundMode.HALF_UP` is used.
@@ -332,13 +325,6 @@ private data class NumImpl(
     override fun isEqual(other: Num) = other != NaN && compareTo(other) == 0
 
     /**
-     * Returns if this value matches the [other] within a [delta].
-     *
-     * @sample vista.math.NumbersTest.matches
-     */
-    override fun matches(other: Num, delta: Double) = this.minus(other).abs() <= numOf(delta)
-
-    /**
      * Returns the rounded [Num] to [n] decimal places, using given rounding [mode].
      *
      * @sample vista.math.NumbersTest.round
@@ -446,13 +432,6 @@ object NaN : Num {
      * @sample vista.math.NumbersTest.isEqual
      */
     override fun isEqual(other: Num): Boolean = other == NaN
-
-    /**
-     * Returns always a `false`.
-     *
-     * @sample vista.math.NumbersTest.matches
-     */
-    override fun matches(other: Num, delta: Double) = false
 
     /**
      * Returns always a [NaN].
