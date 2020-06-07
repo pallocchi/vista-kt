@@ -42,7 +42,7 @@ internal class AccumulationDistribution(
     low: Series,
     volume: Series
 ) : CachedIndicator(close) {
-    //TODO: I don't think it makes sense to pass the close as super param
+
     override val size: Int get() = mfv.size
 
     private val mfv: Series

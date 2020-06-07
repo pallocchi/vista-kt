@@ -41,10 +41,7 @@ internal class Deviation(
 
     private val mean = sma(source, n)
 
-    override fun calculate(i: Int): Num {
-        val diff = source - mean[i]
-        return sma(abs((diff)), n)[i]
-    }
+    override fun calculate(i: Int): Num = sma(abs((source - mean[i])), n)[i]
 }
 
 /**

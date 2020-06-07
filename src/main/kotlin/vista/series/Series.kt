@@ -77,12 +77,12 @@ interface Series {
     /**
      * Returns the latest value in the series (same as `series[0]`).
      */
-    val current: Num get() = this[0]
+    val last: Num get() = this[0]
 
     /**
      * Returns the previous value in the series (same as `series[1]`).
      */
-    val previous: Num get() = this[1]
+    val prev: Num get() = this[1]
 
     /**
      * Returns the series value [i] bars from now.
@@ -209,11 +209,11 @@ interface Series {
     operator fun div(other: Double): Series = div(numOf(other))
 
     /**
-     * Returns `-1`, `0`, or `1` as [current] value is numerically less than, equal to, or greater than [other].
+     * Returns `-1`, `0`, or `1` as [last] value is numerically less than, equal to, or greater than [other].
      *
      * @sample vista.series.SeriesTest.compareTo
      */
-    operator fun compareTo(other: Series): Int = this.current.compareTo(other.current)
+    operator fun compareTo(other: Series): Int = this.last.compareTo(other.last)
 }
 
 /**
@@ -228,14 +228,14 @@ infix fun Series.cross(other: Series) = this crossOver other || this crossUnder 
  *
  * @sample vista.series.SeriesTest.crossOver
  */
-infix fun Series.crossOver(other: Series) = this.current > other.current && this.previous < other.previous
+infix fun Series.crossOver(other: Series) = this.last > other.last && this.prev < other.prev
 
 /**
  * Returns if current series has crossed under the [other].
  *
  * @sample vista.series.SeriesTest.crossUnder
  */
-infix fun Series.crossUnder(other: Series) = this.current < other.current && this.previous > other.previous
+infix fun Series.crossUnder(other: Series) = this.last < other.last && this.prev > other.prev
 
 /**
  * Series of numbers.
