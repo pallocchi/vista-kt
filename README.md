@@ -4,7 +4,7 @@
 [![][maven img]][maven]
 [![][license img]][license]
 
-!> Vista is currently under heavy development 🛠
+> Vista is currently under heavy development 🛠
 
 Vista is a technical analysis library for Kotlin, inspired in [Pine Script][ps] from TradingView.
 
@@ -57,6 +57,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+[ps]: https://www.tradingview.com/pine-script-docs/en/v4/Introduction.html
 
 [travis]:https://travis-ci.org/bulltimate/vista-kt
 [travis img]:https://travis-ci.org/bulltimate/vista-kt.svg?branch=master
