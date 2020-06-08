@@ -22,17 +22,21 @@ when {
 
 First you need to add the Bulltimate repository:
 
+```kts
 repositories {
     maven {
         setUrl("https://dl.bintray.com/bulltimate/maven/")
     }
 }
+```
 
 After that the library can be added as a usual dependency:
 
+```kts
 dependencies {
     implementation('com.bulltimate:vista:0.0.1')
 }
+```
  
 ## LICENSE
 
