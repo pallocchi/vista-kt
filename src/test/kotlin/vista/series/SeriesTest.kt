@@ -32,6 +32,15 @@ import vista.math.numOf
 internal class SeriesTest {
 
     @Test
+    fun unaryMinus() {
+        val series = seriesOf(-1, 0, 1)
+
+        assertThat(-series[0]).isEqualTo(numOf(-1))  // current value
+        assertThat(-series[1]).isEqualTo(numOf(0))  // previous value
+        assertThat(-series[2]).isEqualTo(numOf(1)) // oldest value
+    }
+
+    @Test
     fun seriesOf() {
         val series = seriesOf(1..3)
 

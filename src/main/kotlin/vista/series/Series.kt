@@ -85,6 +85,13 @@ interface Series {
     val prev: Num get() = this[1]
 
     /**
+     * Returns a [Series] whose values are `-`value.
+     *
+     * @sample vista.series.SeriesTest.unaryMinus
+     */
+    operator fun unaryMinus(): Series = CalculatedSeries(this) { -it }
+
+    /**
      * Returns the series value [i] bars from now.
      *
      * @sample vista.series.SeriesTest.withIndexingOperator
@@ -259,8 +266,8 @@ private class SimpleSeries(private val values: List<Num>) : Series {
  * Series that performs an [operation] over the values of [source].
  */
 internal class CalculatedSeries(
-    private val source: Series,
-    private val operation: (Num) -> Num
+        private val source: Series,
+        private val operation: (Num) -> Num
 ) : Series {
 
     override val time: Int get() = source.time
@@ -274,9 +281,9 @@ internal class CalculatedSeries(
  * Series that performs an [operation] over the values of sources [x] and [y].
  */
 internal class BiCalculatedSeries(
-    private val x: Series,
-    private val y: Series,
-    private val operation: (Num, Num) -> Num
+        private val x: Series,
+        private val y: Series,
+        private val operation: (Num, Num) -> Num
 ) : Series {
 
     override val time: Int get() = min(x.time, y.time)
@@ -290,8 +297,8 @@ internal class BiCalculatedSeries(
  * Series that has been shifted by [n] bars.
  */
 private class ShiftedSeries(
-    private val source: Series,
-    private val n: Int
+        private val source: Series,
+        private val n: Int
 ) : Series {
 
     override val time: Int get() = source.time
