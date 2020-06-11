@@ -30,7 +30,7 @@ import vista.series.Series
 /**
  * The stochastic RSI, which is primarily used for identifying overbought and oversold conditions.
  *
- * **See:** [Investopedia](https://www.investopedia.com/terms/s/stochrsi.asp)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/momentum?id=stochastic-rsi-stochrsi)
  *
  * @param source Series of values to process
  * @param k Number of bars (length) for %K

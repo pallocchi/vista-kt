@@ -76,7 +76,7 @@ fun accdist(close: Series, high: Series, low: Series, volume: Series): Series =
 /**
  * The money flow multiplier, used by Chaikin indicators.
  *
- * **See:** [Investopedia](https://www.investopedia.com/terms/c/chaikinoscillator.asp)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/volume?id=accumulationdistribution-adl)
  *
  * @param data Market data to get the close, high, low and volume series from
  * @sample vista.indicators.MovingAverageConvergenceDivergenceTest.withIntSeries

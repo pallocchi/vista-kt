@@ -6,7 +6,7 @@ import vista.series.Series
 /**
  * The ultimate oscillator, which measures momentum across three varying time frames.
  *
- * **See:** [Investopedia](https://www.investopedia.com/terms/u/ultimateoscillator.asp)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/momentum?id=ultimate-oscillator-uo)
  *
  * @param close Series of close values
  * @param high Series of high values

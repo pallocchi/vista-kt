@@ -52,8 +52,7 @@ internal class ExponentialMovingAverage(
  *
  * Uses the `alpha = 2 / (n + 1)`.
  *
- * **See:** [Investopedia](https://www.investopedia.com/terms/e/ema.asp),
- * [TradingView](https://www.tradingview.com/pine-script-reference/#fun_ema)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/trend?id=exponential-moving-average-ema)
  *
  * @param source Series of values to process
  * @param n Number of bars (length)
@@ -67,7 +66,7 @@ fun ema(source: Series, n: Int = 9): Series = ExponentialMovingAverage(source, n
  *
  * Uses the `alpha = 1 / n`.
  *
- * **See:** [TradingView](https://www.tradingview.com/pine-script-reference/#fun_rma)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/trend?id=exponential-moving-average-ema)
  *
  * @param source Series of values to process
  * @param n Number of bars (length)

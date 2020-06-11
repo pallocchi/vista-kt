@@ -51,7 +51,7 @@ internal class StandardDeviation(
 /**
  * The standard deviation of [source] for [n] bars back.
  *
- * **See:** [TradingView](https://www.tradingview.com/pine-script-reference/#fun_stdev)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/volatility?id=standard-deviation)
  *
  * @param source Series of values to process
  * @param n Number of bars (length)

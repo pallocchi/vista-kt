@@ -11,7 +11,7 @@ import vista.series.Series
  *
  * Returns a triple of bull-bear power, bull power and bear power.
  *
- * **See:** [Investopedia](https://www.investopedia.com/terms/e/elderray.asp)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/trend?id=elder-ray-index)
  *
  * @param close Series of close values
  * @param high Series of high values
@@ -37,7 +37,7 @@ fun eri(
  *
  * Returns a triple of bull-bear power, bull power and bear power.
  *
- * **See:** [Investopedia](https://www.investopedia.com/terms/e/elderray.asp)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/trend?id=elder-ray-index)
  *
  * @param data Market data
  * @param n Number of bars (length)

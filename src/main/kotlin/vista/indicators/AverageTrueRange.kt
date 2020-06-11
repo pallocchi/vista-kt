@@ -51,7 +51,7 @@ internal class TrueRange(
 /**
  * The true range, used to calculate the [atr] indicator.
  *
- * **See:** [TradingView](https://www.tradingview.com/pine-script-reference/#fun_tr)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/volatility?id=average-true-range-atr)
  *
  * @param close Series of values to process
  * @param high Series of high values
@@ -65,7 +65,7 @@ fun tr(close: Series, high: Series, low: Series): Series = TrueRange(close, high
  *
  * Returns the [rma] of [tr] (true range).
  *
- * **See:** [TradingView](https://www.tradingview.com/pine-script-reference/#fun_atr)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/volatility?id=average-true-range-atr)
  *
  * @param close Series of values to process
  * @param high Series of high values

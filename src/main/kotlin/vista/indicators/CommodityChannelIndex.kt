@@ -30,7 +30,7 @@ import vista.series.Series
 /**
  * The commodity channel index, to evaluate overbought or oversold conditions.
  *
- * **See:** [TradingView](https://www.tradingview.com/pine-script-reference/#fun_cci)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/momentum?id=commodity-channel-index-cci)
  *
  * @param source Series of values to process
  * @param n Number of bars (length)

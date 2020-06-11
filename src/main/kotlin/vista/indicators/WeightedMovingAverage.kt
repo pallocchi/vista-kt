@@ -54,7 +54,7 @@ internal class WeightedMovingAverage(
  * The weighted moving average of [source] for [n] bars back.
  * In wma weighting factors decrease in arithmetical progression.
  *
- * **See:** [TradingView](https://www.tradingview.com/pine-script-reference/#fun_wma)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/trend?id=weighted-moving-average-wma)
  *
  * @param source Series of values to process
  * @param n Number of bars (length)

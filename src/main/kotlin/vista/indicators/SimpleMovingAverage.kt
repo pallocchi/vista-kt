@@ -50,8 +50,7 @@ internal class SimpleMovingAverage(
 /**
  * The simple moving average, that is the sum of last [n] values of [source], divided by [n].
  *
- * **See:** [Investopedia](https://www.investopedia.com/terms/s/sma.asp),
- * [TradingView](https://www.tradingview.com/pine-script-reference/#fun_sma)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/trend?id=simple-moving-average-sma)
  *
  * @param source Series of values to process
  * @param n Number of bars (length)

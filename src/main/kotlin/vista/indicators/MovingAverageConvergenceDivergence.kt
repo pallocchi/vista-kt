@@ -32,7 +32,7 @@ import vista.series.Series
  *
  * Returns a triple of MACD line, signal line and histogram line.
  *
- * **See:** [TradingView](https://www.tradingview.com/pine-script-reference/#fun_macd)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/trend?id=moving-average-convergencedivergence-macd)
  *
  * @param source Series of values to process
  * @param fastLength Number of bars (length) used by the fast [sma]

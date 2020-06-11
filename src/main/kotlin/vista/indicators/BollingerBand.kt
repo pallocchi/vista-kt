@@ -32,7 +32,7 @@ import vista.series.Series
  *
  * Returns a triple of middle, upper and lower lines.
  *
- * **See:** [TradingView](https://www.tradingview.com/pine-script-reference/#fun_bb)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/volatility?id=bollinger-bands%c2%ae)
  *
  * @param source Series of values to process
  * @param n Number of bars (length)

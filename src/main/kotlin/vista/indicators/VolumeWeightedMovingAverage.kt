@@ -26,13 +26,12 @@
 package vista.indicators
 
 import vista.series.Series
-import kotlin.math.sqrt
 
 /**
  * The volume weighted moving average of [source] for [n] bars back, which emphasizes volume
  * by weighing prices based on the amount of trading activity in a given period of time.
  *
- * **See:** [TradingView](https://www.tradingview.com/pine-script-reference/#fun_vwma)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/trend?id=volume-weighted-moving-average-vwma)
  *
  * @param source Series of values to process
  * @param volume Series of volume values

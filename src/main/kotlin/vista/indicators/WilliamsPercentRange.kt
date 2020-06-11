@@ -26,7 +26,7 @@ fun williams(close: Series, high: Series, low: Series, n: Int = 14): Series {
 /**
  * The Williams percent range (%R), which measures overbought and oversold levels.
  *
- * **See:** [Investopedia](https://www.investopedia.com/terms/w/williamsr.asp)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/momentum?id=williams-r)
  *
  * @param data Market data
  * @param n Number of bars (length)

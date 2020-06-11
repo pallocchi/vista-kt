@@ -61,7 +61,7 @@ internal class RelativeStrengthIndex(
  *
  * Oscillates between `0` (oversold) and `100` (overbought).
  *
- * **See:** [TradingView](https://www.tradingview.com/pine-script-reference/#fun_rsi)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/momentum?id=relative-strength-index-rsi)
  *
  * @param source Series of values to process
  * @param n Number of bars (length)

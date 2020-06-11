@@ -32,7 +32,7 @@ import vista.series.Series
  *
  * Returns a pair of %K and %D series.
  *
- * **See:** [TradingView](https://www.tradingview.com/pine-script-reference/#fun_stoch)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/momentum?id=stochastic-oscillator)
  *
  * @param source Series of values to process
  * @param high Series of high values

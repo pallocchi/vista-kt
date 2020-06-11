@@ -5,7 +5,7 @@ import vista.series.Series
 /**
  * The awesome oscillator, used to measure market momentum.
  *
- * **See:** [TradingView](https://www.tradingview.com/scripts/awesomeoscillator/?solution=43000501826)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/momentum?id=awesome-oscillator-ao)
  *
  * @param high Series of high values
  * @param low Series of low values

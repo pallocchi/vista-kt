@@ -33,7 +33,7 @@ import kotlin.math.sqrt
  *
  * `hma = wma(2 * wma(n/2) − wma(n)), sqrt(n))`
  *
- * **See:** [Alan Hull's website](https://alanhull.com/hull-moving-average)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/trend?id=hull-moving-average-hma)
  *
  * @param source Series of values to process
  * @param n Number of bars (length)

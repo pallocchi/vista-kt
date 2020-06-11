@@ -60,7 +60,7 @@ internal class OnBalanceVolume(
 /**
  * The on-balance volume indicator, which uses volume flow to predict changes in price.
  *
- * **See:** [Investopedia](https://www.investopedia.com/terms/o/onbalancevolume.asp)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/volume?id=on-balance-volume-obv)
  *
  * @param close Series of close prices
  * @param volume Series of volume values

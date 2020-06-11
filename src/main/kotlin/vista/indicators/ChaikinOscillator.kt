@@ -31,7 +31,7 @@ import vista.series.Series
 /**
  * The Chaikin oscillator, which measures the accumulation-distribution line of [macd].
  *
- * **See:** [Investopedia](https://www.investopedia.com/terms/c/chaikinoscillator.asp)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/volume?id=chainkin-oscillator)
  *
  * @param close Series of close prices
  * @param high Series of high prices
@@ -56,7 +56,7 @@ fun chaikin(
 /**
  * The Chaikin oscillator, which measures the accumulation-distribution line of [macd].
  *
- * **See:** [Investopedia](https://www.investopedia.com/terms/c/chaikinoscillator.asp)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/volume?id=chainkin-oscillator)
  *
  * @param data Market data
  * @param fastLength Number of bars (length) used by the fast [ema]
