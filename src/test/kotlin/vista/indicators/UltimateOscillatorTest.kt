@@ -36,53 +36,35 @@ import vista.math.na
 import vista.math.numOf
 import vista.series.seriesOf
 
-internal class AverageTrueRangeTest {
+internal class UltimateOscillatorTest {
 
     @Test
-    fun trWithIntSeries() {
-        val close = seriesOf(1..9)
+    fun withIntSeries() {
+        val close = seriesOf(1..30)
 
         val high = close * 1.5
         val low = close * 0.5
 
-        val tr = tr(close, high, low)
+        val uo = uo(close, high, low)
         
-        assertThat(tr[0].round(2)).isEqualTo(numOf(9))    // current value
-        assertThat(tr[1].round(2)).isEqualTo(numOf(8))    // previous value
-        assertThat(tr[8].round(2)).isEqualTo(numOf(1))
-    }
-
-    @Test
-    fun atrWithIntSeries() {
-        val close = seriesOf(1..20)
-
-        val high = close * 1.5
-        val low = close * 0.5
-
-        val atr = atr(close, high, low)
-
-        assertThat(atr[0].round(2)).isEqualTo(numOf(11.17))    // current value
-        assertThat(atr[1].round(2)).isEqualTo(numOf(10.49))    // previous value
-        assertThat(atr[6].round(2)).isEqualTo(numOf(7.5))
-        assertThat(atr[7]).isEqualTo(na)
+        assertThat(uo[0].round(2)).isEqualTo(numOf(50.00))    // current value
+        assertThat(uo[1].round(2)).isEqualTo(numOf(50.00))    // previous value
+        assertThat(uo[3]).isEqualTo(na)
     }
 
     @Test
     fun withMarketData() {
         val data = loadAmazonData()
-        val expected = loadIndicatorData("atr.csv")
+        val expected = loadIndicatorData("uo.csv")
 
         val close = close(data)
 
         val low = low(data)
         val high = high(data)
 
-        val tr = tr(close, high, low)
-        val atr = atr(close, high, low)
+        val actual = uo(close, high, low)
 
-        for (i in 0..99) {
-            assertThat(tr[i].round(2)).isEqualTo(expected[i][0])
-            assertThat(atr[i].round(2)).isEqualTo(expected[i][1])
-        }
+        for (i in 0..99)
+            assertThat(actual[i].round(2)).isEqualTo(expected[i][0])
     }
 }
