@@ -16,7 +16,6 @@ import vista.series.Series
  * @param low Series of low values
  * @param n Number of bars (length)
  * @sample vista.indicators.WilliamsPercentRangeTest.withIntSeries
- * @see [sma]
  */
 fun williams(close: Series, high: Series, low: Series, n: Int = 14): Series {
     val highest = highest(high, n)
@@ -32,6 +31,5 @@ fun williams(close: Series, high: Series, low: Series, n: Int = 14): Series {
  * @param data Market data
  * @param n Number of bars (length)
  * @sample vista.indicators.WilliamsPercentRangeTest.withIntSeries
- * @see [sma]
  */
 fun williams(data: Data, n: Int = 14) = williams(close(data), high(data), low(data), n)
