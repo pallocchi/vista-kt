@@ -9,4 +9,10 @@ script:
   - ./gradlew jacocoTestReport
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-#  - ./gradlew bintrayUpload
+deploy:
+  provider: script
+  script: ./gradlew bintrayUpload
+  skip_cleanup: true
+  dry-run: false
+  on:
+    tags: true

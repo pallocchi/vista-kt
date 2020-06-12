@@ -1,7 +1,7 @@
 import java.util.*
 
 group = "com.bulltimate"
-version = "0.0.1"
+version = "0.1.0"
 
 val artifactName = project.name
 val artifactGroup = project.group.toString()
