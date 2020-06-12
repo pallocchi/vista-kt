@@ -1,6 +1,7 @@
 # Vista, technical analysis
 
 [![][travis img]][travis]
+[![][codecov img]][codecov]
 [![][maven img]][maven]
 [![][license img]][license]
 
@@ -72,3 +73,6 @@ SOFTWARE.
 
 [maven]:https://bintray.com/bulltimate/maven/vista/_latestVersion
 [maven img]:https://api.bintray.com/packages/bulltimate/maven/vista/images/download.svg
+
+[codecov]:https://codecov.io/gh/bulltimate/vista-kt
+[codecov img]:https://codecov.io/gh/bulltimate/vista-kt/branch/master/graph/badge.svg
