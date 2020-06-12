@@ -46,17 +46,31 @@ internal class FunctionsTest {
     }
 
     @Test
-    fun minWithNum() {
+    fun minWith2Num() {
         assertThat(min(numOf(1), numOf(1))).isEqualTo(numOf(1))
         assertThat(min(numOf(1), numOf(2))).isEqualTo(numOf(1))
         assertThat(min(numOf(2), numOf(1))).isEqualTo(numOf(1))
     }
 
     @Test
-    fun maxWithNum() {
+    fun minWith3Num() {
+        assertThat(min(numOf(1), numOf(1), numOf(1))).isEqualTo(numOf(1))
+        assertThat(min(numOf(1), numOf(2), numOf(1))).isEqualTo(numOf(1))
+        assertThat(min(numOf(2), numOf(1), numOf(1))).isEqualTo(numOf(1))
+    }
+
+    @Test
+    fun maxWith2Num() {
         assertThat(max(numOf(1), numOf(1))).isEqualTo(numOf(1))
         assertThat(max(numOf(1), numOf(2))).isEqualTo(numOf(2))
         assertThat(max(numOf(2), numOf(1))).isEqualTo(numOf(2))
+    }
+
+    @Test
+    fun maxWith3Num() {
+        assertThat(max(numOf(1), numOf(1), numOf(1))).isEqualTo(numOf(1))
+        assertThat(max(numOf(1), numOf(2), numOf(1))).isEqualTo(numOf(2))
+        assertThat(max(numOf(2), numOf(1), numOf(1))).isEqualTo(numOf(2))
     }
 
     @Test
@@ -133,6 +147,17 @@ internal class FunctionsTest {
 
         assertThat(b[0]).isEqualTo(numOf(3))
         assertThat(b[1]).isEqualTo(numOf(2))
+        assertThat(b[2]).isEqualTo(numOf(1))
+    }
+
+    @Test
+    fun signWithSeries() {
+        val a = seriesOf(2, -2, 0)
+
+        val b = sign(a)
+
+        assertThat(b[0]).isEqualTo(numOf(0))
+        assertThat(b[1]).isEqualTo(numOf(-1))
         assertThat(b[2]).isEqualTo(numOf(1))
     }
 }

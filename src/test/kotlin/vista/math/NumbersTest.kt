@@ -34,7 +34,7 @@ internal class NumbersTest {
     fun unaryMinus() {
         assertThat(-numOf(1)).isEqualTo(numOf(-1))
         assertThat(-numOf(-1)).isEqualTo(numOf(1))
-        assertThat(NaN).isEqualTo(NaN)
+        assertThat(-NaN).isEqualTo(NaN)
     }
 
     @Test
@@ -50,6 +50,7 @@ internal class NumbersTest {
     fun minus() {
         val one = numOf(1)
 
+        assertThat(one - 1).isEqualTo(numOf(0))
         assertThat(one - one).isEqualTo(numOf(0))
         assertThat(one - NaN).isEqualTo(NaN)
         assertThat(NaN - one).isEqualTo(NaN)
@@ -92,6 +93,7 @@ internal class NumbersTest {
         assertThat(numOf(1.05).round(1, RoundMode.HALF_UP)).isEqualTo(numOf(1.1))
         assertThat(numOf(1.01).round(1, RoundMode.HALF_DOWN)).isEqualTo(numOf(1.0))
         assertThat(numOf(1.05).round(1, RoundMode.HALF_DOWN)).isEqualTo(numOf(1.0))
+        assertThat(NaN.round(1, RoundMode.HALF_DOWN)).isEqualTo(NaN)
     }
 
     @Test
@@ -161,5 +163,18 @@ internal class NumbersTest {
     @Test
     fun na() {
         assertThat(na).isEqualTo(NaN)
+    }
+
+    @Test
+    fun asString() {
+        assertThat(Num.ONE.toString()).isEqualTo("1")
+        assertThat(NaN.toString()).isEqualTo("NaN")
+    }
+
+    @Test
+    fun hashCodes() {
+        assertThat(hashSetOf(numOf(1), numOf(1))).hasSize(1)
+        assertThat(hashSetOf(numOf(1), numOf(2))).hasSize(2)
+        assertThat(hashSetOf(NaN, NaN)).hasSize(1)
     }
 }

@@ -46,11 +46,6 @@ fun seriesOf(vararg values: Int): Series = SimpleSeries(values.map { numOf(it) }
 fun seriesOf(vararg values: Num): Series = SimpleSeries(mutableListOf(*values))
 
 /**
- * Returns a [Num] series from given [Long] values.
- */
-fun seriesOf(vararg values: Long): Series = SimpleSeries(values.map { numOf(it) })
-
-/**
  * Returns a [Num] series from given [Double] values.
  */
 fun seriesOf(vararg values: Double): Series = SimpleSeries(values.map { numOf(it) })
@@ -266,8 +261,8 @@ private class SimpleSeries(private val values: List<Num>) : Series {
  * Series that performs an [operation] over the values of [source].
  */
 internal class CalculatedSeries(
-        private val source: Series,
-        private val operation: (Num) -> Num
+    private val source: Series,
+    private val operation: (Num) -> Num
 ) : Series {
 
     override val time: Int get() = source.time
@@ -281,9 +276,9 @@ internal class CalculatedSeries(
  * Series that performs an [operation] over the values of sources [x] and [y].
  */
 internal class BiCalculatedSeries(
-        private val x: Series,
-        private val y: Series,
-        private val operation: (Num, Num) -> Num
+    private val x: Series,
+    private val y: Series,
+    private val operation: (Num, Num) -> Num
 ) : Series {
 
     override val time: Int get() = min(x.time, y.time)
@@ -297,8 +292,8 @@ internal class BiCalculatedSeries(
  * Series that has been shifted by [n] bars.
  */
 private class ShiftedSeries(
-        private val source: Series,
-        private val n: Int
+    private val source: Series,
+    private val n: Int
 ) : Series {
 
     override val time: Int get() = source.time

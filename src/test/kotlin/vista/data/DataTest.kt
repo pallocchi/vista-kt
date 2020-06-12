@@ -62,6 +62,17 @@ internal class DataTest {
     }
 
     @Test
+    fun withBarIntConstructor() {
+        val bar = Data.Bar(date = "12345679", open = 2, high = 3, low = 1, close = 2, volume = 5)
+        assertThat(bar.date).isEqualTo("12345679")
+        assertThat(bar.open).isEqualTo(numOf(2))
+        assertThat(bar.high).isEqualTo(numOf(3))
+        assertThat(bar.low).isEqualTo(numOf(1))
+        assertThat(bar.close).isEqualTo(numOf(2))
+        assertThat(bar.volume).isEqualTo(numOf(5))
+    }
+
+    @Test
     fun withIndexingOperator() {
         assertThat(data[0]?.date).isEqualTo("12345679") // current bar
         assertThat(data[1]?.date).isEqualTo("12345678") // previous bar

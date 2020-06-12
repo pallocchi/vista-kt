@@ -55,7 +55,7 @@ internal class CommodityChannelIndexTest {
 
         val close = close(data)
 
-        val cci = cci(close, 20)
+        val cci = cci(close)
 
         for (i in 0..99)
             assertThat(cci[i].round(2)).isEqualTo(expected[i][0])

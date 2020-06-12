@@ -84,25 +84,19 @@ class Data(
          * Constructor for [Int] arguments.
          */
         constructor(date: String, open: Int, high: Int, low: Int, close: Int, volume: Int) :
-                this(date, numOf(open), numOf(high), numOf(low), numOf(close), numOf(volume))
-
-        /**
-         * Constructor for [Long] arguments.
-         */
-        constructor(date: String, open: Long, high: Long, low: Long, close: Long, volume: Long) :
-                this(date, numOf(open), numOf(high), numOf(low), numOf(close), numOf(volume))
-
+            this(date, numOf(open), numOf(high), numOf(low), numOf(close), numOf(volume))
+        
         /**
          * Constructor for [Double] arguments.
          */
         constructor(date: String, open: Double, high: Double, low: Double, close: Double, volume: Double) :
-                this(date, numOf(open), numOf(high), numOf(low), numOf(close), numOf(volume))
+            this(date, numOf(open), numOf(high), numOf(low), numOf(close), numOf(volume))
 
         /**
          * Constructor for [String] arguments.
          */
         constructor(date: String, open: String, high: String, low: String, close: String, volume: String) :
-                this(date, numOf(open), numOf(high), numOf(low), numOf(close), numOf(volume))
+            this(date, numOf(open), numOf(high), numOf(low), numOf(close), numOf(volume))
     }
 }
 

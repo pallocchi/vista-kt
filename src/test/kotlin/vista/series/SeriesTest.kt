@@ -33,20 +33,52 @@ internal class SeriesTest {
 
     @Test
     fun unaryMinus() {
-        val series = seriesOf(-1, 0, 1)
+        val series = -seriesOf(-1, 0, 1)
 
-        assertThat(-series[0]).isEqualTo(numOf(-1))  // current value
-        assertThat(-series[1]).isEqualTo(numOf(0))  // previous value
-        assertThat(-series[2]).isEqualTo(numOf(1)) // oldest value
+        assertThat(series[0]).isEqualTo(numOf(-1))  // current value
+        assertThat(series[1]).isEqualTo(numOf(0))  // previous value
+        assertThat(series[2]).isEqualTo(numOf(1)) // oldest value
     }
 
     @Test
-    fun seriesOf() {
+    fun seriesOfRange() {
         val series = seriesOf(1..3)
 
         assertThat(series[0]).isEqualTo(numOf(3)) // current value
         assertThat(series[1]).isEqualTo(numOf(2)) // previous value
         assertThat(series[2]).isEqualTo(numOf(1)) // oldest value
+    }
+
+    @Test
+    fun seriesOfNum() {
+        val series = seriesOf(numOf(1), numOf(2))
+
+        assertThat(series[0]).isEqualTo(numOf(2))  // current value
+        assertThat(series[1]).isEqualTo(numOf(1))  // previous value
+    }
+
+    @Test
+    fun seriesOfInt() {
+        val series = seriesOf(1, 2)
+
+        assertThat(series[0]).isEqualTo(numOf(2))  // current value
+        assertThat(series[1]).isEqualTo(numOf(1))  // previous value
+    }
+
+    @Test
+    fun seriesOfDouble() {
+        val series = seriesOf(1.0, 2.0)
+
+        assertThat(series[0]).isEqualTo(numOf(2))  // current value
+        assertThat(series[1]).isEqualTo(numOf(1))  // previous value
+    }
+
+    @Test
+    fun seriesOfString() {
+        val series = seriesOf("1", "2")
+
+        assertThat(series[0]).isEqualTo(numOf(2))  // current value
+        assertThat(series[1]).isEqualTo(numOf(1))  // previous value
     }
 
     @Test

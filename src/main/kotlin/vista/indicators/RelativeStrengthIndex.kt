@@ -34,8 +34,8 @@ import vista.series.Series
  * Relative strength index (RSI) indicator.
  */
 internal class RelativeStrengthIndex(
-    private val source: Series,
-    private val n: Int
+    source: Series,
+    n: Int
 ) : CachedIndicator(source) {
 
     companion object {
