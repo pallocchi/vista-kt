@@ -36,8 +36,7 @@ fun eri(
  *
  * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/trend?id=elder-ray-index)
  *
- * @param data Market data
  * @param n Number of bars (length)
- * @sample vista.indicators.ElderRayIndexTest.withIntSeries
+ * @sample vista.indicators.ElderRayIndexTest.withMarketData
  */
-fun eri(data: Data, n: Int = 13) = eri(data.close, data.high, data.low, n)
+fun Data.eri(n: Int = 13) = eri(close, high, low, n)

@@ -56,7 +56,7 @@ internal class AccumulationDistributionTest {
         val data = loadAmazonData()
         val expected = loadIndicatorData("accdist.csv")
 
-        val actual = accdist(data)
+        val actual = data.accdist()
 
         for (i in 0..99)
             assertThat(actual[i].round(2)).isEqualTo(expected[i][0])

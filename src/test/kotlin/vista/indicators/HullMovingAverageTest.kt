@@ -52,9 +52,8 @@ internal class HullMovingAverageTest {
 
         val data = loadAmazonData()
         val expected = loadIndicatorData("hma.csv")
-        val close = data.close
 
-        val actual = hma(close)
+        val actual = data.hma(9)
 
         for (i in 0..99)
             assertThat(actual[i].round(2)).isEqualTo(expected[i][0])

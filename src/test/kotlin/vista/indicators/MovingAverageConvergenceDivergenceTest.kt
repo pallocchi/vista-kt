@@ -58,9 +58,8 @@ internal class MovingAverageConvergenceDivergenceTest {
     fun withMarketData() {
         val data = loadAmazonData()
         val expected = loadIndicatorData("macd.csv")
-        val close = data.close
 
-        val (macd, signal, hist) = macd(close)
+        val (macd, signal, hist) = data.macd()
 
         for (i in 0..99) {
             assertThat(macd[i].round(2)).isEqualTo(expected[i][0])

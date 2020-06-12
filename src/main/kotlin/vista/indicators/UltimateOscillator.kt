@@ -1,5 +1,6 @@
 package vista.indicators
 
+import vista.data.Data
 import vista.math.min
 import vista.series.Series
 
@@ -31,3 +32,15 @@ fun uo(
     val avg3 = sum(bp, n3) / sum(tr, n3)
     return (((avg1 * 4) + (avg2 * 2) + avg3) / 7) * 100
 }
+
+/**
+ * The ultimate oscillator, which measures momentum across three varying time frames.
+ *
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/momentum?id=ultimate-oscillator-uo)
+ *
+ * @param n1 Number of bars (length) for first time frame
+ * @param n2 Number of bars (length) for second time frame
+ * @param n3 Number of bars (length) for third time frame
+ * @sample vista.indicators.UltimateOscillatorTest.withMarketData
+ */
+fun Data.uo(n1: Int = 7, n2: Int = 14, n3: Int = 28) = uo(close, high, low, n1, n2, n3)

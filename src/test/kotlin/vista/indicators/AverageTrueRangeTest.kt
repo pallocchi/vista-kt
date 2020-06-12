@@ -69,13 +69,8 @@ internal class AverageTrueRangeTest {
         val data = loadAmazonData()
         val expected = loadIndicatorData("atr.csv")
 
-        val close = data.close
-
-        val low = data.low
-        val high = data.high
-
-        val tr = tr(close, high, low)
-        val atr = atr(close, high, low)
+        val tr = data.tr()
+        val atr = data.atr(14)
 
         for (i in 0..99) {
             assertThat(tr[i].round(2)).isEqualTo(expected[i][0])

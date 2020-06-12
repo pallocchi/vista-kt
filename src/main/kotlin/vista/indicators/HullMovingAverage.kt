@@ -25,6 +25,7 @@
 
 package vista.indicators
 
+import vista.data.Data
 import vista.series.Series
 import kotlin.math.sqrt
 
@@ -46,3 +47,16 @@ fun hma(source: Series, n: Int = 9): Series {
     val length = sqrt(n.toDouble()).toInt()
     return wma(wma1 - wma2, length)
 }
+
+/**
+ * The hull moving average of close price for [n] bars back, which reduces lag of traditional moving averages.
+ *
+ * `hma = wma(2 * wma(n/2) − wma(n)), sqrt(n))`
+ *
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/trend?id=hull-moving-average-hma)
+ *
+ * @param n Number of bars (length)
+ * @sample vista.indicators.HullMovingAverageTest.withMarketData
+ * @see [wma]
+ */
+fun Data.hma(n: Int = 9) = hma(close, n)

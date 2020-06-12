@@ -25,6 +25,7 @@
 
 package vista.indicators
 
+import vista.data.Data
 import vista.series.Series
 
 /**
@@ -57,3 +58,17 @@ fun stoch(
     val dLine = sma(kLineSmoothed, d)
     return Pair(kLineSmoothed, dLine)
 }
+
+/**
+ * The stochastic oscillator of close price for [k] bars back, to evaluate overbought or oversold conditions.
+ *
+ * Returns a pair of %K and %D series.
+ *
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/momentum?id=stochastic-oscillator)
+ *
+ * @param k Number of bars (length) for %K
+ * @param d Number of bars (length) for %D moving average
+ * @param smooth Smooth for %K
+ * @sample vista.indicators.StochasticOscillatorTest.withMarketData
+ */
+fun Data.stoch(k: Int = 14, d: Int = 3, smooth: Int = 3) = stoch(close, high, low, k, d, smooth)

@@ -25,6 +25,7 @@
 
 package vista.indicators
 
+import vista.data.Data
 import vista.math.Num
 import vista.series.Series
 
@@ -62,3 +63,15 @@ internal class WeightedMovingAverage(
  * @see [sma]
  */
 fun wma(source: Series, n: Int = 9): Series = WeightedMovingAverage(source, n)
+
+/**
+ * The weighted moving average of close price for [n] bars back.
+ * In wma weighting factors decrease in arithmetical progression.
+ *
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/trend?id=weighted-moving-average-wma)
+ *
+ * @param n Number of bars (length)
+ * @sample vista.indicators.WeightedMovingAverageTest.withMarketData
+ * @see [sma]
+ */
+fun Data.wma(n: Int = 9): Series = wma(close, n)

@@ -50,9 +50,8 @@ internal class DeviationTest {
     fun withMarketData() {
         val data = loadAmazonData()
         val expected = loadIndicatorData("dev.csv")
-        val close = data.close
 
-        val actual = dev(close, 20)
+        val actual = data.dev(20)
 
         for (i in 0..99)
             assertThat(actual[i].round(2)).isEqualTo(expected[i][0])

@@ -39,7 +39,7 @@ import vista.series.Series
  * @param volume Series of volumes
  * @param fastLength Number of bars (length) used by the fast [ema]
  * @param slowLength Number of bars (length) used by the slow [ema]
- * @sample vista.indicators.MovingAverageConvergenceDivergenceTest.withIntSeries
+ * @sample vista.indicators.ChaikinOscillatorTest.withIntSeries
  */
 fun chaikin(
     close: Series,
@@ -58,14 +58,8 @@ fun chaikin(
  *
  * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/volume?id=chainkin-oscillator)
  *
- * @param data Market data
  * @param fastLength Number of bars (length) used by the fast [ema]
  * @param slowLength Number of bars (length) used by the slow [ema]
- * @sample vista.indicators.MovingAverageConvergenceDivergenceTest.withIntSeries
+ * @sample vista.indicators.ChaikinOscillatorTest.withMarketData
  */
-fun chaikin(
-    data: Data,
-    fastLength: Int = 3,
-    slowLength: Int = 10
-) =
-    chaikin(data.close, data.high, data.low, data.volume, fastLength, slowLength)
+fun Data.chaikin(fastLength: Int = 3, slowLength: Int = 10) = chaikin(close, high, low, volume, fastLength, slowLength)

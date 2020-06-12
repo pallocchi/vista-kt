@@ -56,7 +56,7 @@ internal class ChaikinOscillatorTest {
         val data = loadAmazonData()
         val expected = loadIndicatorData("chaikin.csv")
 
-        val actual = chaikin(data)
+        val actual = data.chaikin()
 
         for (i in 0..99)
             assertThat(actual[i].round(2)).isEqualTo(expected[i][0])

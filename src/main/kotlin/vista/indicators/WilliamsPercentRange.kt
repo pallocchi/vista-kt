@@ -25,8 +25,7 @@ fun williams(close: Series, high: Series, low: Series, n: Int = 14): Series {
  *
  * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/momentum?id=williams-r)
  *
- * @param data Market data
  * @param n Number of bars (length)
- * @sample vista.indicators.WilliamsPercentRangeTest.withIntSeries
+ * @sample vista.indicators.WilliamsPercentRangeTest.withMarketData
  */
-fun williams(data: Data, n: Int = 14) = williams(data.close, data.high, data.low, n)
+fun Data.williams(n: Int = 14) = williams(close, high, low, n)

@@ -55,10 +55,7 @@ internal class AwesomeOscillatorTest {
         val data = loadAmazonData()
         val expected = loadIndicatorData("ao.csv")
 
-        val low = data.low
-        val high = data.high
-
-        val actual = ao(high, low)
+        val actual = data.ao()
 
         for (i in 0..99)
             assertThat(actual[i].round(2)).isEqualTo(expected[i][0])

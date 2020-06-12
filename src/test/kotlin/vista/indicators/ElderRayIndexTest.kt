@@ -65,7 +65,7 @@ internal class ElderRayIndexTest {
         val data = loadAmazonData()
         val expected = loadIndicatorData("eri.csv")
 
-        val (bb, bull, bear) = eri(data)
+        val (bb, bull, bear) = data.eri()
 
         for (i in 0..99) {
             assertThat(bb[i].round(2)).isEqualTo(expected[i][0])

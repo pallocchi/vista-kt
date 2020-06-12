@@ -54,11 +54,7 @@ internal class UltimateOscillatorTest {
         val data = loadAmazonData()
         val expected = loadIndicatorData("uo.csv")
 
-        val close = data.close
-        val low = data.low
-        val high = data.high
-
-        val actual = uo(close, high, low)
+        val actual = data.uo()
 
         for (i in 0..99)
             assertThat(actual[i].round(2)).isEqualTo(expected[i][0])

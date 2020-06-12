@@ -52,9 +52,7 @@ internal class CommodityChannelIndexTest {
         val data = loadAmazonData()
         val expected = loadIndicatorData("cci.csv")
 
-        val close = data.close
-
-        val cci = cci(close)
+        val cci = data.cci()
 
         for (i in 0..99)
             assertThat(cci[i].round(2)).isEqualTo(expected[i][0])

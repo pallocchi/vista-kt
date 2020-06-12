@@ -59,10 +59,7 @@ internal class IchimokuCloudTest {
         val data = loadAmazonData()
         val expected = loadIndicatorData("ichimoku.csv")
 
-        val high = data.high
-        val low = data.low
-
-        val actual = ichimoku(high, low)
+        val actual = data.ichimoku()
 
         for (i in 0..99) {
             assertThat(actual.ts[i].round(2)).isEqualTo(expected[i][0])

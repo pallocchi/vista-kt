@@ -25,6 +25,7 @@
 
 package vista.indicators
 
+import vista.data.Data
 import vista.series.Series
 
 /**
@@ -41,3 +42,13 @@ fun cci(source: Series, n: Int = 20): Series {
     val meanDeviation = dev(source, n)
     return (source - movingAverage) / (meanDeviation * .015)
 }
+
+/**
+ * The commodity channel index, to evaluate overbought or oversold conditions.
+ *
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/momentum?id=commodity-channel-index-cci)
+ *
+ * @param n Number of bars (length)
+ * @sample vista.indicators.CommodityChannelIndexTest.withMarketData
+ */
+fun Data.cci(n: Int = 20) = cci(close, n)

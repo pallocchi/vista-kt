@@ -51,9 +51,8 @@ internal class RateOfChangeTest {
     fun withMarketData() {
         val data = loadAmazonData()
         val expected = loadIndicatorData("roc.csv")
-        val close = data.close
 
-        val actual = roc(close, 9)
+        val actual = data.roc(9)
 
         for (i in 0..99)
             assertThat(actual[i].round(2)).isEqualTo(expected[i][0])

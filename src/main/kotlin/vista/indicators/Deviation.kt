@@ -25,6 +25,7 @@
 
 package vista.indicators
 
+import vista.data.Data
 import vista.math.Num
 import vista.math.abs
 import vista.series.Series
@@ -57,3 +58,16 @@ internal class Deviation(
  * @see [stdev]
  */
 fun dev(source: Series, n: Int): Series = Deviation(source, n)
+
+/**
+ * The deviation of close price for [n] bars back.
+ *
+ * Measures the difference between the series and it's [sma].
+ *
+ * **See:** [TradingView](https://www.tradingview.com/pine-script-reference/#fun_dev)
+ *
+ * @param n Number of bars (length)
+ * @sample vista.indicators.DeviationTest.withMarketData
+ * @see [stdev]
+ */
+fun Data.dev(n: Int): Series = Deviation(close, n)

@@ -65,9 +65,8 @@ internal class ExponentialMovingAverageTest {
 
         val data = loadAmazonData()
         val expected = loadIndicatorData("ema.csv")
-        val close = data.close
 
-        val actual = ema(close, 9)
+        val actual = data.ema(9)
 
         for (i in 0..99)
             assertThat(actual[i].round(2)).isEqualTo(expected[i][0])

@@ -52,9 +52,8 @@ internal class WeightedMovingAverageTest {
 
         val data = loadAmazonData()
         val expected = loadIndicatorData("wma.csv")
-        val close = data.close
 
-        val actual = wma(close, 9)
+        val actual = data.wma(9)
 
         for (i in 0..99)
             assertThat(actual[i].round(2)).isEqualTo(expected[i][0])

@@ -55,7 +55,7 @@ internal class WilliamsPercentRangeTest {
         val data = loadAmazonData()
         val expected = loadIndicatorData("williams.csv")
 
-        val actual = williams(data)
+        val actual = data.williams()
 
         for (i in 0..99)
             assertThat(actual[i].round(2)).isEqualTo(expected[i][0])

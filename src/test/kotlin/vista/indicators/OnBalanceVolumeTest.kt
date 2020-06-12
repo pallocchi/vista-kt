@@ -54,10 +54,7 @@ internal class OnBalanceVolumeTest {
         val data = loadAmazonData()
         val expected = loadIndicatorData("obv.csv")
 
-        val close = data.close
-        val volume = data.volume
-
-        val actual = obv(close, volume)
+        val actual = data.obv()
 
         for (i in 0..99)
             assertThat(actual[i]).isEqualTo(expected[i][0])

@@ -63,7 +63,7 @@ internal class AccumulationDistribution(
 /**
  * The money flow multiplier, used by Chaikin indicators.
  *
- * **See:** [Investopedia](https://www.investopedia.com/terms/c/chaikinoscillator.asp)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/volume?id=accumulationdistribution-adl)
  *
  * @param close Series of close prices
  * @param high Series of high prices
@@ -78,8 +78,6 @@ fun accdist(close: Series, high: Series, low: Series, volume: Series): Series =
  *
  * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/volume?id=accumulationdistribution-adl)
  *
- * @param data Market data to get the close, high, low and volume series from
- * @sample vista.indicators.MovingAverageConvergenceDivergenceTest.withIntSeries
+ * @sample vista.indicators.MovingAverageConvergenceDivergenceTest.withMarketData
  */
-fun accdist(data: Data): Series =
-    AccumulationDistribution(data.close, data.high, data.low, data.volume)
+fun Data.accdist(): Series = accdist(close, high, low, volume)

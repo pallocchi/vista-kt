@@ -60,11 +60,7 @@ internal class StochasticOscillatorTest {
         val data = loadAmazonData()
         val expected = loadIndicatorData("stoch.csv")
 
-        val close = data.close
-        val low = data.low
-        val high = data.high
-
-        val (k, d) = stoch(close, high, low)
+        val (k, d) = data.stoch()
 
         for (i in 0..99) {
             assertThat(k[i].round(2)).isEqualTo(expected[i][0])
