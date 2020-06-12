@@ -27,7 +27,6 @@ package vista.indicators
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import vista.data.close
 import vista.loadAmazonData
 import vista.loadIndicatorData
 import vista.math.na
@@ -52,7 +51,7 @@ internal class RateOfChangeTest {
     fun withMarketData() {
         val data = loadAmazonData()
         val expected = loadIndicatorData("roc.csv")
-        val close = close(data)
+        val close = data.close
 
         val actual = roc(close, 9)
 

@@ -83,7 +83,7 @@ internal class DataTest {
 
         // create the open price series
 
-        val open = open(data)
+        val open = data.open
 
         assertThat(open[0]).isEqualTo(numOf(2368.52))  // current value
         assertThat(open[1]).isEqualTo(numOf(2361.01))  // previous value
@@ -94,7 +94,7 @@ internal class DataTest {
 
         // create the high price series
 
-        val high = high(data)
+        val high = data.high
 
         assertThat(high[0]).isEqualTo(numOf(2411.0))   // current value
         assertThat(high[1]).isEqualTo(numOf(2391.37))  // previous value
@@ -105,7 +105,7 @@ internal class DataTest {
 
         // create the low price series
 
-        val low = low(data)
+        val low = data.low
 
         assertThat(low[0]).isEqualTo(numOf(2356.37))  // current value
         assertThat(low[1]).isEqualTo(numOf(2353.21))  // previous value
@@ -116,7 +116,7 @@ internal class DataTest {
 
         // create the close price series
 
-        val close = close(data)
+        val close = data.close
 
         assertThat(close[0]).isEqualTo(numOf(2409.78))  // current value
         assertThat(close[1]).isEqualTo(numOf(2388.85))  // previous value
@@ -127,7 +127,7 @@ internal class DataTest {
 
         // create the close price series
 
-        val typical = typical(data)
+        val typical = data.typical
 
         assertThat(typical[0].round(2)).isEqualTo(numOf(2392.38))  // current value
         assertThat(typical[1].round(2)).isEqualTo(numOf(2377.81))  // previous value
@@ -138,7 +138,7 @@ internal class DataTest {
 
         // create the volume series
 
-        val volume = volume(data)
+        val volume = data.volume
 
         assertThat(volume[0]).isEqualTo(numOf(4234951)) // current value
         assertThat(volume[1]).isEqualTo(numOf(3648128)) // previous value
@@ -149,7 +149,7 @@ internal class DataTest {
 
         // create the close price series
 
-        val close = close(data)
+        val close = data.close
 
         assertThat(close[0]).isEqualTo(numOf(2409.78))  // current value
         assertThat(close[1]).isEqualTo(numOf(2388.85))  // previous value

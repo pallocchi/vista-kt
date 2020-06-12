@@ -28,7 +28,6 @@ package vista.indicators
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import vista.data.Data
-import vista.data.close
 import vista.math.Num
 import vista.math.numOf
 import vista.series.Series
@@ -65,7 +64,7 @@ internal class IndicatorTest {
         val data = Data(bars)
 
         // create the close price series
-        val close = close(data)
+        val close = data.close
 
         // create the indicator
         val indicator = FoolIndicator(close)

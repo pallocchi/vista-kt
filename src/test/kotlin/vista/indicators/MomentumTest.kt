@@ -27,7 +27,6 @@ package vista.indicators
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import vista.data.close
 import vista.loadAmazonData
 import vista.loadIndicatorData
 import vista.math.na
@@ -51,7 +50,7 @@ internal class MomentumTest {
     fun withMarketData() {
         val data = loadAmazonData()
         val expected = loadIndicatorData("mom.csv")
-        val close = close(data)
+        val close = data.close
 
         val actual = mom(close, 10)
 

@@ -27,8 +27,6 @@ package vista.indicators
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import vista.data.close
-import vista.data.volume
 import vista.loadAmazonData
 import vista.loadIndicatorData
 import vista.math.na
@@ -56,8 +54,8 @@ internal class OnBalanceVolumeTest {
         val data = loadAmazonData()
         val expected = loadIndicatorData("obv.csv")
 
-        val close = close(data)
-        val volume = volume(data)
+        val close = data.close
+        val volume = data.volume
 
         val actual = obv(close, volume)
 

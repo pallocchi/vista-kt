@@ -1,9 +1,6 @@
 package vista.indicators
 
 import vista.data.Data
-import vista.data.close
-import vista.data.high
-import vista.data.low
 import vista.series.Series
 
 /**
@@ -43,4 +40,4 @@ fun eri(
  * @param n Number of bars (length)
  * @sample vista.indicators.ElderRayIndexTest.withIntSeries
  */
-fun eri(data: Data, n: Int = 13) = eri(close(data), high(data), low(data), n)
+fun eri(data: Data, n: Int = 13) = eri(data.close, data.high, data.low, n)

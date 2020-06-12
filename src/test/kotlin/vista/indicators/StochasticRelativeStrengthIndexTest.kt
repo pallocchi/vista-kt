@@ -27,7 +27,6 @@ package vista.indicators
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import vista.data.close
 import vista.loadAmazonData
 import vista.loadIndicatorData
 
@@ -38,7 +37,7 @@ internal class StochasticRelativeStrengthIndexTest {
 
         val data = loadAmazonData()
         val expected = loadIndicatorData("stochrsi.csv")
-        val close = close(data)
+        val close = data.close
 
         val (k, d) = stochrsi(close)
 

@@ -25,7 +25,7 @@
 
 package vista.indicators
 
-import vista.data.*
+import vista.data.Data
 import vista.series.Series
 
 /**
@@ -68,4 +68,4 @@ fun chaikin(
     fastLength: Int = 3,
     slowLength: Int = 10
 ) =
-    chaikin(close(data), high(data), low(data), volume(data), fastLength, slowLength)
+    chaikin(data.close, data.high, data.low, data.volume, fastLength, slowLength)

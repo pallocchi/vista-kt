@@ -1,9 +1,6 @@
 package vista.indicators
 
 import vista.data.Data
-import vista.data.close
-import vista.data.high
-import vista.data.low
 import vista.series.Series
 
 /**
@@ -32,4 +29,4 @@ fun williams(close: Series, high: Series, low: Series, n: Int = 14): Series {
  * @param n Number of bars (length)
  * @sample vista.indicators.WilliamsPercentRangeTest.withIntSeries
  */
-fun williams(data: Data, n: Int = 14) = williams(close(data), high(data), low(data), n)
+fun williams(data: Data, n: Int = 14) = williams(data.close, data.high, data.low, n)

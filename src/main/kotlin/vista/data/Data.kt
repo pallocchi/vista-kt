@@ -49,6 +49,54 @@ class Data(
     val size: Int get() = bars.size
 
     /**
+     * The open price series.
+     *
+     * @sample vista.data.DataTest.init
+     * @sample vista.data.DataTest.withOpenSeries
+     */
+    val open: Series get() = DataSeries(this) { it.open }
+
+    /**
+     * The high price series.
+     *
+     * @sample vista.data.DataTest.init
+     * @sample vista.data.DataTest.withHighSeries
+     */
+    val high: Series get() = DataSeries(this) { it.high }
+
+    /**
+     * The low price series.
+     *
+     * @sample vista.data.DataTest.init
+     * @sample vista.data.DataTest.withLowSeries
+     */
+    val low: Series get() = DataSeries(this) { it.low }
+
+    /**
+     * The close price series.
+     *
+     * @sample vista.data.DataTest.init
+     * @sample vista.data.DataTest.withCloseSeries
+     */
+    val close: Series get() = DataSeries(this) { it.close }
+
+    /**
+     * The typical price series.
+     *
+     * @sample vista.data.DataTest.init
+     * @sample vista.data.DataTest.withTypicalSeries
+     */
+    val typical: Series get() = (close + high + low) / 3
+
+    /**
+     * The volume series.
+     *
+     * @sample vista.data.DataTest.init
+     * @sample vista.data.DataTest.withVolumeSeries
+     */
+    val volume: Series get() = DataSeries(this) { it.volume }
+
+    /**
      * Adds the given [bar] to the historical data.
      */
     fun add(bar: Bar) {
@@ -85,7 +133,7 @@ class Data(
          */
         constructor(date: String, open: Int, high: Int, low: Int, close: Int, volume: Int) :
             this(date, numOf(open), numOf(high), numOf(low), numOf(close), numOf(volume))
-        
+
         /**
          * Constructor for [Double] arguments.
          */
@@ -114,51 +162,3 @@ private class DataSeries(
 
     override fun get(i: Int) = data[i]?.let { projection(it) } ?: NaN
 }
-
-/**
- * The open price series.
- *
- * @sample vista.data.DataTest.init
- * @sample vista.data.DataTest.withOpenSeries
- */
-fun open(data: Data): Series = DataSeries(data) { it.open }
-
-/**
- * The high price series.
- *
- * @sample vista.data.DataTest.init
- * @sample vista.data.DataTest.withHighSeries
- */
-fun high(data: Data): Series = DataSeries(data) { it.high }
-
-/**
- * The low price series.
- *
- * @sample vista.data.DataTest.init
- * @sample vista.data.DataTest.withLowSeries
- */
-fun low(data: Data): Series = DataSeries(data) { it.low }
-
-/**
- * The close price series.
- *
- * @sample vista.data.DataTest.init
- * @sample vista.data.DataTest.withCloseSeries
- */
-fun close(data: Data): Series = DataSeries(data) { it.close }
-
-/**
- * The typical price series.
- *
- * @sample vista.data.DataTest.init
- * @sample vista.data.DataTest.withTypicalSeries
- */
-fun typical(data: Data): Series = (close(data) + high(data) + low(data)) / 3
-
-/**
- * The volume series.
- *
- * @sample vista.data.DataTest.init
- * @sample vista.data.DataTest.withVolumeSeries
- */
-fun volume(data: Data): Series = DataSeries(data) { it.volume }

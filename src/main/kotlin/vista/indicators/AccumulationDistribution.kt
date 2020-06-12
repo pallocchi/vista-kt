@@ -25,7 +25,7 @@
 
 package vista.indicators
 
-import vista.data.*
+import vista.data.Data
 import vista.math.Num
 import vista.series.Series
 
@@ -82,4 +82,4 @@ fun accdist(close: Series, high: Series, low: Series, volume: Series): Series =
  * @sample vista.indicators.MovingAverageConvergenceDivergenceTest.withIntSeries
  */
 fun accdist(data: Data): Series =
-    AccumulationDistribution(close(data), high(data), low(data), volume(data))
+    AccumulationDistribution(data.close, data.high, data.low, data.volume)

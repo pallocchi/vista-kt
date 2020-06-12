@@ -27,9 +27,6 @@ package vista.indicators
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import vista.data.close
-import vista.data.high
-import vista.data.low
 import vista.loadAmazonData
 import vista.loadIndicatorData
 import vista.math.na
@@ -46,7 +43,7 @@ internal class AverageTrueRangeTest {
         val low = close * 0.5
 
         val tr = tr(close, high, low)
-        
+
         assertThat(tr[0].round(2)).isEqualTo(numOf(9))    // current value
         assertThat(tr[1].round(2)).isEqualTo(numOf(8))    // previous value
         assertThat(tr[8].round(2)).isEqualTo(numOf(1))
@@ -72,10 +69,10 @@ internal class AverageTrueRangeTest {
         val data = loadAmazonData()
         val expected = loadIndicatorData("atr.csv")
 
-        val close = close(data)
+        val close = data.close
 
-        val low = low(data)
-        val high = high(data)
+        val low = data.low
+        val high = data.high
 
         val tr = tr(close, high, low)
         val atr = atr(close, high, low)
