@@ -19,6 +19,8 @@ when {
 }
 ```
 
+Full documentation is available [here](https://bulltimate.github.io/vista).
+
 ## Gradle
 
 First you need to add the Bulltimate repository:
@@ -35,7 +37,7 @@ After that the library can be added as a usual dependency:
 
 ```kts
 dependencies {
-    implementation('com.bulltimate:vista:0.0.1')
+    implementation('com.bulltimate:vista:0.1.0')
 }
 ```
  
