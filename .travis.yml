@@ -6,7 +6,7 @@ before_install:
   - chmod +x gradle/wrapper/gradle-wrapper.jar
 script:
   - ./gradlew test build
-  - ./gradle jacocoTestReport
+  - ./gradlew jacocoTestReport
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 #  - ./gradlew bintrayUpload
