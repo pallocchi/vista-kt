@@ -1,4 +1,4 @@
-import java.util.Date
+import java.util.*
 
 group = "com.bulltimate"
 version = "0.0.1"
@@ -27,6 +27,7 @@ plugins {
     id("org.jetbrains.dokka") version "0.10.0"
     id("com.jfrog.bintray") version "1.8.5"
     `maven-publish`
+    jacoco
 }
 
 repositories {
@@ -39,6 +40,12 @@ dependencies {
     testCompile("org.assertj:assertj-core:3.11.1")
 }
 
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
+}
+
+// Docs
+
 tasks.dokka {
     outputFormat = "html"
     outputDirectory = "$buildDir/javadoc"
@@ -48,9 +55,7 @@ tasks.dokka {
     }
 }
 
-tasks.withType<Test>().configureEach {
-    useJUnitPlatform()
-}
+// Publish
 
 publishing {
     publications {
@@ -106,5 +111,18 @@ bintray {
             released = Date().toString()
             vcsTag = artifactVersion
         }
+    }
+}
+
+// Coverage
+
+jacoco {
+    toolVersion = "0.8.5"
+}
+
+tasks.jacocoTestReport {
+    reports {
+        xml.isEnabled = true
+        csv.isEnabled = false
     }
 }
