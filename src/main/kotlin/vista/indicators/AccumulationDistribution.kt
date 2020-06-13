@@ -70,7 +70,7 @@ internal class AccumulationDistribution(
  * @param low Series of low prices
  * @sample vista.indicators.MovingAverageConvergenceDivergenceTest.withIntSeries
  */
-fun accdist(close: Series, high: Series, low: Series, volume: Series): Series =
+fun adl(close: Series, high: Series, low: Series, volume: Series): Series =
     AccumulationDistribution(close, high, low, volume)
 
 /**
@@ -80,4 +80,4 @@ fun accdist(close: Series, high: Series, low: Series, volume: Series): Series =
  *
  * @sample vista.indicators.MovingAverageConvergenceDivergenceTest.withMarketData
  */
-fun Data.accdist(): Series = accdist(close, high, low, volume)
+fun Data.adl(): Series = adl(close, high, low, volume)

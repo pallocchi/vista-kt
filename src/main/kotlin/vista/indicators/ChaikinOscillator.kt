@@ -41,7 +41,7 @@ import vista.series.Series
  * @param slowLength Number of bars (length) used by the slow [ema]
  * @sample vista.indicators.ChaikinOscillatorTest.withIntSeries
  */
-fun chaikin(
+fun co(
     close: Series,
     high: Series,
     low: Series,
@@ -49,7 +49,7 @@ fun chaikin(
     fastLength: Int = 3,
     slowLength: Int = 10
 ): Series {
-    val accdist = accdist(close, high, low, volume)
+    val accdist = adl(close, high, low, volume)
     return ema(accdist, fastLength) - ema(accdist, slowLength)
 }
 
@@ -62,4 +62,4 @@ fun chaikin(
  * @param slowLength Number of bars (length) used by the slow [ema]
  * @sample vista.indicators.ChaikinOscillatorTest.withMarketData
  */
-fun Data.chaikin(fastLength: Int = 3, slowLength: Int = 10) = chaikin(close, high, low, volume, fastLength, slowLength)
+fun Data.co(fastLength: Int = 3, slowLength: Int = 10) = co(close, high, low, volume, fastLength, slowLength)

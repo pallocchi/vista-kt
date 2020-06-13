@@ -51,4 +51,4 @@ fun cci(source: Series, n: Int = 20): Series {
  * @param n Number of bars (length)
  * @sample vista.indicators.CommodityChannelIndexTest.withMarketData
  */
-fun Data.cci(n: Int = 20) = cci(close, n)
+fun Data.cci(n: Int = 20) = cci(typical, n)

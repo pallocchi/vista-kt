@@ -88,15 +88,3 @@ fun rma(source: Series, n: Int = 9): Series = ExponentialMovingAverage(source, n
  * @see [sma]
  */
 fun Data.ema(n: Int = 9) = ema(close, n)
-
-/**
- * The exponential moving average used by RSI.
- *
- * Uses the `alpha = 1 / n`.
- *
- * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/trend?id=exponential-moving-average-ema)
- *
- * @param n Number of bars (length)
- * @see [ema]
- */
-fun Data.rma(n: Int = 9) = rma(close, n)
