@@ -43,20 +43,20 @@ internal class AccumulationDistributionTest {
         val high = close * 2
         val low = close * 0.5
 
-        val accdist = accdist(close, high, low, volume)
+        val adl = adl(close, high, low, volume)
 
-        assertThat(accdist[0].round(2)).isEqualTo(numOf(-70.0))   // current value
-        assertThat(accdist[1].round(2)).isEqualTo(numOf(-63.33))   // previous value
-        assertThat(accdist[19].round(2)).isEqualTo(numOf(-0.33))
-        assertThat(accdist[20]).isEqualTo(na)           // oldest value
+        assertThat(adl[0].round(2)).isEqualTo(numOf(-70.0))   // current value
+        assertThat(adl[1].round(2)).isEqualTo(numOf(-63.33))   // previous value
+        assertThat(adl[19].round(2)).isEqualTo(numOf(-0.33))
+        assertThat(adl[20]).isEqualTo(na)           // oldest value
     }
 
     @Test
     fun withMarketData() {
         val data = loadAmazonData()
-        val expected = loadIndicatorData("accdist.csv")
+        val expected = loadIndicatorData("adl.csv")
 
-        val actual = accdist(data)
+        val actual = data.adl()
 
         for (i in 0..99)
             assertThat(actual[i].round(2)).isEqualTo(expected[i][0])

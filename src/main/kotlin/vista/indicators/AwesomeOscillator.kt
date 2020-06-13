@@ -1,5 +1,6 @@
 package vista.indicators
 
+import vista.data.Data
 import vista.series.Series
 
 /**
@@ -15,3 +16,12 @@ fun ao(high: Series, low: Series): Series {
     val midpoints = (high + low) / 2
     return sma(midpoints, 5) - sma(midpoints, 34)
 }
+
+/**
+ * The awesome oscillator, used to measure market momentum.
+ *
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/momentum?id=awesome-oscillator-ao)
+ *
+ * @sample vista.indicators.AwesomeOscillatorTest.withMarketData
+ */
+fun Data.ao() = ao(high, low)

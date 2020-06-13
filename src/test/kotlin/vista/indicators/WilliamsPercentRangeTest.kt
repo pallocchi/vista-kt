@@ -42,7 +42,7 @@ internal class WilliamsPercentRangeTest {
         val high = close * 1.5
         val low = close * 0.5
 
-        val r = williams(close, high, low, 14)
+        val r = wpr(close, high, low, 14)
 
         assertThat(r[0].round(2)).isEqualTo(numOf(-37.74))    // current value
         assertThat(r[1].round(2)).isEqualTo(numOf(-37.25))    // previous value
@@ -53,9 +53,9 @@ internal class WilliamsPercentRangeTest {
     @Test
     fun withMarketData() {
         val data = loadAmazonData()
-        val expected = loadIndicatorData("williams.csv")
+        val expected = loadIndicatorData("wpr.csv")
 
-        val actual = williams(data)
+        val actual = data.wpr()
 
         for (i in 0..99)
             assertThat(actual[i].round(2)).isEqualTo(expected[i][0])

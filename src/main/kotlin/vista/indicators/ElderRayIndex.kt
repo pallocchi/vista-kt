@@ -1,9 +1,6 @@
 package vista.indicators
 
 import vista.data.Data
-import vista.data.close
-import vista.data.high
-import vista.data.low
 import vista.series.Series
 
 /**
@@ -39,8 +36,7 @@ fun eri(
  *
  * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/trend?id=elder-ray-index)
  *
- * @param data Market data
  * @param n Number of bars (length)
- * @sample vista.indicators.ElderRayIndexTest.withIntSeries
+ * @sample vista.indicators.ElderRayIndexTest.withMarketData
  */
-fun eri(data: Data, n: Int = 13) = eri(close(data), high(data), low(data), n)
+fun Data.eri(n: Int = 13) = eri(close, high, low, n)

@@ -25,6 +25,7 @@
 
 package vista.indicators
 
+import vista.data.Data
 import vista.math.Num
 import vista.math.pow
 import vista.series.Series
@@ -59,3 +60,14 @@ internal class StandardDeviation(
  * @see [dev]
  */
 fun stdev(source: Series, n: Int): Series = StandardDeviation(source, n)
+
+/**
+ * The standard deviation of close price for [n] bars back.
+ *
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/volatility?id=standard-deviation)
+ *
+ * @param n Number of bars (length)
+ * @sample vista.indicators.StandardDeviationTest.withMarketData
+ * @see [dev]
+ */
+fun Data.stdev(n: Int): Series = stdev(close, n)

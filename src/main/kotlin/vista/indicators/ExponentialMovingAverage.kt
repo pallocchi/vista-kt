@@ -25,6 +25,7 @@
 
 package vista.indicators
 
+import vista.data.Data
 import vista.math.Num
 import vista.math.numOf
 import vista.series.Series
@@ -74,3 +75,16 @@ fun ema(source: Series, n: Int = 9): Series = ExponentialMovingAverage(source, n
  * @see [ema]
  */
 fun rma(source: Series, n: Int = 9): Series = ExponentialMovingAverage(source, n, Num.ONE.div(n))
+
+/**
+ * The exponential moving average, that places a greater weight and significance on the most recent data points.
+ *
+ * Uses the `alpha = 2 / (n + 1)`.
+ *
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/trend?id=exponential-moving-average-ema)
+ *
+ * @param n Number of bars (length)
+ * @sample vista.indicators.ExponentialMovingAverageTest.emaWithMarketData
+ * @see [sma]
+ */
+fun Data.ema(n: Int = 9) = ema(close, n)

@@ -27,8 +27,6 @@ package vista.indicators
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import vista.data.high
-import vista.data.low
 import vista.loadAmazonData
 import vista.loadIndicatorData
 import vista.math.na
@@ -57,10 +55,7 @@ internal class AwesomeOscillatorTest {
         val data = loadAmazonData()
         val expected = loadIndicatorData("ao.csv")
 
-        val low = low(data)
-        val high = high(data)
-
-        val actual = ao(high, low)
+        val actual = data.ao()
 
         for (i in 0..99)
             assertThat(actual[i].round(2)).isEqualTo(expected[i][0])

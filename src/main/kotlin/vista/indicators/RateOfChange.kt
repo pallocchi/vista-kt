@@ -25,6 +25,7 @@
 
 package vista.indicators
 
+import vista.data.Data
 import vista.math.change
 import vista.series.Series
 
@@ -37,4 +38,24 @@ import vista.series.Series
  * @param n Number of bars (length)
  * @sample vista.indicators.RateOfChangeTest.withIntSeries
  */
-fun roc(source: Series, n: Int = 9) = change(source, n) * 100 / source(n)
+fun roc(source: Series, n: Int) = change(source, n) * 100 / source(n)
+
+/**
+ * The rate of change, which is the difference between current close price and the value that was [n] days ago.
+ *
+ * **See:** [TradingView](https://www.tradingview.com/pine-script-reference/#fun_roc)
+ *
+ * @param n Number of bars (length)
+ * @sample vista.indicators.RateOfChangeTest.withMarketData
+ */
+fun Data.roc(n: Int) = roc(close, n)
+
+/**
+ * The rate of change, which is the difference between current volume and the value that was [n] days ago.
+ *
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/volume?id=volume-rate-of-change-vroc)
+ *
+ * @param n Number of bars (length)
+ * @sample vista.indicators.RateOfChangeTest.withMarketData
+ */
+fun Data.vroc(n: Int) = roc(volume, n)

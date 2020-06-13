@@ -25,6 +25,7 @@
 
 package vista.indicators
 
+import vista.data.Data
 import vista.series.Series
 
 /**
@@ -52,3 +53,22 @@ fun macd(
     val histogram = macd - signal
     return Triple(macd, signal, histogram)
 }
+
+/**
+ * The moving average convergence/divergence of close price, to evaluate strength, direction, momentum, and duration of a trend.
+ *
+ * Returns a triple of MACD line, signal line and histogram line.
+ *
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/trend?id=moving-average-convergencedivergence-macd)
+ *
+ * @param fastLength Number of bars (length) used by the fast [sma]
+ * @param slowLength Number of bars (length) used by the slow [sma]
+ * @param signalLength Number of bars (length) used by the signal line
+ * @sample vista.indicators.MovingAverageConvergenceDivergenceTest.withMarketData
+ * @see [sma]
+ */
+fun Data.macd(
+    fastLength: Int = 12,
+    slowLength: Int = 26,
+    signalLength: Int = 9
+) = macd(close, fastLength, slowLength, signalLength)

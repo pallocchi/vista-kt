@@ -26,7 +26,7 @@
 package vista
 
 import vista.data.Data
-import vista.data.Data.Bar
+import vista.data.dataOf
 import vista.math.NaN
 import vista.math.Num
 import vista.math.numOf
@@ -35,20 +35,8 @@ import vista.math.numOf
  * Load the market data from resources folder.
  */
 fun loadAmazonData(): Data {
-    val bars = mutableListOf<Bar>()
-    val csv = Data::class.java.classLoader.getResourceAsStream("amzn.csv")
-    csv!!.bufferedReader().useLines { lines -> lines.drop(1).forEach { bars.add(line2bar(it)) } }
-    val data = Data(bars.asReversed())
-    assert(data.size == 500)
-    return data
-}
-
-/**
- * Returns the [Bar] parsed from string [line].
- */
-private fun line2bar(line: String): Bar {
-    val split = line.split(",")
-    return Bar(split[0], split[1], split[2], split[3], split[4], split[5])
+    val csv = Data::class.java.classLoader.getResource("amzn.csv")
+    return dataOf(csv!!.toString())
 }
 
 /**

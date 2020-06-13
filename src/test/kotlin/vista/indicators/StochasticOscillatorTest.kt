@@ -27,9 +27,6 @@ package vista.indicators
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import vista.data.close
-import vista.data.high
-import vista.data.low
 import vista.loadAmazonData
 import vista.loadIndicatorData
 import vista.math.na
@@ -63,12 +60,7 @@ internal class StochasticOscillatorTest {
         val data = loadAmazonData()
         val expected = loadIndicatorData("stoch.csv")
 
-        val close = close(data)
-
-        val low = low(data)
-        val high = high(data)
-
-        val (k, d) = stoch(close, high, low)
+        val (k, d) = data.stoch()
 
         for (i in 0..99) {
             assertThat(k[i].round(2)).isEqualTo(expected[i][0])

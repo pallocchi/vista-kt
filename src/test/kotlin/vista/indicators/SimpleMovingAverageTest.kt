@@ -27,7 +27,7 @@ package vista.indicators
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import vista.data.close
+import vista.data.dataOf
 import vista.loadAmazonData
 import vista.loadIndicatorData
 import vista.math.na
@@ -35,6 +35,18 @@ import vista.math.numOf
 import vista.series.seriesOf
 
 internal class SimpleMovingAverageTest {
+
+    @Test
+    fun test() {
+        val data = dataOf("https://bulltimate.github.io/vista/amzn.csv")
+
+        val ic = data.ichimoku()
+
+        println("The Tenkan-Sen of last period is ${ic.ts[0]}")
+        println("The Tenkan-Sen of prev period is ${ic.ts[1]}")
+
+
+    }
 
     @Test
     fun withIntSeries() {
@@ -51,9 +63,8 @@ internal class SimpleMovingAverageTest {
     fun withMarketData() {
         val data = loadAmazonData()
         val expected = loadIndicatorData("sma.csv")
-        val close = close(data)
 
-        val actual = sma(close, 9)
+        val actual = data.sma(9)
 
         for (i in 0..99)
             assertThat(actual[i].round(2)).isEqualTo(expected[i][0])

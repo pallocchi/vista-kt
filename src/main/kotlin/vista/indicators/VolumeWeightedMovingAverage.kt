@@ -25,6 +25,7 @@
 
 package vista.indicators
 
+import vista.data.Data
 import vista.series.Series
 
 /**
@@ -40,3 +41,15 @@ import vista.series.Series
  * @see [sma]
  */
 fun vwma(source: Series, volume: Series, n: Int = 20) = sma(source * volume, n) / sma(volume, n)
+
+/**
+ * The volume weighted moving average of close price for [n] bars back, which emphasizes volume
+ * by weighing prices based on the amount of trading activity in a given period of time.
+ *
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/trend?id=volume-weighted-moving-average-vwma)
+ *
+ * @param n Number of bars (length)
+ * @sample vista.indicators.VolumeWeightedMovingAverageTest.withMarketData
+ * @see [sma]
+ */
+fun Data.vwma(n: Int = 20) = vwma(close, volume, n)

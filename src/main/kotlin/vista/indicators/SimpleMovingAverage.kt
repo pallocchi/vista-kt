@@ -25,6 +25,7 @@
 
 package vista.indicators
 
+import vista.data.Data
 import vista.math.Num
 import vista.math.numOf
 import vista.series.Series
@@ -57,3 +58,13 @@ internal class SimpleMovingAverage(
  * @sample vista.indicators.SimpleMovingAverageTest.withIntSeries
  */
 fun sma(source: Series, n: Int = 9): Series = if (n > 1) SimpleMovingAverage(source, n) else source
+
+/**
+ * The simple moving average, that is the sum of last [n] close prices, divided by [n].
+ *
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/trend?id=simple-moving-average-sma)
+ *
+ * @param n Number of bars (length)
+ * @sample vista.indicators.SimpleMovingAverageTest.withMarketData
+ */
+fun Data.sma(n: Int = 9): Series = sma(close, n)

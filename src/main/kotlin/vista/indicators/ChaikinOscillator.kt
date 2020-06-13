@@ -25,7 +25,7 @@
 
 package vista.indicators
 
-import vista.data.*
+import vista.data.Data
 import vista.series.Series
 
 /**
@@ -39,9 +39,9 @@ import vista.series.Series
  * @param volume Series of volumes
  * @param fastLength Number of bars (length) used by the fast [ema]
  * @param slowLength Number of bars (length) used by the slow [ema]
- * @sample vista.indicators.MovingAverageConvergenceDivergenceTest.withIntSeries
+ * @sample vista.indicators.ChaikinOscillatorTest.withIntSeries
  */
-fun chaikin(
+fun co(
     close: Series,
     high: Series,
     low: Series,
@@ -49,7 +49,7 @@ fun chaikin(
     fastLength: Int = 3,
     slowLength: Int = 10
 ): Series {
-    val accdist = accdist(close, high, low, volume)
+    val accdist = adl(close, high, low, volume)
     return ema(accdist, fastLength) - ema(accdist, slowLength)
 }
 
@@ -58,14 +58,8 @@ fun chaikin(
  *
  * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/volume?id=chainkin-oscillator)
  *
- * @param data Market data
  * @param fastLength Number of bars (length) used by the fast [ema]
  * @param slowLength Number of bars (length) used by the slow [ema]
- * @sample vista.indicators.MovingAverageConvergenceDivergenceTest.withIntSeries
+ * @sample vista.indicators.ChaikinOscillatorTest.withMarketData
  */
-fun chaikin(
-    data: Data,
-    fastLength: Int = 3,
-    slowLength: Int = 10
-) =
-    chaikin(close(data), high(data), low(data), volume(data), fastLength, slowLength)
+fun Data.co(fastLength: Int = 3, slowLength: Int = 10) = co(close, high, low, volume, fastLength, slowLength)

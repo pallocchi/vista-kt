@@ -25,6 +25,7 @@
 
 package vista.indicators
 
+import vista.data.Data
 import vista.series.Series
 
 /**
@@ -54,3 +55,21 @@ fun stochrsi(
     val dLine = sma(kLineSmoothed, d)
     return Pair(kLineSmoothed, dLine)
 }
+
+/**
+ * The stochastic RSI, which is primarily used for identifying overbought and oversold conditions.
+ *
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/momentum?id=stochastic-rsi-stochrsi)
+ *
+ * @param k Number of bars (length) for %K
+ * @param d Number of bars (length) for %D moving average
+ * @param rsiLength Number of bars (length) used by the [rsi]
+ * @param stoLength Number of bars (length) used by the stochastic oscillator
+ * @sample vista.indicators.StochasticRelativeStrengthIndexTest.withMarketData
+ */
+fun Data.stochrsi(
+    k: Int = 3,
+    d: Int = 3,
+    rsiLength: Int = 14,
+    stoLength: Int = 14
+) = stochrsi(close, k, d, rsiLength, stoLength)

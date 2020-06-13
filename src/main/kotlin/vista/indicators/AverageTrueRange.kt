@@ -25,6 +25,7 @@
 
 package vista.indicators
 
+import vista.data.Data
 import vista.math.abs
 import vista.math.max
 import vista.math.min
@@ -61,6 +62,15 @@ internal class TrueRange(
 fun tr(close: Series, high: Series, low: Series): Series = TrueRange(close, high, low)
 
 /**
+ * The true range, used to calculate the [atr] indicator.
+ *
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/volatility?id=average-true-range-atr)
+ *
+ * @sample vista.indicators.StochasticOscillatorTest.withMarketData
+ */
+fun Data.tr(): Series = tr(close, high, low)
+
+/**
  * The average true range for [n] periods back.
  *
  * Returns the [rma] of [tr] (true range).
@@ -73,3 +83,14 @@ fun tr(close: Series, high: Series, low: Series): Series = TrueRange(close, high
  * @sample vista.indicators.StochasticOscillatorTest.withIntSeries
  */
 fun atr(close: Series, high: Series, low: Series, n: Int = 14) = rma(tr(close, high, low), n)
+
+/**
+ * The average true range for [n] periods back.
+ *
+ * Returns the [rma] of [tr] (true range).
+ *
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/volatility?id=average-true-range-atr)
+ *
+ * @sample vista.indicators.StochasticOscillatorTest.withMarketData
+ */
+fun Data.atr(n: Int = 14) = atr(close, high, low, n)

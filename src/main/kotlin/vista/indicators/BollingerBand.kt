@@ -25,6 +25,7 @@
 
 package vista.indicators
 
+import vista.data.Data
 import vista.series.Series
 
 /**
@@ -51,3 +52,17 @@ fun bb(
     val lower = basis - dev
     return Triple(basis, upper, lower)
 }
+
+/**
+ * The Bollinger Bands, defined as two standard deviations (positively and negatively) away from the [sma].
+ *
+ * Returns a triple of middle, upper and lower lines.
+ *
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/volatility?id=bollinger-bands%c2%ae)
+ *
+ * @param n Number of bars (length)
+ * @param factor Standard deviation factor
+ * @sample vista.indicators.BollingerBandTest.withMarketData
+ * @see [sma] [stdev]
+ */
+fun Data.bb(n: Int = 20, factor: Int = 2) = bb(close, n, factor)

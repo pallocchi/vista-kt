@@ -27,8 +27,6 @@ package vista.indicators
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import vista.data.high
-import vista.data.low
 import vista.loadAmazonData
 import vista.loadIndicatorData
 import vista.math.numOf
@@ -61,10 +59,7 @@ internal class IchimokuCloudTest {
         val data = loadAmazonData()
         val expected = loadIndicatorData("ichimoku.csv")
 
-        val high = high(data)
-        val low = low(data)
-
-        val actual = ichimoku(high, low)
+        val actual = data.ichimoku()
 
         for (i in 0..99) {
             assertThat(actual.ts[i].round(2)).isEqualTo(expected[i][0])

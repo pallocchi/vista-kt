@@ -27,7 +27,6 @@ package vista.indicators
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import vista.data.close
 import vista.loadAmazonData
 import vista.loadIndicatorData
 import vista.math.na
@@ -53,9 +52,8 @@ internal class HullMovingAverageTest {
 
         val data = loadAmazonData()
         val expected = loadIndicatorData("hma.csv")
-        val close = close(data)
 
-        val actual = hma(close)
+        val actual = data.hma(9)
 
         for (i in 0..99)
             assertThat(actual[i].round(2)).isEqualTo(expected[i][0])

@@ -25,6 +25,7 @@
 
 package vista.indicators
 
+import vista.data.Data
 import vista.math.Num
 import vista.math.max
 import vista.math.min
@@ -69,3 +70,16 @@ internal class RelativeStrengthIndex(
  * @see [rma]
  */
 fun rsi(source: Series, n: Int = 14): Series = RelativeStrengthIndex(source, n)
+
+/**
+ * The relative strength index of close price for [n] bars back, to evaluate overbought or oversold conditions.
+ *
+ * Oscillates between `0` (oversold) and `100` (overbought).
+ *
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/momentum?id=relative-strength-index-rsi)
+ *
+ * @param n Number of bars (length)
+ * @sample vista.indicators.RelativeStrengthIndexTest.withMarketData
+ * @see [rma]
+ */
+fun Data.rsi(n: Int = 14) = rsi(close, n)

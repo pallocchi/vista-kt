@@ -27,7 +27,6 @@ package vista.indicators
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import vista.data.close
 import vista.loadAmazonData
 import vista.loadIndicatorData
 
@@ -38,9 +37,8 @@ internal class StochasticRelativeStrengthIndexTest {
 
         val data = loadAmazonData()
         val expected = loadIndicatorData("stochrsi.csv")
-        val close = close(data)
 
-        val (k, d) = stochrsi(close)
+        val (k, d) = data.stochrsi()
 
         for (i in 0..99) {
             assertThat(k[i].round(2)).isEqualTo(expected[i][0])

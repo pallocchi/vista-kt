@@ -27,7 +27,6 @@ package vista.indicators
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import vista.data.close
 import vista.loadAmazonData
 import vista.loadIndicatorData
 import vista.math.na
@@ -66,9 +65,8 @@ internal class ExponentialMovingAverageTest {
 
         val data = loadAmazonData()
         val expected = loadIndicatorData("ema.csv")
-        val close = close(data)
 
-        val actual = ema(close, 9)
+        val actual = data.ema(9)
 
         for (i in 0..99)
             assertThat(actual[i].round(2)).isEqualTo(expected[i][0])

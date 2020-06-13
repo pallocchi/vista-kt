@@ -25,6 +25,7 @@
 
 package vista.indicators
 
+import vista.data.Data
 import vista.math.Num
 import vista.series.Series
 
@@ -67,3 +68,12 @@ internal class OnBalanceVolume(
  * @sample vista.indicators.OnBalanceVolumeTest.withIntSeries
  */
 fun obv(close: Series, volume: Series): Series = OnBalanceVolume(close, volume)
+
+/**
+ * The on-balance volume indicator, which uses volume flow to predict changes in price.
+ *
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/volume?id=on-balance-volume-obv)
+ *
+ * @sample vista.indicators.OnBalanceVolumeTest.withMarketData
+ */
+fun Data.obv(): Series = obv(close, volume)

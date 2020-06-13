@@ -1,5 +1,6 @@
 package vista.indicators
 
+import vista.data.Data
 import vista.series.Series
 
 /**
@@ -46,3 +47,22 @@ fun ichimoku(
     val d = displacement - 1
     return IchimokuCloud(ts, ks, ssa(d), ssb(d))
 }
+
+/**
+ * The Ichimoku Cloud, which shows support and resistance levels, as well as momentum and trend direction.
+ *
+ * Returns the Tenkan-Sen (Conversion Line), Kijun-Sen (Base Line), Senkou Span A (Leading Span A), and Senkou Span B (Leading Span B).
+ *
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/ichimoku)
+ *
+ * @param tsLength Number of bars (length) used by Tenkan-Sen
+ * @param ksLength Number of bars (length) used by Kijun-Sen
+ * @param ssLength Number of bars (length) used by Senkou Span
+ * @sample vista.indicators.IchimokuCloudTest.withMarketData
+ */
+fun Data.ichimoku(
+    tsLength: Int = 9,
+    ksLength: Int = 26,
+    ssLength: Int = 52,
+    displacement: Int = 26
+): IchimokuCloud = ichimoku(high, low, tsLength, ksLength, ssLength, displacement)

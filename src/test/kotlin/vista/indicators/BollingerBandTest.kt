@@ -27,7 +27,6 @@ package vista.indicators
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import vista.data.close
 import vista.loadAmazonData
 import vista.loadIndicatorData
 import vista.math.na
@@ -62,9 +61,8 @@ internal class BollingerBandTest {
     fun withMarketData() {
         val data = loadAmazonData()
         val expected = loadIndicatorData("bb.csv")
-        val close = close(data)
 
-        val (middle, upper, lower) = bb(close)
+        val (middle, upper, lower) = data.bb()
 
         for (i in 0..99) {
             assertThat(middle[i].round(2)).isEqualTo(expected[i][0])

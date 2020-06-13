@@ -43,7 +43,7 @@ internal class ChaikinOscillatorTest {
         val high = close * 2
         val low = close * 0.5
 
-        val chaikin = chaikin(close, high, low, volume)
+        val chaikin = co(close, high, low, volume)
 
         assertThat(chaikin[0].round(2)).isEqualTo(numOf(-17.29))   // current value
         assertThat(chaikin[1].round(2)).isEqualTo(numOf(-16.20))   // previous value
@@ -54,9 +54,9 @@ internal class ChaikinOscillatorTest {
     @Test
     fun withMarketData() {
         val data = loadAmazonData()
-        val expected = loadIndicatorData("chaikin.csv")
+        val expected = loadIndicatorData("co.csv")
 
-        val actual = chaikin(data)
+        val actual = data.co()
 
         for (i in 0..99)
             assertThat(actual[i].round(2)).isEqualTo(expected[i][0])

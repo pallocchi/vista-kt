@@ -1,15 +1,12 @@
 package vista.indicators
 
 import vista.data.Data
-import vista.data.close
-import vista.data.high
-import vista.data.low
 import vista.series.Series
 
 /**
  * The Williams percent range (%R), which measures overbought and oversold levels.
  *
- * **See:** [Investopedia](https://www.investopedia.com/terms/w/williamsr.asp)
+ * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/momentum?id=williams-r)
  *
  * @param close Series of close values
  * @param high Series of high values
@@ -17,7 +14,7 @@ import vista.series.Series
  * @param n Number of bars (length)
  * @sample vista.indicators.WilliamsPercentRangeTest.withIntSeries
  */
-fun williams(close: Series, high: Series, low: Series, n: Int = 14): Series {
+fun wpr(close: Series, high: Series, low: Series, n: Int = 14): Series {
     val highest = highest(high, n)
     val lowest = lowest(low, n)
     return (highest - close) / (highest - lowest) * -100
@@ -28,8 +25,7 @@ fun williams(close: Series, high: Series, low: Series, n: Int = 14): Series {
  *
  * **See:** [Vista Docs](https://bulltimate.github.io/vista/#/momentum?id=williams-r)
  *
- * @param data Market data
  * @param n Number of bars (length)
- * @sample vista.indicators.WilliamsPercentRangeTest.withIntSeries
+ * @sample vista.indicators.WilliamsPercentRangeTest.withMarketData
  */
-fun williams(data: Data, n: Int = 14) = williams(close(data), high(data), low(data), n)
+fun Data.wpr(n: Int = 14) = wpr(close, high, low, n)
