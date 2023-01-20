@@ -10,7 +10,7 @@
 Vista is a technical analysis library for Kotlin, inspired in [Pine Script][ps] from TradingView.
 
 ```kotlin
-val data = dataOf("https://bulltimate.github.io/vista/amzn.csv")
+val data = dataOf("https://pallocchi.github.io/vista/amzn.csv")
 
 val fast = data.sma(9)
 val slow = data.sma(30)
@@ -21,7 +21,7 @@ when {
 }
 ```
 
-Full documentation is available [here](https://bulltimate.github.io/vista).
+Full documentation is available [here](https://pallocchi.github.io/vista).
 
 ## Gradle
 
